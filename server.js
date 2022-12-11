@@ -9,14 +9,15 @@ var mongoose=require('mongoose');
 
 var express=require('express');
 var app=express();
-const hbs = require('express-handlebars');
+const path = require('path')
 
-
-
-
-// app.engine('hbs', hbs());
-app.engine('hbs', hbs({ extname: 'hbs' }));
-app.set('view engine', 'hbs');
+app.use(bodyParser.urlencoded({extended:true}))
+// setup handlebars view engine
+var handlebars = require('express-handlebars').create({ defaultLayout: 'index' });
+app.engine('handlebars', handlebars.engine);
+app.set('view engine', 'handlebars');
+app.set('views', __dirname + '/views');
+// app.set("views", path.resolve(__dirname,"views/hbs"))
 
 
 const db = process.env.MONGODB_URI || 'mongodb+srv://Aqeel:aqeel12345@cluster0.uhg7y9z.mongodb.net/visiosparkwebsite?retryWrites=true&w=majority';

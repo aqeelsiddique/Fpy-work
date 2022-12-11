@@ -3,6 +3,16 @@ var Controller=require('./controller');
 
 
 module.exports=function(app){
+//  Subject Endpoint route
+app.get('/AddSub', (req, res) => {
+    res.render("subjectadd/subjectadd.hbs", {
+        subjecttitle:"Add a Subject"
+    })
+})
+app.post('/Subject', controller.AddSubject)
+
+
+//////End Subject
 
 app.get('/user/all',Controller.Read);
 app.get('/questions', controller.getAllquestions)

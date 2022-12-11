@@ -1,5 +1,52 @@
 var User=require('./user');
-const Question = require("./user")
+const {Question, Subject } = require("./user")
+
+
+
+///////////////////////////Subject Portion COntroller Code /////////////////////Addmin site
+function insertSub(req, res){
+
+    var Subject = new  Subject();
+    Subject.Subject = req.body.Subject
+}
+
+
+
+const AddSubject =async function(req, res)  {
+    
+        try {
+         
+            // const data = req.body
+            // console.log(data)
+    
+            const Sub  = req.body.Subject
+          
+            
+    
+            const Subject = await Subject.create({
+                
+                
+               Subject
+            })
+    
+            return res.status(201).json(Subject)
+        } catch (error) {
+            return res.status(500).json({"error":error})
+        }
+
+    }
+    
+    
+
+
+
+
+
+
+////////////////////////End of Subject portion//////////////////////////
+
+
+
 ///////////////////////////////////////////create a question controller////////
 ////////////12/2/2022///
 var create = async function(req, res){
@@ -155,7 +202,10 @@ const delQuestion = async function(req, res) {
 }
 
 module.exports={
+
+  
     Read,
+    AddSubject :AddSubject,
     
 create:create,
 getAllquestions:getAllquestions,
