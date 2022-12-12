@@ -1,15 +1,48 @@
 var User=require('./user');
-const {Question, Subject } = require("./user")
+const Subject = require("./user")
 
-
+var mongoose=require('mongoose');
 
 ///////////////////////////Subject Portion COntroller Code /////////////////////Addmin site
-function insertSub(req, res){
 
-    var Subject = new  Subject();
-    Subject.Subject = req.body.Subject
+var SubjectAddv = function (req, res, next) {
+/////////////////create custome function
+    inserSubject(req, res)
+ 
+    // const user = new Subject({
+    //     _id: mongoose.Types.ObjectId(),
+    //     name: req.body.name,
+    //     // address:req.body.address,
+    //     // salary: req.body.salary
+    // });
+ 
+    // user.save()
+    // .then(result => {
+    //     res.status(200).json({
+    //         docs:[user]
+    //     });
+    // })
+    // .catch(err => {
+    //     console.log(err);
+    // });
+};
+function inserSubject(req, res)
+{
+    var subject = new Subject()
+    username: req.body.username
+    subject.save((err, doc) => {
+        //if no error there 
+        if(!err){
+            res.redirect('home')
+
+        }
+        else{
+            //if error there
+            console.log("an error there is during addmig subject"+err)
+        }
+    })
+
 }
-
 
 
 const AddSubject =async function(req, res)  {
@@ -36,7 +69,50 @@ const AddSubject =async function(req, res)  {
 
     }
     
+    var SubjectAdd =  function(req, res){
+        try {
+            // const data = req.body
+            // console.log(data)
     
+            const  username  = req.body.username
+
+            
+            const question = Subject.create({
+                
+                
+                username:username,
+
+            })
+            
+            return res.status(201).json(question)
+        } catch (error) {
+            return res.status(500).json("error"+error)
+        }
+        // // res.render("index.hbs")
+        // /* Initializing the schema and putting in CRUDcreate */
+        // const Create = new Question({
+        //     description: req.body.description,
+        //     text:req.body.text,
+        //     isCorrect:req.body.isCorrect,
+           
+            
+           
+        // });
+        // console.log(Create)
+        // /* Try Catch */
+        // try{
+        //     /* Saving the data in mongoose */
+        //     const savedCRUD = await Create.save();
+        //     /* Sending the response back */
+        //     res.status(200);
+        //     res.send(savedCRUD);
+        //     console.log(savedCRUD)
+            
+        // }catch(err){
+        //     /* Sending the error back */
+        //     res.status(400).send(err);
+        // }  
+    }
 
 
 
@@ -202,6 +278,7 @@ const delQuestion = async function(req, res) {
 }
 
 module.exports={
+    SubjectAdd,
 
   
     Read,

@@ -5,11 +5,11 @@ var Controller=require('./controller');
 module.exports=function(app){
 //  Subject Endpoint route
 app.get('/AddSub', (req, res) => {
-    res.render("subjectadd/subjectadd.hbs", {
+    res.render("subject_Add.hbs", {
         subjecttitle:"Add a Subject"
     })
 })
-app.post('/Subject', controller.AddSubject)
+app.post('/Subject', controller.SubjectAdd)
 
 
 //////End Subject
@@ -33,4 +33,13 @@ app.delete('/delquestion/:id',Controller.delQuestion);
 // console.log("Este si carga");
 // // res.sendFile('./public/index.html');
 // });
+
+////////////////////////////////Testing End POint??????????????????
+
+app.get('/', (req, res) => {
+    res.render('home')
+ })
  }
+
+
+ 
