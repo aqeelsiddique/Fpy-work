@@ -1,5 +1,6 @@
 const controller = require('./controller');
 var Controller=require('./controller');
+const Subject = require("./user")
 
 
 module.exports=function(app){
@@ -34,6 +35,46 @@ app.delete('/delquestion/:id',Controller.delQuestion);
 // // res.sendFile('./public/index.html');
 // });
 
+app.post( '/add' , (req, res, next) => {
+    /////////////////create custome function
+        insertRecord(req, res)
+     
+        // const user = new Subject({
+        //     _id: mongoose.Types.ObjectId(),
+        //     name: req.body.name,
+        //     // address:req.body.address,
+        //     // salary: req.body.salary
+        // });
+     
+        // user.save()
+        // .then(result => {
+        //     res.status(200).json({
+        //         docs:[user]
+        //     });
+        // })
+        // .catch(err => {
+        //     console.log(err);
+        // });
+    });
+    function insertRecord(req, res)
+    {
+        var subject = new Subject();
+        subject.username = req.body
+        subject.save((err, doc) => {
+            //if no error there 
+            if(!err){
+                return res.status(201).json(Subject)
+
+                // res.redirect('home')
+    
+            }
+            else{
+                //if error there
+                console.log("an error there is during addmig subject"+err)
+            }
+        })
+    
+    }
 ////////////////////////////////Testing End POint??????????????????
 
 app.get('/', (req, res) => {

@@ -29,9 +29,12 @@ const SubjectSchema = new mongoose.Schema({
 
     ///////////////////////in bleow schemma not make a code 
     // _id: mongoose.Schema.Types.ObjectId,
-    // subjname: { type: String, required: true, lowercase: true, trim: true },
-    // _id: Number,
-    username: { type: String, required: true, unique: true },
+    username: { type: String, required: true, lowercase: true, trim: true },
+
+    //  username : {type : String }
+
+    
+     
   
     
     

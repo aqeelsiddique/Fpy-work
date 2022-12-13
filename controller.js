@@ -5,9 +5,9 @@ var mongoose=require('mongoose');
 
 ///////////////////////////Subject Portion COntroller Code /////////////////////Addmin site
 
-var SubjectAddv = function (req, res, next) {
+var SubjectAddv =  function (req, res, next) {
 /////////////////create custome function
-    inserSubject(req, res)
+    insertRecord(req, res)
  
     // const user = new Subject({
     //     _id: mongoose.Types.ObjectId(),
@@ -26,10 +26,10 @@ var SubjectAddv = function (req, res, next) {
     //     console.log(err);
     // });
 };
-function inserSubject(req, res)
+function insertRecord(req, res)
 {
-    var subject = new Subject()
-    username: req.body.username
+    var subject = new Subject();
+    subject.username = req.body.username
     subject.save((err, doc) => {
         //if no error there 
         if(!err){
@@ -66,28 +66,43 @@ const AddSubject =async function(req, res)  {
         } catch (error) {
             return res.status(500).json({"error":error})
         }
-
     }
-    
-    var SubjectAdd =  function(req, res){
+    ////////////////////////////
+    var SubjectAdd=  async function(req, res, err){
         try {
             // const data = req.body
             // console.log(data)
+            // const _id = req.body.Number
     
-            const  username  = req.body.username
+            const  username  = req.body
+            console.log(username)
+
 
             
-            const question = Subject.create({
+            const question = await Subject.create({
+                // Number:_id,
                 
-                
-                username:username,
 
+                username : username,
+    
             })
+            // if(!err) {
+
+            //     res.render("subject_Add.hbs")
+
+            // }
+          
+            console.log(question)
             
+        
+            // return res.redirect("subject_Add.hbs")
+
             return res.status(201).json(question)
         } catch (error) {
             return res.status(500).json("error"+error)
         }
+
+        
         // // res.render("index.hbs")
         // /* Initializing the schema and putting in CRUDcreate */
         // const Create = new Question({
