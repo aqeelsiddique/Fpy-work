@@ -34,10 +34,15 @@
     
     </tr>
   </thead>
+
   <tbody>
+          {{#each list}}
+
+
+
     <tr>
       <th scope="row">1</th>
-      <td>Machine Learning</td>
+      <td>{{this.SubjectName}}</td>
       <td href="#" type ="button" class="btn btn-light btn-small"><i class="bi bi-eye"></i>View</td>
       <td href="#" type ="button" class="btn btn-light btn-small"><i class="bi bi-pencil"></i>Edit</td>
       <td href="#" type ="button" class="btn btn-light btn-small"><i class="bi bi-person-x"></i>Delete</td>
@@ -45,7 +50,10 @@
      
      
     </tr>
+    {{/each}}
     
     
   </tbody>
 </table>
+
+

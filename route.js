@@ -10,8 +10,9 @@ app.get('/AddSub', (req, res) => {
         subjecttitle:"Add a Subject"
     })
 })
-app.post('/Subject', controller.SubjectAdd)
+// app.post('/Subject', controller.SubjectAdd)
 
+app.post("/addSubject", controller.AddSubjects)
 
 //////End Subject
 
@@ -59,7 +60,7 @@ app.post( '/add' , (req, res, next) => {
     function insertRecord(req, res)
     {
         var subject = new Subject();
-        subject.username = req.body
+        subject.username = req.body.username
         subject.save((err, doc) => {
             //if no error there 
             if(!err){
@@ -76,10 +77,28 @@ app.post( '/add' , (req, res, next) => {
     
     }
 ////////////////////////////////Testing End POint??????????????????
+app.get('/list' ,  (req, res) => {
+    Subject.find((err, docs) => {
+        if(!err){
+            res.render('home', {
+                list:docs
+            })
+        }
+    })
+})
 
-app.get('/', (req, res) => {
-    res.render('home')
- })
+app.get('/', function(req, res, next) {
+    Subject.find(function(err, content) {
+      res.render('home', { 
+        list:content
+
+        
+       });
+  });
+
+});
+
+
  }
 
 
