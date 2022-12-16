@@ -1,7 +1,9 @@
 var User=require('./user');
-const Subject = require("./user")
+const Subjectvs = require("./user")
 
 var mongoose=require('mongoose');
+
+
 
 ///////////////////////////Subject Portion COntroller Code /////////////////////Addmin site
 
@@ -69,7 +71,9 @@ var mongoose=require('mongoose');
 //     }
     /////////////////////////// Final post controller of Add A subject code////
     const AddSubjects = function (req, res) {
-        var myData = new Subject(req.body);
+        var myData = new Subjectvs;
+        myData.SubjectName = req.body.SubjectName
+
         myData.save()
         .then(item => {
         // res.send("item saved to database");
@@ -80,9 +84,24 @@ var mongoose=require('mongoose');
         });
        };
 
+       
+// delete one quiz Subject
+const delSubject = async function(req, res) {
+    try {
+        const _id = req.params.id 
 
+        const question = await Subjectvs.deleteOne({_id})
 
+        if(question.deletedCount === 0){
+            return res.status(404).json()
+        }else{
+            return res.status(204).json('delete Sucessfully')
 
+        }
+    } catch (error) {
+        return res.status(500).json({"error":error})
+    }
+}
     // var SubjectAdd=   function(req, res, err){
     //     var myData = new Subject(req.body);
     //     myData.save()
@@ -153,16 +172,7 @@ var mongoose=require('mongoose');
     //     //     res.status(400).send(err);
     //     // }  
     // }
-
-
-
-
-
-
 ////////////////////////End of Subject portion //////////////////////////
-
-
-
 ///////////////////////////////////////////create a question controller////////
 ////////////12/2/2022///
 var create = async function(req, res){
@@ -234,13 +244,18 @@ var create = async function(req, res){
 //     }        
 // });
 // };
+
 // get all quiz questions
 const getAllquestions =  async function(req, res) {
     try {
-        res.render('getquestion.hbs')
-
+        // res.render('getquestion.hbs')
         const questions = await Question.find()
-        return res.status(200).json(questions)
+        // if(!err){
+        //     res.render('home', {
+        //         list:docs
+        //     })
+        // }
+        return res.status(200).json(questions)  
     } catch (error) {
         return res.status(500).json({"error":error})
     }
@@ -319,6 +334,7 @@ const delQuestion = async function(req, res) {
 
 module.exports={
     AddSubjects,
+    delSubject,
     // SubjectAdd,
     
 

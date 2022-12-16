@@ -21,14 +21,16 @@
 </body>
 </html> --}}
 
-<h1>Hello Work</h1>
+<h1>{{title}}</h1>
 
 <table class="table">
   <thead>
     <tr>
+
       <th scope="col">#</th>
       <th scope="col">Subject Name</th>
       <th scope="col">Action</th>
+      <h1>{{data.SubjectName}}</h1>
 
     
     
@@ -36,21 +38,22 @@
   </thead>
 
   <tbody>
-          {{#each list}}
-
-
+    {{#each emplist}}
 
     <tr>
-      <th scope="row">1</th>
-      <td>{{this.SubjectName}}</td>
+    <th scope="row">1</th>
+
+      <td>{{this.SubjectName}}gg</td>
       <td href="#" type ="button" class="btn btn-light btn-small"><i class="bi bi-eye"></i>View</td>
       <td href="#" type ="button" class="btn btn-light btn-small"><i class="bi bi-pencil"></i>Edit</td>
-      <td href="#" type ="button" class="btn btn-light btn-small"><i class="bi bi-person-x"></i>Delete</td>
+      <td>
+          <a href="/delSubject/delete/{{this._id}}" type ="button" class="btn btn-light btn-small" onclick="return confirm('Are you sure to delete this record ?');" ><i class="bi bi-person-x"></i>Delete</a> 
 
-     
-     
+
+      </td>
     </tr>
     {{/each}}
+
     
     
   </tbody>

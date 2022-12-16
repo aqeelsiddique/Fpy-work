@@ -1,9 +1,62 @@
 const controller = require('./controller');
 var Controller=require('./controller');
-const Subject = require("./user")
+const Subjectvs = require("./user")
+const mongoose = require('mongoose');
+const empModel = require('./user')
+
 
 
 module.exports=function(app){
+
+    //////////////////////////test 0001
+
+    // const Employee = mongoose.model('empModel');
+
+app.get('/', (req, res) => {
+    res.render("employee/addupdate", {
+        viewTitle: "Insert Employee"
+    });
+});
+
+app.post('/employee', (req, res) => {
+    // if (req.body._id == '')
+        insertRecord(req, res);
+    // else
+    //     updateRecord(req, res);
+});
+
+function insertRecord(req, res) 
+{
+    var employee = new empModel();
+    employee.full_name = req.body.full_name;
+    employee.email = req.body.email;
+    employee.mobile = req.body.mobile;
+    employee.address = req.body.address;
+    employee.salary = req.body.salary;
+    employee.save((err, doc) => {
+        console.log(doc)
+
+        if (!err)
+            res.redirect('employee/list');
+        else {
+            if (err.name == 'ValidationError') {
+                handleValidationError(err, req.body);
+                res.render("employee/addupdate", {
+                    viewTitle: "Create Employee",
+                    employee: req.body
+                });
+            }
+            else
+                console.log('Error during record insertion : ' + err);
+        }
+    });
+}
+
+
+
+
+
+
 //  Subject Endpoint route
 app.get('/AddSub', (req, res) => {
     res.render("subject_Add.hbs", {
@@ -13,6 +66,7 @@ app.get('/AddSub', (req, res) => {
 // app.post('/Subject', controller.SubjectAdd)
 
 app.post("/addSubject", controller.AddSubjects)
+app.delete('/delSubject/:id', controller.delSubject)
 
 //////End Subject
 
@@ -59,12 +113,12 @@ app.post( '/add' , (req, res, next) => {
     });
     function insertRecord(req, res)
     {
-        var subject = new Subject();
+        var subject = new Subjectvs();
         subject.username = req.body.username
         subject.save((err, doc) => {
             //if no error there 
             if(!err){
-                return res.status(201).json(Subject)
+                return res.status(201).json(Subjectvs)
 
                 // res.redirect('home')
     
@@ -77,26 +131,57 @@ app.post( '/add' , (req, res, next) => {
     
     }
 ////////////////////////////////Testing End POint??????????????????
-app.get('/list' ,  (req, res) => {
-    Subject.find((err, docs) => {
+app.get('/liste' , async (req, res) => {
+    await Subject.find((err, docs) => {
         if(!err){
-            res.render('home', {
+            res.render('home',{
                 list:docs
             })
         }
     })
 })
+// app.get('/lists', async(req, res, next) =>{
+//     // let data =  Subject.data
+//     let Studatas = await Subjectvs.find({}).exec((err, subjdata) => {
+//         if(subjdata){
+//             res.render('home',{title:"Subject List", data:subjdata})
+//             console.log(subjdata)
+//         }
+//     })
 
-app.get('/', function(req, res, next) {
-    Subject.find(function(err, content) {
-      res.render('home', { 
-        list:content
 
-        
-       });
-  });
+    
+// })
+app.get('/lists', (req, res) => {
+    Subjectvs.find((err, docs) => {
+        if (!err) {
+            res.render("home", {
+                emplist: docs
+            });
+            console.log(docs)
+        }
+        else {
+            console.log('Error in retrieving emp list :' + err);
+        }
+    });
+});
+
+app.get("/list", function (req, res) {   
+    Subject.find({}, function (err,allDetails) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("home",{details:allDetails})
+            //res.status(201).json(allDetails)
+        }
+    })
+    
 
 });
+
+app.get("/dashboard" , function(req,res) {
+    res.render("dashboard")
+})
 
 
  }
