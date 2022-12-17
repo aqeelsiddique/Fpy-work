@@ -1,0 +1,39 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MY APP</title>
+</head>
+<body>
+
+  <h1>Enter a Question and options </h1>
+
+  <form action="/create_Question" method="POST">
+  <div class="form-group">
+
+ <input type="text" class="form-control" name="Question" placeholder="Question" required>
+  <input type="text" class="form-control" name="option1" placeholder="option1" required>
+   <input type="text" class="form-control" name="option2" placeholder="option2" required>
+
+ <input type="text" class="form-control" name="option3" placeholder="option3" required>
+
+ <input type="text" class="form-control" name="option4" placeholder="option4" required>
+  <input type="text" class="form-control" name="ans" placeholder="ans" required>
+
+
+
+   {{!-- <input type="text" class="form-control" name="fullSubjectName" placeholder="Subject Name"> --}}
+</div><br>
+<div class="form-group">
+    <button type="submit" class="btn btn-info">
+        <i class="fa fa-database"></i>
+        Submit
+    </button>
+    <a href="/lists" class="btn btn-danger">
+        <i class="fa fa-list-alt"></i>
+        ViewAll
+    </a>
+</div>
+  </form>
+  
+</body>
+</html>

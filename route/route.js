@@ -4,36 +4,49 @@ const Subjectvs = require("../model/user")
 const mongoose = require('mongoose');
 const empModel = require('../model/user')
 
+const Question = require('../model/question')
 
 
-module.exports=function(app){
+
+module.exports= function(app){
 
     //////////////////////////test 0001
+    app.get('/add_Question', (req, res) => {
+        res.render('question')
+    }
+    )
+
+    // app.post('/add_Q', async (req, res) => {
+    //     const question = req.body.question
+    //     const option1 = req.body.option1
+    //     const option2 = req.body.option2
+    //     const option3 = req.body.option3
+    //     const option4 = req.body.option4
+    //     const ans = req.body.ans
+    //     const create = new Subjectvs({
+    //         question,
+    //         option1,
+    //         option2,
+    //         option3,
+    //         option4,
+    //         ans
+
+            
+            
+    //     })
+
+        
+    //      await create.save(err=> {
+    //         if(err) {
+    //             console.log(err)
+    //         }
+    //         else {
+    //             res.json("successfully")
+    //         }
+    //     })
 
 
-    app.post('/addd', (req, res) => {
-        const name = req.body.name
-        const email = req.body.email
-
-        console.log(name, email)
-
-        const create = new Subjectvs({
-            name, 
-            email
-        })
-        console.log(create)
-
-        create.save(err=> {
-            if(err) {
-                console.log(err)
-            }
-            else {
-                res.json("successfully")
-            }
-        })
-
-
-    })
+    // })
 
     // const Employee = mongoose.model('empModel');
 
@@ -90,12 +103,9 @@ app.get('/AddSub', (req, res) => {
     })
 })
 // app.post('/Subject', controller.SubjectAdd)
-
 app.post("/addSubject", controller.AddSubjects)
 app.delete('/delSubject/:id', controller.delSubject)
-
-//////End Subject
-
+//////End Subject/////////////////////////////
 app.get('/user/all',Controller.Read);
 app.get('/questions', controller.getAllquestions)
 app.get('/question/:id', controller.getOnequestion)
@@ -103,7 +113,7 @@ app.put('/question/:id', controller.updateQuestion)
 
 // app.put('/user/all/:todo_id',Controller.Update);
 
-app.post('/create',Controller.create);
+app.post('/create_Question',Controller.create_Question);
 app.get('/adduser',Controller.Read);
 
 
@@ -201,7 +211,7 @@ app.post( '/add' , (req, res, next) => {
 //     })
 // });
 app.get('/lists', (req, res) => {
-    Subjectvs.find((err, docs) => {
+    Question.find((err, docs) => {
         if (!err) {
             res.render("home", {
                 emplist: docs

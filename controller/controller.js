@@ -1,5 +1,6 @@
 var User=require('../model/user');
 const Subjectvs = require("../model/user")
+const Question = require('../model/question')
 
 var mongoose=require('mongoose');
 
@@ -75,7 +76,66 @@ var mongoose=require('mongoose');
 //         }
 //     }
     /////////////////////////// Final post controller of Add A subject code////
-    const AddSubjects = function (req, res) {
+
+
+    var AddSubjects = async function(req, res){
+        try {
+            // const data = req.body
+            // console.log(data)
+    
+            const {subjectname }= req.body
+         
+            
+
+           
+            
+    
+    
+    
+            const question = await Subjectvs.create({
+                
+                
+                subjectname:subjectname,
+              
+                
+         
+               
+    
+    
+    
+    
+            })
+    
+            return res.status(201).json(question)
+        } catch (error) {
+            return res.status(500).json({"error":error})
+        }
+        // // res.render("index.hbs")
+        // /* Initializing the schema and putting in CRUDcreate */
+        // const Create = new Question({
+        //     description: req.body.description,
+        //     text:req.body.text,
+        //     isCorrect:req.body.isCorrect,
+           
+            
+           
+        // });
+        // console.log(Create)
+        // /* Try Catch */
+        // try{
+        //     /* Saving the data in mongoose */
+        //     const savedCRUD = await Create.save();
+        //     /* Sending the response back */
+        //     res.status(200);
+        //     res.send(savedCRUD);
+        //     console.log(savedCRUD)
+            
+        // }catch(err){
+        //     /* Sending the error back */
+        //     res.status(400).send(err);
+        // }  
+    }
+    const AddSubjectsn = function (req, res) {
         var myData = new Subjectvs;
         myData.SubjectName = req.body.SubjectName
         myData.name = req.body.name
@@ -84,6 +144,7 @@ var mongoose=require('mongoose');
 
         myData.save()
         .then(item => {
+            
            
             
 
@@ -188,19 +249,35 @@ const delSubject = async function(req, res) {
 ////////////////////////End of Subject portion //////////////////////////
 ///////////////////////////////////////////create a question controller////////
 ////////////12/2/2022///
-var create = async function(req, res){
+var create_Question = async function(req, res){
     try {
         // const data = req.body
         // console.log(data)
 
-        const { description } = req.body
-        const { alternatives } = req.body
+        const  {ques} = req.body
+        const {option1}  = req.body
+        const {option2 } = req.body
+
+        const  {option3}  = req.body
+
+        const  {option4}  = req.body
+        const  {ans}  = req.body
+
+
 
         const question = await Question.create({
             
             
-            description:description,
-            alternatives:alternatives
+            ques:ques,
+            option1:option1,
+            option2:option2,
+            option3:option3,
+            option4:option4,
+            ans:ans
+
+
+
+
         })
 
         return res.status(201).json(question)
@@ -355,7 +432,7 @@ module.exports={
     Read,
     // AddSubject :AddSubject,
     
-create:create,
+    create_Question:create_Question,
 getAllquestions:getAllquestions,
 getOnequestion,
 
