@@ -1,7 +1,12 @@
-var User=require('./user');
-const Subjectvs = require("./user")
+var User=require('../model/user');
+const Subjectvs = require("../model/user")
 
 var mongoose=require('mongoose');
+
+
+
+
+
 
 
 
@@ -73,9 +78,15 @@ var mongoose=require('mongoose');
     const AddSubjects = function (req, res) {
         var myData = new Subjectvs;
         myData.SubjectName = req.body.SubjectName
+        myData.name = req.body.name
+
+
 
         myData.save()
         .then(item => {
+           
+            
+
         // res.send("item saved to database");
         res.render('subject_Add.hbs')
         })
@@ -83,6 +94,8 @@ var mongoose=require('mongoose');
         res.status(400).send("unable to save to database");
         });
        };
+
+
 
        
 // delete one quiz Subject

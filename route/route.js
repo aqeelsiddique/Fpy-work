@@ -1,14 +1,39 @@
-const controller = require('./controller');
-var Controller=require('./controller');
-const Subjectvs = require("./user")
+const controller = require('../controller/controller');
+var Controller=require('../controller/controller');
+const Subjectvs = require("../model/user")
 const mongoose = require('mongoose');
-const empModel = require('./user')
+const empModel = require('../model/user')
 
 
 
 module.exports=function(app){
 
     //////////////////////////test 0001
+
+
+    app.post('/addd', (req, res) => {
+        const name = req.body.name
+        const email = req.body.email
+
+        console.log(name, email)
+
+        const create = new Subjectvs({
+            name, 
+            email
+        })
+        console.log(create)
+
+        create.save(err=> {
+            if(err) {
+                console.log(err)
+            }
+            else {
+                res.json("successfully")
+            }
+        })
+
+
+    })
 
     // const Employee = mongoose.model('empModel');
 
@@ -27,28 +52,29 @@ app.post('/employee', (req, res) => {
 
 function insertRecord(req, res) 
 {
-    var employee = new empModel();
+    var employee = new empModel;
     employee.full_name = req.body.full_name;
     employee.email = req.body.email;
     employee.mobile = req.body.mobile;
     employee.address = req.body.address;
     employee.salary = req.body.salary;
     employee.save((err, doc) => {
-        console.log(doc)
+        res.render('subject_Add.hbs')
 
-        if (!err)
-            res.redirect('employee/list');
-        else {
-            if (err.name == 'ValidationError') {
-                handleValidationError(err, req.body);
-                res.render("employee/addupdate", {
-                    viewTitle: "Create Employee",
-                    employee: req.body
-                });
-            }
-            else
-                console.log('Error during record insertion : ' + err);
-        }
+        
+        // if (!err)
+        //     res.redirect('employee/list');
+        // else {
+        //     if (err.name == 'ValidationError') {
+        //         handleValidationError(err, req.body);
+        //         res.render("employee/addupdate", {
+        //             viewTitle: "Create Employee",
+        //             employee: req.body
+        //         });
+        //     }
+        //     else
+        //         console.log('Error during record insertion : ' + err);
+        // }
     });
 }
 
@@ -131,15 +157,15 @@ app.post( '/add' , (req, res, next) => {
     
     }
 ////////////////////////////////Testing End POint??????????????????
-app.get('/liste' , async (req, res) => {
-    await Subject.find((err, docs) => {
-        if(!err){
-            res.render('home',{
-                list:docs
-            })
-        }
-    })
-})
+// app.get('/liste' , async (req, res) => {
+//     await Subject.find((err, docs) => {
+//         if(!err){
+//             res.render('home',{
+//                 list:docs
+//             })
+//         }
+//     })
+// })
 // app.get('/lists', async(req, res, next) =>{
 //     // let data =  Subject.data
 //     let Studatas = await Subjectvs.find({}).exec((err, subjdata) => {
@@ -152,6 +178,28 @@ app.get('/liste' , async (req, res) => {
 
     
 // })
+// app.get('/list', (req, res) => {
+//     Employee.find((err, docs) => {
+//         if (!err) {
+//             res.render("employee/list", {
+//                 emplist: docs
+//             });
+//         }
+//         else {
+//             console.log('Error in retrieving emp list :' + err);
+//         }
+//     });
+// });
+// app.get("/list", function (req, res) {   
+//     Subject.find({}, function (err,allDetails) {
+//         if (err) {
+//             console.log(err);
+//         } else {
+//             res.render("home",{details:allDetails})
+//             //res.status(201).json(allDetails)
+//         }
+//     })
+// });
 app.get('/lists', (req, res) => {
     Subjectvs.find((err, docs) => {
         if (!err) {
@@ -166,18 +214,7 @@ app.get('/lists', (req, res) => {
     });
 });
 
-app.get("/list", function (req, res) {   
-    Subject.find({}, function (err,allDetails) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.render("home",{details:allDetails})
-            //res.status(201).json(allDetails)
-        }
-    })
-    
 
-});
 
 app.get("/dashboard" , function(req,res) {
     res.render("dashboard")

@@ -2,8 +2,29 @@
 const mongoose = require('mongoose')
 
 const QuestionSchema = new mongoose.Schema({
+
+
+    Question: {
+        type: String,
+        required: 'please enter Question'
+    },
+    option1: {
+        type: String
+    },
+    option2: {
+        type: String
+    },
+    option3: {
+        type: String
+    },
+    option4: {
+        type: String
+    },
+    ans: {
+        type: String
+    }
 ///////////////////////in bleow schemma not make a code 
-    description: String,
+    // description: String,
     
     // alternatives: [
     //     {
@@ -26,7 +47,7 @@ const SubjectSchema = new mongoose.Schema({
     // _id: mongoose.Schema.Types.ObjectId,
     // username: { type: String, required: true, lowercase: true, trim: true },
     //  username : {type : String }
-    SubjectName: String,
+    email: String,
     name:String
 
     
