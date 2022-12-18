@@ -30,7 +30,8 @@
       <th scope="col">#</th>
       <th scope="col">Subject Name</th>
       <th scope="col">Action</th>
-      <h1>{{SubjectName}}</h1>
+      
+
 
     
     
@@ -49,12 +50,12 @@
             </div>
         </div>
 {{/each}} --}}
-    {{#each emplist}}
+    {{#each docs}}
 
     <tr>
     <th scope="row">1</th>
 
-      <td>{{emplist.ques}}</td>
+      <td>{{this}}</td>
     
       <td href="#" type ="button" class="btn btn-light btn-small"><i class="bi bi-eye"></i>View</td>
       <td href="#" type ="button" class="btn btn-light btn-small"><i class="bi bi-pencil"></i>Edit</td>

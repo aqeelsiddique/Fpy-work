@@ -39,7 +39,7 @@ body {
 
 }
 .container {
-  width: 150%;
+  width: 250px;
   min-height: 500px;
   padding: 20px;
   overflow: hidden;
@@ -77,7 +77,7 @@ body {
 }
 .link-item a span {
   transition: transform 0.5s;
-  transform: translateX(100px);
+  transform: translateX(10px);
 }
 .link-item:last-child span h4 {
   line-height: 1;
@@ -99,7 +99,7 @@ body {
 .link-item ion-icon {
   min-width: 20px;
   min-height: 20px;
-  margin-right: 20px;
+
   position: relative;
 }
 .link-item img {
@@ -121,7 +121,7 @@ body {
   border: 1px solid var(--white-bg);
 }
 .link-item a .num-noti {
-  margin-left: 40px;
+  margin-left: 20px;
   font-size: 12px;
   color: var(--light-text-clr);
   background-color: var(--primary-clr);
@@ -174,13 +174,13 @@ body {
 
         <li class="link-item">
           <a href="/AddSub" class="link"
-            ><ion-icon name="search-outline"></ion-icon>
+            ><ion-icon name="create-outline"></ion-icon>
             <span style="--i: 3">create_Subject</span>
           </a>
         </li>
           <li class="link-item">
           <a href="/add_Question" class="link"
-            ><ion-icon name="search-outline"></ion-icon>
+            ><ion-icon name="create-outline"></ion-icon>
             <span style="--i: 3">create_Question</span>
           </a>
         </li>
@@ -196,8 +196,7 @@ body {
         </li>
         <li class="link-item">
           <a href="#" class="link">
-            <ion-icon name="bookmark-outline"></ion-icon
-            ><span style="--i: 5">view subjectlist</span>
+            <ion-icon name="eye-outline"></ion-icon><span style="--i: 5">view subjectlist</span>
           </a>
         </li>
         <li class="link-item">
@@ -220,12 +219,13 @@ body {
         </li>
         <li class="link-item">
           <a href="#" class="link">
-            <img src="user.png" alt="" />
+            <img src="images/owner.jpg" alt="" />
             <span style="--i: 9">
               <h4>Mr.Aqeel</h4>
               <p>web developer</p>
             </span>
           </a>
+
         </li>
       </ul>
     </div>
@@ -238,6 +238,6 @@ body {
       nomodule
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
     ></script>
-    <script src="script.js"></script>
+
   </body>
 </html>

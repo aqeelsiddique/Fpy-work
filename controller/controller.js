@@ -13,6 +13,23 @@ var mongoose=require('mongoose');
 
 ///////////////////////////Subject Portion COntroller Code /////////////////////Addmin site
 
+
+// Display list of all Category.
+const category_list = function (req, res, next) {
+    Subjectvs.find()
+      .sort([['subjectname', 'ascending']])
+      .exec(function (err, list_categories) {
+        if (err) {
+          return next(err);
+        }
+        // Successful, so render.
+        res.render('home', {
+          title: 'Category List',
+          list_categories: list_categories,
+        });
+      });
+  };
+
 // var SubjectAddv =  function (req, res, next) {
 // /////////////////create custome function
 //     insertRecord(req, res)
@@ -426,6 +443,7 @@ module.exports={
     AddSubjects,
     delSubject,
     // SubjectAdd,
+    category_list,
     
 
   

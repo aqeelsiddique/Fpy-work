@@ -63,6 +63,8 @@ app.post('/employee', (req, res) => {
     //     updateRecord(req, res);
 });
 
+app.get('/showlist',controller.category_list)
+
 function insertRecord(req, res) 
 {
     var employee = new empModel;
@@ -211,18 +213,19 @@ app.post( '/add' , (req, res, next) => {
 //     })
 // });
 app.get('/lists', (req, res) => {
-    Question.find((err, docs) => {
+    Question.find().exec(function (err, docs) {
         if (!err) {
             res.render("home", {
-                emplist: docs
+                docs: docs,
+
             });
-            console.log(docs)
         }
         else {
             console.log('Error in retrieving emp list :' + err);
         }
     });
 });
+
 
 
 
