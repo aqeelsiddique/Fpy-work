@@ -30,6 +30,7 @@ const category_list = function (req, res, next) {
       });
   };
 
+
 // var SubjectAddv =  function (req, res, next) {
 // /////////////////create custome function
 //     insertRecord(req, res)
@@ -95,31 +96,14 @@ const category_list = function (req, res, next) {
     /////////////////////////// Final post controller of Add A subject code////
 
 
-    var AddSubjects = async function(req, res){
+    var AddSubjects = [ (req, res) =>{
         try {
             // const data = req.body
             // console.log(data)
     
-            const {subjectname }= req.body
-         
-            
-
-           
-            
-    
-    
-    
-            const question = await Subjectvs.create({
-                
-                
-                subjectname:subjectname,
-              
-                
-         
-               
-    
-    
-    
+            // const subjectname = req.body.subjectname
+            const question =  Subjectvs.create({   
+                subjectname: req.body.subjectname
     
             })
     
@@ -151,7 +135,7 @@ const category_list = function (req, res, next) {
         //     /* Sending the error back */
         //     res.status(400).send(err);
         // }  
-    }
+    }]
     const AddSubjectsn = function (req, res) {
         var myData = new Subjectvs;
         myData.SubjectName = req.body.SubjectName

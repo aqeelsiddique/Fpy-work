@@ -3,6 +3,7 @@ var Controller=require('../controller/controller');
 const Subjectvs = require("../model/user")
 const mongoose = require('mongoose');
 const empModel = require('../model/user')
+const oldcode = require('../controller/catory')
 
 const Question = require('../model/question')
 
@@ -11,6 +12,8 @@ const Question = require('../model/question')
 module.exports= function(app){
 
     //////////////////////////test 0001
+
+    app.post('/addcat', oldcode.category_create_post)
     app.get('/add_Question', (req, res) => {
         res.render('question')
     }
@@ -212,13 +215,20 @@ app.post( '/add' , (req, res, next) => {
 //         }
 //     })
 // });
-app.get('/lists', (req, res) => {
-    Question.find().exec(function (err, docs) {
+app.get('/lists', (req, res , docs) => {
+   
+    
+
+    Subjectvs.find().exec(function (err, docs) {
+
         if (!err) {
             res.render("home", {
-                docs: docs,
+                title:"titlename",
+                docs: docs
 
             });
+            console.log(docs)
+
         }
         else {
             console.log('Error in retrieving emp list :' + err);

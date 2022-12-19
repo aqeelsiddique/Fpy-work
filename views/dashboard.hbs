@@ -4,11 +4,14 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./style.css"/>
+    {{!-- <link rel="stylesheet" href="./dashboard.css"/>
+    <link rel="stylesheet" href="../public/css/style.css">
+    <link rel="stylesheet" href="/css/style.css"> --}}
+
     <title>Responsive Sidebar</title>
   </head>
   <style>
-    @import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
+   @import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
 
 :root {
   --primary-clr: #7522e6;
@@ -35,13 +38,14 @@ body.dark-mode {
 body {
   min-height: 100vh;
   display: flex;
-  background: var(--bg-clr);
 
+  background: var(--bg-clr);
 }
 .container {
-  width: 250px;
+  width: 85px;
   min-height: 500px;
-  padding: 20px;
+  margin: 0 auto;
+  padding: 5px;
   overflow: hidden;
   border-radius: 10px;
   background-color: var(--white-bg);
@@ -77,7 +81,7 @@ body {
 }
 .link-item a span {
   transition: transform 0.5s;
-  transform: translateX(10px);
+  transform: translateX(100px);
 }
 .link-item:last-child span h4 {
   line-height: 1;
@@ -99,7 +103,7 @@ body {
 .link-item ion-icon {
   min-width: 20px;
   min-height: 20px;
-
+  margin-right: 20px;
   position: relative;
 }
 .link-item img {
@@ -121,7 +125,7 @@ body {
   border: 1px solid var(--white-bg);
 }
 .link-item a .num-noti {
-  margin-left: 20px;
+  margin-left: 40px;
   font-size: 12px;
   color: var(--light-text-clr);
   background-color: var(--primary-clr);
@@ -148,13 +152,13 @@ body {
           viewBox="0 0 32.519 30.7"
           fill="#363b46"
         >
-          <g id="Logo" transform="translate(-90.74 -84.875)">
+          {{!-- <g id="Logo" transform="translate(-90.74 -84.875)">
             <path
               id="B"
               d="M14.378-30.915c-5.124,0-9.292,3.767-9.292,10.228S9.254-10.46,14.378-10.46h1.471c5.124,0,9.292-3.767,9.292-10.228s-4.168-10.228-9.292-10.228H14.378M11.7-33.456h6.819A12.768,12.768,0,0,1,31.29-20.687,12.768,12.768,0,0,1,18.522-7.919H11.7A12.768,12.768,0,0,1-1.065-20.687C-2.4-51.282,4.652-33.456,11.7-33.456Z"
               transform="translate(91.969 123.494)"
             />
-          </g>
+          </g> --}}
         </svg>
       </div>
       <ul class="link-items">
