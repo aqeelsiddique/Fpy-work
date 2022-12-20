@@ -1,8 +1,10 @@
 var User=require('../model/user');
 const Subjectvs = require("../model/user")
 const Question = require('../model/question')
+const { body, validationResult } = require('express-validator');
 
 var mongoose=require('mongoose');
+const subject = require('../model/subject');
 
 
 
@@ -140,32 +142,21 @@ const category_list = function (req, res, next) {
         var myData = new Subjectvs;
         myData.SubjectName = req.body.SubjectName
         myData.name = req.body.name
-
-
-
         myData.save()
         .then(item => {
-            
-           
-            
-
         // res.send("item saved to database");
         res.render('subject_Add.hbs')
         })
         .catch(err => {
         res.status(400).send("unable to save to database");
         });
-       };
-
-
-
-       
+       };       
 // delete one quiz Subject
 const delSubject = async function(req, res) {
     try {
         const _id = req.params.id 
 
-        const question = await Subjectvs.deleteOne({_id})
+        const question = await subject.deleteOne({_id})
 
         if(question.deletedCount === 0){
             return res.status(404).json()
@@ -247,6 +238,10 @@ const delSubject = async function(req, res) {
     //     //     res.status(400).send(err);
     //     // }  
     // }
+    //////////////////////final subject code/////////////////post method
+
+
+    
 ////////////////////////End of Subject portion //////////////////////////
 ///////////////////////////////////////////create a question controller////////
 ////////////12/2/2022///

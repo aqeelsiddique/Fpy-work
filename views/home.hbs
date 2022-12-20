@@ -51,16 +51,16 @@
             </div>
         </div>
 {{/each}} --}}
-    {{#each docs}}
+    {{#each list_subject}}
 
     <tr>
     <th scope="row">1</th>
 
-      <td>{{docs.name}}</td>
+      <td>{{this.name}}</td>
       <td href="#" type ="button" class="btn btn-light btn-small"><i class="bi bi-eye"></i>View</td>
       <td href="#" type ="button" class="btn btn-light btn-small"><i class="bi bi-pencil"></i>Edit</td>
       <td>
-          <a href="/delSubject/delete/" type ="button" class="btn btn-light btn-small" onclick="return confirm('Are you sure to delete this record ?');" ><i class="bi bi-person-x"></i>Delete</a> 
+          <a href="/delSubject/:id" type ="button" class="btn btn-light btn-small">{{this._id}}</i>Delete</a> 
 
 
       </td>

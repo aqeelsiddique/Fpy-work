@@ -3,17 +3,26 @@ var Controller=require('../controller/controller');
 const Subjectvs = require("../model/user")
 const mongoose = require('mongoose');
 const empModel = require('../model/user')
-const oldcode = require('../controller/catory')
+const subject = require('../controller/subject')
 
 const Question = require('../model/question')
 
 
 
+
+
 module.exports= function(app){
 
-    //////////////////////////test 0001
+//////////////////////////test 0001
+/////////////final done ok
+    app.post('/add_Subject', subject.subject_create_post)
+    app.get('/list_subjects', subject.subject_list)
+    app.delete('/delSubject/:id', controller.delSubject)
 
-    app.post('/addcat', oldcode.category_create_post)
+
+    //////////////////////end
+
+
     app.get('/add_Question', (req, res) => {
         res.render('question')
     }
@@ -109,7 +118,6 @@ app.get('/AddSub', (req, res) => {
 })
 // app.post('/Subject', controller.SubjectAdd)
 app.post("/addSubject", controller.AddSubjects)
-app.delete('/delSubject/:id', controller.delSubject)
 //////End Subject/////////////////////////////
 app.get('/user/all',Controller.Read);
 app.get('/questions', controller.getAllquestions)
@@ -219,7 +227,7 @@ app.get('/lists', (req, res , docs) => {
    
     
 
-    Subjectvs.find().exec(function (err, docs) {
+    Subjectvs.find().lean().exec(function (err, docs) {
 
         if (!err) {
             res.render("home", {
