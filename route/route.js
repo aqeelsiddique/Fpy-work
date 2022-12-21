@@ -4,6 +4,7 @@ const Subjectvs = require("../model/user")
 const mongoose = require('mongoose');
 const empModel = require('../model/user')
 const subject = require('../controller/subject')
+const Subject = require('../model/subject');
 
 const Question = require('../model/question')
 
@@ -17,7 +18,21 @@ module.exports= function(app){
 /////////////final done ok
     app.post('/add_Subject', subject.subject_create_post)
     app.get('/list_subjects', subject.subject_list)
-    app.delete('/delSubject/:id', controller.delSubject)
+    app.get('/delSubject/:id', (req, res)=> {
+        Subject.findByIdAndRemove(req.params.id,(er, docs) => {
+            if(!er){
+                res.redirect('/list_subjects')
+            }
+            else{
+                 
+            }
+        })
+    })
+
+
+
+    app.post('/delSubject/:id', controller.delSubject)
+
 
 
     //////////////////////end
