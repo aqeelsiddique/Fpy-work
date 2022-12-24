@@ -9,7 +9,7 @@ body {
 }
 .table-responsive {
     margin: 30px 0;
-    margin-left: 280px;
+    margin-left: 150px;
 }
 .table-wrapper {
 	background: #fff;
@@ -62,9 +62,9 @@ table.table tr th, table.table tr td {
 table.table tr th:first-child {
 	width: 60px;
 }
-table.table tr th:last-child {
-	width: 100px;
-}
+/* table.table tr th:last-child {
+	width: 0px;
+} */
 table.table-striped tbody tr:nth-of-type(odd) {
 	background-color: #fcfcfc;
 }

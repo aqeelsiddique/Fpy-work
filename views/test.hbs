@@ -27,12 +27,20 @@ https://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=crud-data-tabl
 							</span>
 						</th>
 
-					<th>Subject-Name</th>
-						
-                        
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+
+				<th>Subject-Name</th>
+  
 					</tr>
 				</thead>
 				<tbody>
+					    {{#each list_subject}}
+
 					<tr>
 						<td>
 							<span class="custom-checkbox">
@@ -41,14 +49,22 @@ https://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=crud-data-tabl
 							</span>
 						</td>
 
-						<td>ML</td>
-						
-                        
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td>{{this.name}}</td>
 						<td>
 							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
 						</td>
 					</tr>
+
+
+					    {{/each}}
+
 					
                   
 					
