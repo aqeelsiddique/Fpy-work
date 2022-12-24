@@ -22,7 +22,15 @@
 </html> --}}
 
 <h1>{{title}}</h1>
+
+ <div class="container2">
+            <div class="box-nav d-flex justify-between">
+                <a href="/AddSub" class="border-shadow">
+                    <span class="text-gradient">New User <i class="fas fa-user"></i></span>
+                </a>
+            </div>
 <h3>{{titlename}}</h3>
+
 
 <table class="table">
   <thead>
@@ -58,9 +66,22 @@
 
       <td>{{this.name}}</td>
       <td href="#" type ="button" class="btn btn-light btn-small"><i class="bi bi-eye"></i>View</td>
-      <td href="#" type ="button" class="btn btn-light btn-small"><i class="bi bi-pencil"></i>Edit</td>
       <td>
-          <a href="/delSubject/{{this._id}}" type ="button" class="btn btn-light btn-small"></i>Delete</a> 
+      <a href="/update/{{this._id}}" type ="button" class="btn btn-light btn-small"><i class="bi bi-pencil"></i>Edit</a>
+
+
+      </td>
+      <td>
+        {{!-- <form method="POST" action="/delSubject/{this._id}}">
+    <div class="form-group">
+      <input id="id" class="form-control" type="hidden" name="name" required="true" value={{category._id}}>
+    </div>
+    <button class="btn btn-danger" type="submit">Delete</button>
+  </form> --}}
+    {{!-- <a href="/delSubject/{{_id}}" type ="button" class="btn btn-light btn-small"></i>Delete</a>  --}}
+  {{!-- <a href="/update/{{this._id}}"><i class="fa fa-edit" aria-hidden="true">nn</i></a> --}}
+
+  <a href="/deltedata/{{this._id}}" class="btn btn-light btn-small" onclick="return confirm('Are you sure about removing this Subject record?')"><i class="text-danger fa fa-trash">Delete</i></a>
 
 
       </td>

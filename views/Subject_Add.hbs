@@ -1,5 +1,5 @@
 <h3>{{Title}}</h3>
-<form action="/add_Subject" method="post" autocomplete="off">
+<form action="/add_Subject" method="post" id="add_user" autocomplete="off">
 {{!-- <div class="form-group">
     <input type="text" class="form-control" name="fullname" placeholder="No">
 </div> --}}
@@ -7,13 +7,15 @@
 <label>Enter Subject Name</label><br><br>
  <input type="text" class="form-control" name="name" placeholder="Enter Subject Name" required>
    {{!-- <input type="text" class="form-control" name="fullSubjectName" placeholder="Subject Name"> --}}
-</div><br>
+</div>
+
+<br>
 <div class="form-group">
     <button type="submit" class="btn btn-info">
         <i class="fa fa-database"></i>
         Submit
     </button>
-    <a href="/list_subjects" class="btn btn-danger">
+    <a href="/list_subjects" class="btn btn-danger" >
         <i class="fa fa-list-alt"></i>
         ViewAll
     </a>

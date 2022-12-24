@@ -1,48 +1,39 @@
-const controller = require('../controller/controller');
-var Controller=require('../controller/controller');
+const controller = require('../controller/questions');
+var Controller=require('../controller/questions');
 const Subjectvs = require("../model/user")
 const mongoose = require('mongoose');
 const empModel = require('../model/user')
 const subject = require('../controller/subject')
 const Subject = require('../model/subject');
-
 const Question = require('../model/question')
-
-
-
-
-
-module.exports= function(app){
-
+module.exports= function(app)
+{
 //////////////////////////test 0001
-/////////////final done ok
+/////////////final done of of Subject Route
     app.post('/add_Subject', subject.subject_create_post)
+    app.get('/update/:id', subject.update)
+    app.get('/deltedata/:id', subject.delete)
     app.get('/list_subjects', subject.subject_list)
-    app.get('/delSubject/:id', (req, res)=> {
-        Subject.findByIdAndRemove(req.params.id,(er, docs) => {
-            if(!er){
-                res.redirect('/list_subjects')
-            }
-            else{
+    // app.get('/delSubject/:id', subject.category_delete_get)
+    // (req, res)=> {
+    //     Subject.findByIdAndRemove(req.params.id,
+    //         (er, docs) => {
+    //         if(!er){
+    //             res.redirect('/list_subjects')
+    //         }
+    //         else{
                  
-            }
-        })
-    })
-
-
-
-    app.post('/delSubject/:id', controller.delSubject)
-
-
-
+    //         }
+    //     })
+    // }
+    
+    app.post('/delSubject/:id', subject.category_delete_post)
+    // app.post('/delSubject/:id', controller.delSubject)
     //////////////////////end
-
-
     app.get('/add_Question', (req, res) => {
         res.render('question')
     }
     )
-
     // app.post('/add_Q', async (req, res) => {
     //     const question = req.body.question
     //     const option1 = req.body.option1
@@ -56,13 +47,8 @@ module.exports= function(app){
     //         option2,
     //         option3,
     //         option4,
-    //         ans
-
-            
-            
-    //     })
-
-        
+    //         ans           
+    //     })      
     //      await create.save(err=> {
     //         if(err) {
     //             console.log(err)
@@ -71,27 +57,20 @@ module.exports= function(app){
     //             res.json("successfully")
     //         }
     //     })
-
-
     // })
-
     // const Employee = mongoose.model('empModel');
-
 app.get('/', (req, res) => {
     res.render("employee/addupdate", {
         viewTitle: "Insert Employee"
     });
 });
-
 app.post('/employee', (req, res) => {
     // if (req.body._id == '')
         insertRecord(req, res);
     // else
     //     updateRecord(req, res);
 });
-
 app.get('/showlist',controller.category_list)
-
 function insertRecord(req, res) 
 {
     var employee = new empModel;
@@ -102,8 +81,6 @@ function insertRecord(req, res)
     employee.salary = req.body.salary;
     employee.save((err, doc) => {
         res.render('subject_Add.hbs')
-
-        
         // if (!err)
         //     res.redirect('employee/list');
         // else {
@@ -119,12 +96,6 @@ function insertRecord(req, res)
         // }
     });
 }
-
-
-
-
-
-
 //  Subject Endpoint route
 app.get('/AddSub', (req, res) => {
     res.render("subject_Add.hbs", {
@@ -138,33 +109,24 @@ app.get('/user/all',Controller.Read);
 app.get('/questions', controller.getAllquestions)
 app.get('/question/:id', controller.getOnequestion)
 app.put('/question/:id', controller.updateQuestion)
-
 // app.put('/user/all/:todo_id',Controller.Update);
-
 app.post('/create_Question',Controller.create_Question);
 app.get('/adduser',Controller.Read);
-
-
 // app.get('/create',Controller.Create )
 app.delete('/delquestion/:id',Controller.delQuestion);
-
-
 // app.get('/',function(req,res){
 // console.log("Este si carga");
 // // res.sendFile('./public/index.html');
 // });
-
 app.post( '/add' , (req, res, next) => {
     /////////////////create custome function
         insertRecord(req, res)
-     
         // const user = new Subject({
         //     _id: mongoose.Types.ObjectId(),
         //     name: req.body.name,
         //     // address:req.body.address,
         //     // salary: req.body.salary
         // });
-     
         // user.save()
         // .then(result => {
         //     res.status(200).json({
@@ -183,16 +145,13 @@ app.post( '/add' , (req, res, next) => {
             //if no error there 
             if(!err){
                 return res.status(201).json(Subjectvs)
-
                 // res.redirect('home')
-    
             }
             else{
                 //if error there
                 console.log("an error there is during addmig subject"+err)
             }
         })
-    
     }
 ////////////////////////////////Testing End POint??????????????????
 // app.get('/liste' , async (req, res) => {
@@ -211,10 +170,7 @@ app.post( '/add' , (req, res, next) => {
 //             res.render('home',{title:"Subject List", data:subjdata})
 //             console.log(subjdata)
 //         }
-//     })
-
-
-    
+//     })   
 // })
 // app.get('/list', (req, res) => {
 //     Employee.find((err, docs) => {
@@ -239,35 +195,28 @@ app.post( '/add' , (req, res, next) => {
 //     })
 // });
 app.get('/lists', (req, res , docs) => {
-   
-    
-
     Subjectvs.find().lean().exec(function (err, docs) {
-
         if (!err) {
             res.render("home", {
                 title:"titlename",
                 docs: docs
-
             });
             console.log(docs)
-
         }
         else {
             console.log('Error in retrieving emp list :' + err);
         }
     });
 });
-
-
-
-
 app.get("/dashboard" , function(req,res) {
     res.render("dashboard")
 })
+app.get('/test1' , function(req, res) {
+    res.render('test')
+})
 
 
- }
+}
 
 
  

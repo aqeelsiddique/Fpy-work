@@ -2,18 +2,67 @@ var User=require('../model/user');
 const Subjectvs = require("../model/user")
 const Question = require('../model/question')
 const { body, validationResult } = require('express-validator');
-
 var mongoose=require('mongoose');
 const subject = require('../model/subject');
 
+///////////////////////////questions Portion COntroller Code /////////////////////Addmin site
+
+// Handle Category create on POST.
+exports.subject_create_post = [
+    // Validate that the name field is not empty.
+    body('name', 'Subject name required').isLength({ min: 1 }).trim(),
+    // Sanitize (trim and escape) the name field.
+    body('name').trim().escape(),
+    // Process request after validation and sanitization.
+    (req, res, next) => {
+      // Extract the validation errors from a request.
+      const errors = validationResult(req);
+      // Create a category object with escaped and trimmed data.
+      const subject = new Question({ name: req.body.name
+     });
+      if (!errors.isEmpty()) {
+        // There are errors. Render the form again with sanitized values/error messages.
+        res.render('Subject_Add.hbs', {
+          title: 'Create Subject',
+          subject: subject,
+          errors: errors.array(),
+        });
+        return;
+      } else {
+        // Data from form is valid.
+        // Check if Category with same name already exists.
+        Subject.findOne({ name: req.body.name 
+  
+        
+        }).exec(function (
+          err,
+          found_subject
+        ) {
+          if (err) {
+            return next(err);
+          }
+          if (found_subject) {
+            // Category exists, redirect to its detail page.
+            res.redirect(found_subject.url);
+          } else {
+            subject.save(function (err) {
+              if (err) {
+                return next(err);
+              }
+              // Category saved. Redirect to category detail page.
+              // res.redirect(category.url);
+              // alert("message")
+              res.send('succesSS')
+            });
+          }
+        });
+      }
+    },
+  ];
 
 
 
 
-
-
-
-///////////////////////////Subject Portion COntroller Code /////////////////////Addmin site
 
 
 // Display list of all Category.
@@ -156,7 +205,7 @@ const delSubject = async function(req, res) {
     try {
         const _id = req.params.id 
 
-        const question = await subject.deleteOne({_id})
+        const question = await Subject.deleteOne({_id})
 
         if(question.deletedCount === 0){
             return res.status(404).json()
