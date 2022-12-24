@@ -82,11 +82,11 @@
 			<div class="table-title">
 				<div class="row">
 					<div class="col-sm-6">
-						<h2>Manage <b>SubjectName</b></h2>
+						<h2>Manage <b>QuestionName</b></h2>
 					</div>
 					<div class="col-sm-6">
             
-						<a href="/AddSub" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Employee</span></a>
+						<a href="/add_Question" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Subject</span></a>
 						<a href="/deltedata/{{this._id}}" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
 					</div>
 				</div>
@@ -106,11 +106,11 @@
 					<th></th>
 					<th></th>
 					<th></th>
-				<th>Subject-Name</th> 
+				<th>Question</th> 
 					</tr>
 				</thead>
 				<tbody>
-					    {{#each list_subject}}
+					    {{#each list_question}}
 					<tr>
 						<td>
 							<span class="custom-checkbox">
@@ -124,10 +124,10 @@
 						<td></td>
 						<td></td>
 						<td></td>
-						<td>{{this.name}}</td>
+						<td>{{this.ques}}</td>
 						<td>
-							<a href="/update/{{this._id}}" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="/deltedata/{{this._id}}" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+							<a href="/update_Question/{{this._id}}" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+							<a href="/delete_Question/{{this._id}}" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
 						</td>
 					</tr>
 					    {{/each}}                 

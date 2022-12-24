@@ -7,10 +7,10 @@
 
   <h1>Enter a Question and options </h1>
 
-  <form action="/create_Question" method="POST">
+  <form action="/add_Question" method="POST">
   <div class="form-group">
 
- <input type="text" class="form-control" name="Question" placeholder="Question" required>
+ <input type="text" class="form-control" name="ques" placeholder="Question" required>
   <input type="text" class="form-control" name="option1" placeholder="option1" required>
    <input type="text" class="form-control" name="option2" placeholder="option2" required>
 
@@ -28,7 +28,7 @@
         <i class="fa fa-database"></i>
         Submit
     </button>
-    <a href="/lists" class="btn btn-danger">
+    <a href="/showlist" class="btn btn-danger">
         <i class="fa fa-list-alt"></i>
         ViewAll
     </a>

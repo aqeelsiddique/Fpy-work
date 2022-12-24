@@ -4,6 +4,7 @@ const { body, validationResult } = require('express-validator');
 
 const Subject = require('../model/subject');
 
+let alert = require('alert'); 
 
 
 // Handle Category create on POST.
@@ -16,7 +17,9 @@ exports.subject_create_post = [
   (req, res, next) => {
     // Extract the validation errors from a request.
     const errors = validationResult(req);
-    // Create a category object with escaped and trimmed data.
+    // Create a category object with escaped and trimmed data.]
+    alert("message you want to show");
+
     const subject = new Subject({ name: req.body.name });
     if (!errors.isEmpty()) {
       // There are errors. Render the form again with sanitized values/error messages.
@@ -50,6 +53,7 @@ exports.subject_create_post = [
             // Category saved. Redirect to category detail page.
             // res.redirect(category.url);
             // alert("message")
+
             res.render('Subject_Add.hbs')
           });
         }
@@ -60,7 +64,7 @@ exports.subject_create_post = [
 
 
 
-// Display list of all Category.
+// Display list of all Subject.
 exports.subject_list = function (req, res, next) {
   Subject.find().lean()
     .exec(function (err, list_subject) {

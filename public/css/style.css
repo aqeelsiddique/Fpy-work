@@ -35,7 +35,6 @@ height: 100%;
   margin: 0 auto;
   padding: 5px;
   overflow: hidden;
-  border-radius: 10px;
   background-color: var(--white-bg);
   transition: all 0.3s ease;
 }
