@@ -27,9 +27,11 @@ module.exports= function(app)
     //     })
     // }
     
-    app.post('/delSubject/:id', subject.category_delete_post)
+    // app.post('/delSubject/:id', subject.category_delete_post)
     // app.post('/delSubject/:id', controller.delSubject)
-    //////////////////////end
+    //////////////////////subject portion end///////////
+
+    
     app.get('/add_Question', (req, res) => {
         res.render('question')
     }
@@ -145,7 +147,7 @@ app.post( '/add' , (req, res, next) => {
             //if no error there 
             if(!err){
                 return res.status(201).json(Subjectvs)
-                // res.redirect('home')
+                // res.redirect('subjectmain')
             }
             else{
                 //if error there
@@ -157,7 +159,7 @@ app.post( '/add' , (req, res, next) => {
 // app.get('/liste' , async (req, res) => {
 //     await Subject.find((err, docs) => {
 //         if(!err){
-//             res.render('home',{
+//             res.render('subjectmain',{
 //                 list:docs
 //             })
 //         }
@@ -167,7 +169,7 @@ app.post( '/add' , (req, res, next) => {
 //     // let data =  Subject.data
 //     let Studatas = await Subjectvs.find({}).exec((err, subjdata) => {
 //         if(subjdata){
-//             res.render('home',{title:"Subject List", data:subjdata})
+//             res.render('subjectmain',{title:"Subject List", data:subjdata})
 //             console.log(subjdata)
 //         }
 //     })   
@@ -189,7 +191,7 @@ app.post( '/add' , (req, res, next) => {
 //         if (err) {
 //             console.log(err);
 //         } else {
-//             res.render("home",{details:allDetails})
+//             res.render("subjectmain",{details:allDetails})
 //             //res.status(201).json(allDetails)
 //         }
 //     })
@@ -197,7 +199,7 @@ app.post( '/add' , (req, res, next) => {
 app.get('/lists', (req, res , docs) => {
     Subjectvs.find().lean().exec(function (err, docs) {
         if (!err) {
-            res.render("home", {
+            res.render("subjectmain", {
                 title:"titlename",
                 docs: docs
             });
