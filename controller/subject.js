@@ -4,7 +4,7 @@ const { body, validationResult } = require('express-validator');
 
 const Subject = require('../model/subject');
 
-let alert = require('alert'); 
+// let alert = require('alert'); 
 
 
 // Handle Category create on POST.
@@ -18,7 +18,7 @@ exports.subject_create_post = [
     // Extract the validation errors from a request.
     const errors = validationResult(req);
     // Create a category object with escaped and trimmed data.]
-    alert("message you want to show");
+    // alert("message you want to show");
 
     const subject = new Subject({ name: req.body.name });
     if (!errors.isEmpty()) {
