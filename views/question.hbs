@@ -7,7 +7,25 @@
 
   <h1>Enter a Question and options </h1>
 
-  <form action="/add_Question" method="POST">
+  <form action="" method="POST">
+   {{!-- updaete code --}}
+
+
+  <div class="form-group">
+    <label for="select_subject">Quiz : </label>
+    <select class="form-control" id="select_subject" name="select_subject" placeholder="Select machine" required="true">
+      {{#if question}}
+        {{#each select_subject}}
+          <option value={{this._id}} {{isSelected this._id ../question.machine._id}}>{{this.name}}</option>
+        {{/each}}
+      {{else}}
+        {{#each select_subject}}
+          <option value={{this._id}}>{{this.name}}</option>
+        {{/each}}
+      {{/if}}
+    </select>
+  </div>
+        {{!-- ///////////////update end code/////// --}}
   <div class="form-group">
 
  <input type="text" class="form-control" name="ques" placeholder="Question" required>
@@ -34,6 +52,16 @@
     </a>
 </div>
   </form>
+
+
+  {{#if errors}}
+<label>Errors:</label>
+  <ul>
+    {{#each errors}}
+    <li>{{this.msg}}</li>
+    {{/each}}
+  </ul>
+{{/if}}
   
 </body>
 </html>

@@ -1,6 +1,8 @@
 const mongoose = require('mongoose')
+const Schema = mongoose.Schema;
 
 const QuestionSchema = new mongoose.Schema({
+    select_subject: { type: Schema.Types.ObjectId, ref: 'Subject', required: true },
     
 
 

@@ -4,11 +4,13 @@ const Question = require('../model/question')
 const { body, validationResult } = require('express-validator');
 var mongoose=require('mongoose');
 const subject = require('../model/subject');
+const async = require('async');
 
 ///////////////////////////questions Portion COntroller Code /////////////////////Addmin site
 
 // Handle Question create on POST.
 const question_create_post = [
+  body('select_subject', 'Machine must not be empty.').isLength({ min: 1 }).trim(),
   body('ques', 'question must not be empty.').isLength({ min: 1 }).trim(),
   body('option1', 'option1 must not be empty.').isLength({ min: 1 }).trim(),
   body('option2', 'option2 must not be empty.').isLength({ min: 1 }).trim(),
@@ -29,6 +31,8 @@ const question_create_post = [
       const errors = validationResult(req);
       // Create a category object with escaped and trimmed data.]
       const question = new Question({
+        select_subject: req.body.select_subject, 
+
          ques: req.body.name, 
          option1: req.body.option1, 
          option2: req.body.option2 ,
@@ -43,43 +47,94 @@ const question_create_post = [
 
 
         });
-      if (!errors.isEmpty()) {
-        // There are errors. Render the form again with sanitized values/error messages.
-        res.render('question.hbs', {
-          title: 'Create Question',
-          question: question,
-          errors: errors.array(),
-        });
-        return;
-      } else {
-        // Data from form is valid.
-        // Check if Category with same name already exists.
-        Question.findOne({ ques: req.body.ques }).exec(function (
-          err,
-          found_subject
-        ) {
-          if (err) {
-            return next(err);
-          }
-          if (found_subject) {
-            // Category exists, redirect to its detail page.
-            res.redirect(found_subject.url);
-          } else {
-            question.save(function (err) {
+
+          ////////////update code
+
+        if (!errors.isEmpty()) {
+          // There are errors. Render form again with sanitized values/error messages.
+    
+          // Get all machines and categories for form.
+          async.parallel(
+            {
+              select_subject: function (callback) {
+                subject.find(callback);
+              }
+            },
+
+            function (err, results) {
               if (err) {
                 return next(err);
               }
-              // Category saved. Redirect to category detail page.
-              // res.redirect(category.url);
-              // alert("message")
+              console.log(select_subject)
+
+    
+              // Mark our selected categories as checked.
+              // for (let i = 0; i < results.select_subject.length; i++) {
+              //   if (process.category.indexOf(results.select_subject[i]._id) > -1) {
+              //     results.select_subject[i].checked = 'checked';
+              //   }
+              // }
+              res.render('question', {
+                title: 'Create Process',
+                select_subject: results.select_subject,
+                question: question,
+                errors: errors.array(),
+              });
+            }
+          );
+          return;
+        } else {
+          // Data from form is valid. Save process.
+          question.save(function (err) {
+            if (err) {
+              return next(err);
+            }
+            //successful - redirect to new process record.
+            res.redirect('add_Question');
+            console.log(question)
+          });
+        }
+      },
+    ];
+  //     if (!errors.isEmpty()) {
+        
+  //       // There are errors. Render the form again with sanitized values/error messages.
+  //       res.render('question.hbs', {
+  //         title: 'Create Question',
+  //         question: question,
+  //         errors: errors.array(),
+  //       });
+  //       return;
+  //     } 
+  //     else {
+  //       // Data from form is valid.
+  //       // Check if Category with same name already exists.
+  //       Question.findOne({ ques: req.body.ques }).exec(function (
+  //         err,
+  //         found_subject
+  //       ) {
+  //         if (err) {
+  //           return next(err);
+  //         }
+  //         if (found_subject) {
+  //           // Category exists, redirect to its detail page.
+  //           res.redirect(found_subject.url);
+  //         } else {
+  //           question.save(function (err) {
+  //             if (err) {
+  //               return next(err);
+  //             }
+  //             // Category saved. Redirect to category detail page.
+  //             // res.redirect(category.url);
+  //             // alert("message")
   
-              res.render('question.hbs')
-            });
-          }
-        });
-      }
-    },
-  ];
+  //             res.render('question.hbs')
+  //           });
+  //         }
+  //       });
+  //     }
+  //   },
+  // ];
 
 
 
