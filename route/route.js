@@ -8,7 +8,43 @@ const Subject = require('../model/subject');
 const Question = require('../model/question')
 module.exports= function(app)
 {
+
 //////////////////////////test 0001
+
+
+app.post('/submitt', function(req, res) {
+      // create a new document and save the form data to it
+  const question = {
+    select_subject: req.body.select_subject,
+    ques: req.body.ques,
+    option1: req.body.option1,
+    option2: req.body.option2,
+    option3: req.body.option3,
+    option4: req.body.option4,
+    ans: req.body.ans,
+  };
+  Question.insertOne(question, function (err, result) {
+    if (err) {
+        console.log(err);
+      } else {
+        console.log('Inserted document:', result.insertedId);
+      }
+
+  })
+
+})
+app.get('/form', function (req, res) {
+    // retrieve the options for the select element
+    Subject.find().toArray(function (err, subjects) {
+      if (err) {
+        console.log(err);
+      } else {
+        // render the template and pass the options to it
+        res.render('question', { subjects: subjects });
+      }
+    });
+  });
+
 ///////////////////dashboard code///////
 app.get("/dashboard" , function(req,res) {
     res.render("dashboard")

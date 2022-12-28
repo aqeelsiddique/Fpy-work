@@ -1,8 +1,9 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
-
+// const ObjectId = require('mongodb').ObjectId;
+// const id = new ObjectId();
 const QuestionSchema = new mongoose.Schema({
-    select_subject: { type: Schema.Types.ObjectId, ref: 'Subject', required: true },
+    select_subject: { type: String, ref: 'Subject', required: true },
     
 
 

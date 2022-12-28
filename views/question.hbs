@@ -6,20 +6,61 @@
 <body>
 
   <h1>Enter a Question and options </h1>
+  // .hbs template to render the form
+<form action="/submit" method="post">
+  <label for="select_subject">Subject:</label>
+  <select id="select_subject" name="select_subject">
+    <!-- options will be generated dynamically -->
+    {{#each subjects}}
+      <option value="{{this._id}}">{{this.name}}</option>
+    {{/each}}
+  </select>
+  <!-- rest of the form goes here -->
+</form>
 
+{{!-- 
+  <form action="/submit" method="post">
+  <label for="select_subject">Subject:</label>
+  <select id="select_subject" name="select_subject">
+    <!-- options will be generated dynamically -->
+  </select>
+  <br>
+  <label for="ques">Question:</label>
+  <input type="text" id="ques" name="ques">
+  <br>
+  <label for="option1">Option 1:</label>
+  <input type="text" id="option1" name="option1">
+  <br>
+  <label for="option2">Option 2:</label>
+  <input type="text" id="option2" name="option2">
+  <br>
+  <label for="option3">Option 3:</label>
+  <input type="text" id="option3" name="option3">
+  <br>
+  <label for="option4">Option 4:</label>
+  <input type="text" id="option4" name="option4">
+  <br>
+  <label for="ans">Answer:</label>
+  <input type="text" id="ans" name="ans">
+  <br>
+  <input type="submit" value="Submit">
+</form> --}}
+
+{{!-- 
   <form action="" method="POST">
    {{!-- updaete code --}}
 
 
   <div class="form-group">
+    <h1>{{title}}</h1>
     <label for="select_subject">Quiz : </label>
     <select class="form-control" id="select_subject" name="select_subject" placeholder="Select machine" required="true">
       {{#if question}}
-        {{#each select_subject}}
-          <option value={{this._id}} {{isSelected this._id ../question.machine._id}}>{{this.name}}</option>
+        {{#each select_subjects}}
+          <option value={{this._id}} {{isSelected this._id}}>{{this.name}}</option>
         {{/each}}
       {{else}}
-        {{#each select_subject}}
+        {{#each select_subjects}}
           <option value={{this._id}}>{{this.name}}</option>
         {{/each}}
       {{/if}}
@@ -51,9 +92,9 @@
         ViewAll
     </a>
 </div>
-  </form>
+  </form> --}}
 
-
+{{!-- 
   {{#if errors}}
 <label>Errors:</label>
   <ul>
@@ -61,7 +102,7 @@
     <li>{{this.msg}}</li>
     {{/each}}
   </ul>
-{{/if}}
+{{/if}} --}}
   
 </body>
 </html>

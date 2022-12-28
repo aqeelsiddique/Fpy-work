@@ -1,5 +1,5 @@
 var User=require('../model/user');
-const Subjectvs = require("../model/user")
+const subjectvs = require("../model/user")
 const Question = require('../model/question')
 const { body, validationResult } = require('express-validator');
 var mongoose=require('mongoose');
@@ -7,22 +7,15 @@ const subject = require('../model/subject');
 const async = require('async');
 
 ///////////////////////////questions Portion COntroller Code /////////////////////Addmin site
-
 // Handle Question create on POST.
 const question_create_post = [
-  body('select_subject', 'Machine must not be empty.').isLength({ min: 1 }).trim(),
+  body('select_subject', 'subject must not be empty.').isLength({ min: 1 }).trim(),
   body('ques', 'question must not be empty.').isLength({ min: 1 }).trim(),
   body('option1', 'option1 must not be empty.').isLength({ min: 1 }).trim(),
   body('option2', 'option2 must not be empty.').isLength({ min: 1 }).trim(),
   body('option3', 'option3 must not be empty.').isLength({ min: 1 }).trim(),
   body('option4', 'option4 must not be empty.').isLength({ min: 1 }).trim(),
-  body('ans', 'ans must not be empty.').isLength({ min: 1 }).trim(),
-
-
-  // body('serial_number', 'Serial Number must not be empty')
-    // .isLength({ min: 1 })
-    // .trim(),
-  // Sanitize fields (using wildcard).
+  body('ans', 'ans must not be empty.').isLength({ min: 1 }).trim(), 
   body('*').escape(),
 //   body('category.*').escape(),
     // Process request after validation and sanitization.
@@ -32,42 +25,28 @@ const question_create_post = [
       // Create a category object with escaped and trimmed data.]
       const question = new Question({
         select_subject: req.body.select_subject, 
-
          ques: req.body.name, 
          option1: req.body.option1, 
          option2: req.body.option2 ,
          option3: req.body.option3 ,
          option4: req.body.option4,
          ans: req.body.ans,
-
-
-
-
-
-
-
         });
-
           ////////////update code
-
         if (!errors.isEmpty()) {
           // There are errors. Render form again with sanitized values/error messages.
-    
-          // Get all machines and categories for form.
+          // Get all machines and  categories for form.
           async.parallel(
             {
-              select_subject: function (callback) {
+              select_subjects: function (callback) {
                 subject.find(callback);
               }
             },
-
             function (err, results) {
               if (err) {
                 return next(err);
               }
-              console.log(select_subject)
-
-    
+              console.log(results) 
               // Mark our selected categories as checked.
               // for (let i = 0; i < results.select_subject.length; i++) {
               //   if (process.category.indexOf(results.select_subject[i]._id) > -1) {
@@ -76,7 +55,7 @@ const question_create_post = [
               // }
               res.render('question', {
                 title: 'Create Process',
-                select_subject: results.select_subject,
+                select_subjects: results.select_subjects,
                 question: question,
                 errors: errors.array(),
               });
@@ -186,11 +165,11 @@ const deletequestion = (req, res)=>{
 
 /////////////////?///////////////End Question Controller Portion/////////////////////
 
-// // var SubjectAddv =  function (req, res, next) {
+// // var subjectAddv =  function (req, res, next) {
 // // /////////////////create custome function
 // //     insertRecord(req, res)
  
-// //     // const user = new Subject({
+// //     // const user = new subject({
 // //     //     _id: mongoose.Types.ObjectId(),
 // //     //     name: req.body.name,
 // //     //     // address:req.body.address,
@@ -209,7 +188,7 @@ const deletequestion = (req, res)=>{
 // // };
 // // function insertRecord(req, res)
 // // {
-// //     var subject = new Subject();
+// //     var subject = new subject();
 // //     subject.username = req.body.username
 // //     subject.save((err, doc) => {
 // //         //if no error there 
@@ -226,24 +205,24 @@ const deletequestion = (req, res)=>{
 // // }
 
 
-// // const AddSubject =async function(req, res)  {
+// // const Addsubject =async function(req, res)  {
     
 // //         try {
          
 // //             // const data = req.body
 // //             // console.log(data)
     
-// //             const Sub  = req.body.Subject
+// //             const Sub  = req.body.subject
           
             
     
-// //             const Subject = await Subject.create({
+// //             const subject = await subject.create({
                 
                 
-// //                Subject
+// //                subject
 // //             })
     
-// //             return res.status(201).json(Subject)
+// //             return res.status(201).json(subject)
 // //         } catch (error) {
 // //             return res.status(500).json({"error":error})
 // //         }
@@ -251,13 +230,13 @@ const deletequestion = (req, res)=>{
 //     /////////////////////////// Final post controller of Add A subject code////
 
 
-//     var AddSubjects = [ (req, res) =>{
+//     var Addsubjects = [ (req, res) =>{
 //         try {
 //             // const data = req.body
 //             // console.log(data)
     
 //             // const subjectname = req.body.subjectname
-//             const question =  Subjectvs.create({   
+//             const question =  subjectvs.create({   
 //                 subjectname: req.body.subjectname
     
 //             })
@@ -291,9 +270,9 @@ const deletequestion = (req, res)=>{
 //         //     res.status(400).send(err);
 //         // }  
 //     }]
-//     const AddSubjectsn = function (req, res) {
-//         var myData = new Subjectvs;
-//         myData.SubjectName = req.body.SubjectName
+//     const Addsubjectsn = function (req, res) {
+//         var myData = new subjectvs;
+//         myData.subjectName = req.body.subjectName
 //         myData.name = req.body.name
 //         myData.save()
 //         .then(item => {
@@ -304,12 +283,12 @@ const deletequestion = (req, res)=>{
 //         res.status(400).send("unable to save to database");
 //         });
 //        };       
-// // delete one quiz Subject
-// const delSubject = async function(req, res) {
+// // delete one quiz subject
+// const delsubject = async function(req, res) {
 //     try {
 //         const _id = req.params.id 
 
-//         const question = await Subject.deleteOne({_id})
+//         const question = await subject.deleteOne({_id})
 
 //         if(question.deletedCount === 0){
 //             return res.status(404).json()
@@ -321,8 +300,8 @@ const deletequestion = (req, res)=>{
 //         return res.status(500).json({"error":error})
 //     }
 // }
-//     // var SubjectAdd=   function(req, res, err){
-//     //     var myData = new Subject(req.body);
+//     // var subjectAdd=   function(req, res, err){
+//     //     var myData = new subject(req.body);
 //     //     myData.save()
 //     //     .then(item => {
 //     //         console.log(myData)
@@ -342,7 +321,7 @@ const deletequestion = (req, res)=>{
 
 
             
-//     //     //     const question = await Subject.create({
+//     //     //     const question = await subject.create({
 //     //     //         // Number:_id,
                 
 
@@ -395,7 +374,7 @@ const deletequestion = (req, res)=>{
 
 
     
-// ////////////////////////End of Subject portion //////////////////////////
+// ////////////////////////End of subject portion //////////////////////////
 // ///////////////////////////////////////////create a question controller////////
 // ////////////12/2/2022///
 // var create_Question = async function(req, res){
@@ -578,15 +557,15 @@ module.exports={
     deletequestion,
 
 
-//     AddSubjects,
-//     delSubject,
-//     // SubjectAdd,
+//     Addsubjects,
+//     delsubject,
+//     // subjectAdd,
 //     // category_list,
     
 
   
 //     Read,
-//     // AddSubject :AddSubject,
+//     // Addsubject :Addsubject,
     
 //     create_Question:create_Question,
 // getAllquestions:getAllquestions,
