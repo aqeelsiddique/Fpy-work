@@ -81,6 +81,7 @@ app.get('/AddSub', (req, res) => {
         res.render('question')
     }
     )
+    app.get('/addques', controller.question_create_get)
     app.post('/add_Question',Controller.question_create_post);
     app.get('/showlist', controller.question_list)
     app.get('/update_Question/:id', controller.updatequestion)

@@ -8,6 +8,27 @@ const async = require('async');
 
 ///////////////////////////questions Portion COntroller Code /////////////////////Addmin site
 // Handle Question create on POST.
+// Display process create form on GE
+const question_create_get = function (req, res, next) {
+  // Get all machines and categories, which we can use for adding to our process.
+  async.parallel(
+    {
+      machines: function (callback) {
+        subject.find(callback);
+      }
+    },
+    function (err, results) {
+      if (err) {
+        return next(err);
+      }
+      res.render('question', {
+        title: 'Create Process',
+        machines: results.machines,
+        categories: results.categories,
+      });
+    }
+  );
+};
 const question_create_post = [
   body('select_subject', 'subject must not be empty.').isLength({ min: 1 }).trim(),
   body('ques', 'question must not be empty.').isLength({ min: 1 }).trim(),
@@ -555,6 +576,7 @@ module.exports={
     question_list,
     updatequestion,
     deletequestion,
+    question_create_get
 
 
 //     Addsubjects,
