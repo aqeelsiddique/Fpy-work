@@ -1,25 +1,44 @@
 <h3>{{Title}}</h3>
-<form action="/add_Subject" method="post" id="add_user" autocomplete="off">
-{{!-- <div class="form-group">
-    <input type="text" class="form-control" name="fullname" placeholder="No">
-</div> --}}
-<div class="form-group">
-<label>Enter Subject Name</label><br><br>
- <input type="text" class="form-control" name="name" placeholder="Enter Subject Name" required>
-   {{!-- <input type="text" class="form-control" name="fullSubjectName" placeholder="Subject Name"> --}}
-</div>
+<style>
+  .form-control {
+    margin: 15px;
+    border-radius: 3px 3px 0 0;
+  }
+  .table-wrapper{
+    margin-top: 100px;
+    margin-left: 5%;
+    margin-right: 5%;
+    border-radius: 3px 3px 0 0;
+  }
+  h1{
+  background: #7522E6;
+      color: #fff;
+    padding: 16px 30px;
+    min-width: 100%;
+    margin: -20px -25px 10px;
+    border-radius: 3px 3px 0 0;
 
-<br>
+  }
+</style>
 
+<form action="/add_Subject" method="post" id="add_user" class="table-wrapper" autocomplete="off">
+    {{!-- <div class="form-group">
+        <input type="text" class="form-control" name="fullname" placeholder="No">
+    </div> --}}
+    <div class="form-group">
+        <h1>Enter Subject Name</h1>
+        <input type="text" class="form-control" name="name" placeholder="Enter Subject Name" required>
+        {{!-- <input type="text" class="form-control" name="fullSubjectName" placeholder="Subject Name"> --}}
+    </div>
     
-    <button type="submit" class="btn btn-info" >
+    <button type="submit" class="btn btn-info">
         <i class="fa fa-database"></i>
         Submit
     </button>
-    <a href="/list_subjects" class="btn btn-danger" >
+    <a href="/list_subjects" class="btn btn-danger">
         <i class="fa fa-list-alt"></i>
         ViewAll
     </a>
-</div>
+    </div>
 
 </form>

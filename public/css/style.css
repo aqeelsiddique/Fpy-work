@@ -28,6 +28,10 @@ body {
 
   background: var(--bg-clr);
 }
+#head{
+  width: 100%;
+
+}
 .container {
 height: 100%;
   width: 85px;

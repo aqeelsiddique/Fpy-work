@@ -8,23 +8,24 @@ const async = require('async');
 
 ///////////////////////////questions Portion COntroller Code /////////////////////Addmin site
 // Handle Question create on POST.
-// Display process create form on GE
-const question_create_get = function (req, res, next) {
+
+// Display process create form on GET.
+const process_create_get = function (req, res, next) {
   // Get all machines and categories, which we can use for adding to our process.
   async.parallel(
     {
-      machines: function (callback) {
-        subject.find(callback);
-      }
+      subjects: function (callback) {
+        subject.find(callback).lean();
+      },
+     
     },
     function (err, results) {
       if (err) {
         return next(err);
       }
       res.render('question', {
-        title: 'Create Process',
-        machines: results.machines,
-        categories: results.categories,
+        title: 'Create Subject',
+        subjects: results.subjects,
       });
     }
   );
@@ -60,7 +61,7 @@ const question_create_post = [
           async.parallel(
             {
               select_subjects: function (callback) {
-                subject.find(callback);
+                subject.find(callback).lean();
               }
             },
             function (err, results) {
@@ -77,7 +78,7 @@ const question_create_post = [
               res.render('question', {
                 title: 'Create Process',
                 select_subjects: results.select_subjects,
-                question: question,
+                question: results.question,
                 errors: errors.array(),
               });
             }
@@ -576,8 +577,7 @@ module.exports={
     question_list,
     updatequestion,
     deletequestion,
-    question_create_get
-
+    process_create_get
 
 //     Addsubjects,
 //     delsubject,

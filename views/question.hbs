@@ -1,108 +1,130 @@
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>MY APP</title>
-</head>
-<body>
+<style>
+  .form-control {
+    border-radius: 3px 3px 0 0;
+  }
+  .table-wrapper{
+    margin-top: 100px;
+    margin-left: 5%;
+    margin-right: 5%;
+    border-radius: 3px 3px 0 0;
+  }
+  h1{
+  background: #7522E6;
+      color: #fff;
+    padding: 16px 30px;
+    min-width: 100%;
+    margin: -20px -25px 10px;
+    border-radius: 3px 3px 0 0;
 
-  <h1>Enter a Question and options </h1>
-  // .hbs template to render the form
-<form action="/submit" method="post">
-  <label for="select_subject">Subject:</label>
-  <select id="select_subject" name="select_subject">
-    <!-- options will be generated dynamically -->
-    {{#each subjects}}
-      <option value="{{this._id}}">{{this.name}}</option>
-    {{/each}}
-  </select>
-  <!-- rest of the form goes here -->
-</form>
+  }
+</style>
 
-{{!-- 
-  <form action="/submit" method="post">
-  <label for="select_subject">Subject:</label>
-  <select id="select_subject" name="select_subject">
-    <!-- options will be generated dynamically -->
-  </select>
-  <br>
-  <label for="ques">Question:</label>
-  <input type="text" id="ques" name="ques">
-  <br>
-  <label for="option1">Option 1:</label>
-  <input type="text" id="option1" name="option1">
-  <br>
-  <label for="option2">Option 2:</label>
-  <input type="text" id="option2" name="option2">
-  <br>
-  <label for="option3">Option 3:</label>
-  <input type="text" id="option3" name="option3">
-  <br>
-  <label for="option4">Option 4:</label>
-  <input type="text" id="option4" name="option4">
-  <br>
-  <label for="ans">Answer:</label>
-  <input type="text" id="ans" name="ans">
-  <br>
-  <input type="submit" value="Submit">
-</form> --}}
-
-{{!-- 
-  <form action="" method="POST">
-   {{!-- updaete code --}}
-
-
-  <div class="form-group">
+<form action="" method="POST" class="table-wrapper" >
+  
+  <h1>Add a Question</h1><br>
+  {{!-- updaete code --}}
+  {{!-- <div class="form-group">
     <h1>{{title}}</h1>
     <label for="select_subject">Quiz : </label>
     <select class="form-control" id="select_subject" name="select_subject" placeholder="Select machine" required="true">
       {{#if question}}
-        {{#each select_subjects}}
-          <option value={{this._id}} {{isSelected this._id}}>{{this.name}}</option>
-        {{/each}}
+      {{#each select_subjects}}
+      <option value={{this._id}} {{isSelected this._id}}>{{this.name}}</option>
+      {{/each}}
       {{else}}
-        {{#each select_subjects}}
-          <option value={{this._id}}>{{this.name}}</option>
-        {{/each}}
+      {{#each select_subjects}}
+      <option value={{this._id}}>{{this.name}}</option>
+      {{/each}}
+      {{/if}}
+    </select>
+  </div> --}}
+  {{!-- ///////////////update end code/////// --}}
+  <div class="form-group">
+    <input type="text" class="form-control" name="ques" placeholder="Question" required>
+    <input type="text" class="form-control" name="option1" placeholder="option1" required>
+    <input type="text" class="form-control" name="option2" placeholder="option2" required>
+    <input type="text" class="form-control" name="option3" placeholder="option3" required>
+    <input type="text" class="form-control" name="option4" placeholder="option4" required>
+    <input type="text" class="form-control" name="ans" placeholder="ans" required>
+    {{!-- <input type="text" class="form-control" name="fullSubjectName" placeholder="Subject Name"> --}}
+  </div><br>
+  <div class="form-group">
+    <button type="submit" class="btn btn-info">
+      <i class="fa fa-database"></i>
+      Submit
+    </button>
+    <a href="/showlist" class="btn btn-danger">
+      <i class="fa fa-list-alt"></i>
+      ViewAll
+    </a>
+  </div>
+</form>
+
+{{!--
+{{#if errors}}
+<label>Errors:</label>
+<ul>
+  {{#each errors}}
+  <li>{{this.msg}}</li>
+  {{/each}}
+</ul>
+{{/if}}
+
+{{!-- <form method="POST" action="/addques">
+
+
+  <div class="form-group">
+    <label for="select_subjects">subject</label>
+    <select class="form-control" id="select_subjects" name="select_subjects" placeholder="Select subject"
+      required="true">
+      {{#if question}}
+      {{#each subjects}}
+      <option value={{this._id}} {{isSelected this._id ../question.select_subject._id}}>{{this.name}}</option>
+      {{/each}}
+      {{else}}
+      {{#each subjects}}
+      <option value={{this._id}}>{{this.name}}</option>
+      {{/each}}
       {{/if}}
     </select>
   </div>
-        {{!-- ///////////////update end code/////// --}}
   <div class="form-group">
+    <label for="question">Question : </label>
+    <input class="form-control" id="question" placeholder='question' name='ques' required="true"
+      rows="5">{{question.ques}}</input>
+  </div>
+  <div class="form-group">
+    <label for="option1">Option 1 : </label>
+    <input class="form-control" id="option1" placeholder='option1' name='option1' required="true"
+      rows="5">{{question.option1}}</input>
+  </div>
+  <div class="form-group">
+    <label for="option2">Option 2 : </label>
+    <input class="form-control" id="option2" placeholder='option2' name='option2' required="true"
+      rows="5">{{question.option2}}</input>
+  </div>
+  <div class="form-group">
+    <label for="option3">Option 3 : </label>
+    <input class="form-control" id="option3" placeholder='option3' name='option3' required="true"
+      rows="5">{{question.option3}}</input>
+  </div>
+  <div class="form-group">
+    <label for="option4">Option 4 : </label>
+    <input class="form-control" id="option4" placeholder='option4' name='option4' required="true"
+      rows="5">{{question.option4}}</input>
+  </div>
+  <div class="form-group">
+    <label for="ans">ans : </label>
+    <input class="form-control" id="ans" placeholder='ans' name='ans' required="true" rows="5">{{question.ans}}</input>
+  </div>
+  <button class="btn btn-primary" type="submit">Submit</button>
+</form> --}}
 
- <input type="text" class="form-control" name="ques" placeholder="Question" required>
-  <input type="text" class="form-control" name="option1" placeholder="option1" required>
-   <input type="text" class="form-control" name="option2" placeholder="option2" required>
-
- <input type="text" class="form-control" name="option3" placeholder="option3" required>
-
- <input type="text" class="form-control" name="option4" placeholder="option4" required>
-  <input type="text" class="form-control" name="ans" placeholder="ans" required>
-
-
-
-   {{!-- <input type="text" class="form-control" name="fullSubjectName" placeholder="Subject Name"> --}}
-</div><br>
-<div class="form-group">
-    <button type="submit" class="btn btn-info">
-        <i class="fa fa-database"></i>
-        Submit
-    </button>
-    <a href="/showlist" class="btn btn-danger">
-        <i class="fa fa-list-alt"></i>
-        ViewAll
-    </a>
-</div>
-  </form> --}}
-
-{{!-- 
-  {{#if errors}}
+{{#if errors}}
 <label>Errors:</label>
-  <ul>
-    {{#each errors}}
-    <li>{{this.msg}}</li>
-    {{/each}}
-  </ul>
-{{/if}} --}}
-  
-</body>
-</html>
+<ul>
+  {{#each errors}}
+  <li>{{this.msg}}</li>
+  {{/each}}
+</ul>
+{{/if}}
