@@ -6,39 +6,13 @@ const empModel = require("../model/user");
 const subject = require("../controller/subject");
 const Subject = require("../model/subject");
 const Question = require("../model/question");
+const Team = require('../controller/team')
+const  dashboard  = require("../controller/dashboard");
 module.exports = function (app) {
   //////////////////////////test 0001
 
-  app.post("/submitt", function (req, res) {
-    // create a new document and save the form data to it
-    const question = {
-      select_subject: req.body.select_subject,
-      ques: req.body.ques,
-      option1: req.body.option1,
-      option2: req.body.option2,
-      option3: req.body.option3,
-      option4: req.body.option4,
-      ans: req.body.ans,
-    };
-    Question.insertOne(question, function (err, result) {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log("Inserted document:", result.insertedId);
-      }
-    });
-  });
-  app.get("/form", function (req, res) {
-    // retrieve the options for the select element
-    Subject.find().toArray(function (err, subjects) {
-      if (err) {
-        console.log(err);
-      } else {
-        // render the template and pass the options to it
-        res.render("question", { subjects: subjects });
-      }
-    });
-  });
+  app.get('/te', dashboard.index);
+
 
   ///////////////////dashboard code///////
   app.get("/dashboard", function (req, res) {
@@ -82,6 +56,18 @@ module.exports = function (app) {
   app.get("/delete_Question/:id", controller.deletequestion);
 
   //////////////////////End of Question portion////////////////////////
+
+
+  ///////////////////////////////////////Team Section/////////////////////////////
+  app.get("/createteam", (req, res) => {
+    res.render("Team_Add.hbs");
+  });
+  app.post("/addteam", Team.Team_create_post)
+  app.get("/teamlist",Team.Team_list )
+
+
+
+  ///////////////////////////////////Team Section End//////////////////////////////////
 
   // app.post('/add_Q', async (req, res) => {
   //     const question = req.body.question
