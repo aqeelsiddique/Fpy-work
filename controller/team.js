@@ -92,11 +92,11 @@ exports.update =  (req, res) => {
 });
 }
 // Delete a user with specified user id in the request
-exports.delete = (req, res)=>{
+exports.teamdelete = (req, res)=>{
 
   Team.findByIdAndDelete(req.params.id, (err, doc)=>{
     if(!err){
-        res.redirect('/list_Teams');            
+        res.redirect('/createteam');            
     } else {
         console.log('Error while deleting', err)
     }

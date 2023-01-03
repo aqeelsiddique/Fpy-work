@@ -8,6 +8,7 @@ const Subject = require("../model/subject");
 const Question = require("../model/question");
 const Team = require('../controller/team')
 const  dashboard  = require("../controller/dashboard");
+const { evenhead_create_post } = require("../controller/evenhead");
 module.exports = function (app) {
   //////////////////////////test 0001
 
@@ -56,18 +57,23 @@ module.exports = function (app) {
   app.get("/delete_Question/:id", controller.deletequestion);
 
   //////////////////////End of Question portion////////////////////////
-
-
   ///////////////////////////////////////Team Section/////////////////////////////
   app.get("/createteam", (req, res) => {
     res.render("Team_Add.hbs");
   });
   app.post("/addteam", Team.Team_create_post)
   app.get("/teamlist",Team.Team_list )
-
-
+  app.get("/delete_team/:id", Team.teamdelete);
 
   ///////////////////////////////////Team Section End//////////////////////////////////
+
+  //////////////////EventHead Section////////////////////
+  app.get("/evenhead", (req, res) => {
+    res.render("Event_head.hbs");
+  });
+  app.post("/evenhead",evenhead_create_post )
+
+  //////////////////End//////////////////////
 
   // app.post('/add_Q', async (req, res) => {
   //     const question = req.body.question
