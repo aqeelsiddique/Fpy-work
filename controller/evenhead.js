@@ -3,7 +3,6 @@ const { body, validationResult } = require('express-validator');
 // const st = require('st');
 const Eventhaed = require('../model/eventhead');
 
-
 // Handle Category create on POST.
 exports.evenhead_create_post = [
   // Validate that the name field is not empty.
