@@ -7,9 +7,23 @@ const Eventhaed = require('../model/eventhead');
 // Handle Category create on POST.
 exports.evenhead_create_post = [
   // Validate that the name field is not empty.
-  body('teamname', 'Team name required').isLength({ min: 1 }).trim(),
+  body('name', 'name required').isLength({ min: 1 }).trim(),
   // Sanitize (trim and escape) the name field.
-  body('teamname').trim().escape(),
+  body('name').trim().escape(),
+    // Validate that the name field is not empty.
+    body('email', 'email required').isLength({ min: 1 }).trim(),
+    // Sanitize (trim and escape) the name field.
+    body('email').trim().escape(),
+      // Validate that the name field is not empty.
+  body('password', 'password required').isLength({ min: 1 }).trim(),
+  // Sanitize (trim and escape) the name field.
+  body('password').trim().escape(),
+    // Validate that the name field is not empty.
+    body('confirmpassword', 'confirm required').isLength({ min: 1 }).trim(),
+    // Sanitize (trim and escape) the name field.
+    body('confirmpassword').trim().escape(),
+  
+
   // Process request after validation and sanitization.
   (req, res, next) => {
     // Extract the validation errors from a request.
@@ -28,7 +42,7 @@ exports.evenhead_create_post = [
     });
     if (!errors.isEmpty()) {
       // There are errors. Render the form again with sanitized values/error messages.
-      res.render('Team_Add.hbs', {
+      res.render('Event_head.hbs', {
         title: 'Create Team',
         team: team,
         errors: errors.array(),
@@ -63,7 +77,7 @@ exports.evenhead_create_post = [
             // res.redirect(category.url);
             // alert("message")
 
-            res.render('Team_Add.hbs')
+            res.render('Event_head.hbs')
           });
         }
       });
