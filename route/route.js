@@ -75,7 +75,7 @@ module.exports = function (app) {
   app.get("/evenhead", (req, res) => {
     res.render("Event_head.hbs");
   });
-  app.post("/evenhead",eventheadregister )
+  app.post("/register",eventheadregister )
   app.get('/eventheadlists', eventhead_list)
 
   //////////////////End//////////////////////

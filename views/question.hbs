@@ -49,7 +49,7 @@
     {{!-- <input type="text" class="form-control" name="fullSubjectName" placeholder="Subject Name"> --}}
   </div><br>
   <div class="form-group">
-    <button type="submit" class="btn btn-info">
+    <button type="submit" class="btn btn-info" onclick="myFunction()" >
       <i class="fa fa-database" ></i>
       Submit
     </button>
@@ -120,11 +120,11 @@
   <button class="btn btn-primary" type="submit">Submit</button>
 </form> --}}
 
-{{#if errors}}
+{{!-- {{#if errors}}
 <label>Errors:</label>
 <ul>
   {{#each errors}}
   <li>{{this.msg}}</li>
   {{/each}}
 </ul>
-{{/if}}
+{{/if}} --}}
