@@ -8,7 +8,7 @@ const Subject = require("../model/subject");
 const Question = require("../model/question");
 const Team = require('../controller/team')
 const  dashboard  = require("../controller/dashboard");
-const { evenhead_create_post } = require("../controller/evenhead");
+const { evenhead_create_post, eventheadregister, eventhead_list } = require("../controller/evenhead");
 const alert =  require ('alert')
 
 const User = require("../model/Head");
@@ -75,7 +75,8 @@ module.exports = function (app) {
   app.get("/evenhead", (req, res) => {
     res.render("Event_head.hbs");
   });
-  app.post("/evenhead",evenhead_create_post )
+  app.post("/evenhead",eventheadregister )
+  app.get('/eventheadlists', eventhead_list)
 
   //////////////////End//////////////////////
 
@@ -252,52 +253,6 @@ module.exports = function (app) {
 
 
   
-////asyn code
-app.post('/register' , async (req, res) =>{
-
-
-  //this code line means agr humy specfie data chaiyae tu yeh estmal kr sgthy
-  const {name, email, password, cpassword} = req.body;
-  if (!name || !email || !password || !cpassword){
-      return res.status(422).json({error: "plz filled the field properly"});
-  }
-  try {
-      const userExist = await User.findOne({ email: email});
-      if (userExist) {
-          return res.status(422).json({ error: "Email alredy Exist"});
-      } else if(password != cpassword) {
-          return res.status(422).json({ error: "password are not match"})
-
-      } else {
-          const user = new User({name, email, password, cpassword})
-          ///save hony sy phylae hashed mae change keo password
-           await user.save(); 
-          //  alert('howdy')
-           // res.status(201).json({ message: "user register succesfully"})
-      }
- 
-
-
-
-  }
-  catch(err) {
-      console.log(err);
-
-  }
-
-  ///check register info of user 
-
-  
-  // res.send("mera register page") (   ErrorCaptureStackTrace(err);^) this is dirty error
-  // console.log(name);
-  // console.log(email)
-  // console.log(req.body);
-  // res.json({message: req.body });
-
-
-});
-
-
 
 
   app.get("/test1", function (req, res) {

@@ -1,85 +1,60 @@
 // import Resul from '../models/Resultmodel.js'
 const { body, validationResult } = require('express-validator');
+const User = require('../model/Head');
 // const st = require('st');
-const Eventhaed = require('../model/eventhead');
 
-// Handle Category create on POST.
-exports.evenhead_create_post = [
-  // Validate that the name field is not empty.
-  body('name', 'name required').isLength({ min: 1 }).trim(),
-  // Sanitize (trim and escape) the name field.
-  body('name').trim().escape(),
-    // Validate that the name field is not empty.
-    body('email', 'email required').isLength({ min: 1 }).trim(),
-    // Sanitize (trim and escape) the name field.
-    body('email').trim().escape(),
-      // Validate that the name field is not empty.
-  body('password', 'password required').isLength({ min: 1 }).trim(),
-  // Sanitize (trim and escape) the name field.
-  body('password').trim().escape(),
-    // Validate that the name field is not empty.
-    body('confirmpassword', 'confirm required').isLength({ min: 1 }).trim(),
-    // Sanitize (trim and escape) the name field.
-    body('confirmpassword').trim().escape(),
+////asyn code
+const eventheadregister =  async function(req, res){
+
+
+  //this code line means agr humy specfie data chaiyae tu yeh estmal kr sgthy
+  const {name, email, password, cpassword} = req.body;
+  if (!name || !email || !password || !cpassword){
+      return res.status(422).json({error: "plz filled the field properly"});
+  }
+  try {
+      const userExist = await User.findOne({ email: email});
+      if (userExist) {
+          return res.status(422).json({ error: "Email alredy Exist"});
+      } else if(password != cpassword) {
+          return res.status(422).json({ error: "password are not match"})
+
+      } else {
+          const user = new User({name, email, password, cpassword})
+          ///save hony sy phylae hashed mae change keo password
+           await user.save(); 
+          //  alert('howdy')
+           // res.status(201).json({ message: "user register succesfully"})
+      }
+  }
+  catch(err) {
+      console.log(err);
+
+  } 
+};
+// list of all Question.
+const eventhead_list = function (req, res, next) {
+  User.find().lean()
+    .exec(function (err, list_EventHead) {
+      if (err) {
+        return next(err);
+      }
+     // Successful, so render.
+      res.render('event_headlist', {
+        title: 'list_EventHead List',
+        list_EventHead: list_EventHead,
+
+        
+      });
+      // console.log(list_EventHead)
+    });
+};
+
+
+module.exports = {
+  eventheadregister,
+  eventhead_list,
   
 
-  // Process request after validation and sanitization.
-  (req, res, next) => {
-    // Extract the validation errors from a request.
-    const errors = validationResult(req);
-    // Create a category object with escaped and trimmed data.]
-    // alert("message you want to show");
 
-    const team = new Eventhaed({ 
-
-        name: req.body.name ,
-        email: req.body.email ,
-        password: req.body.password ,
-        confirmpassword: req.body.confirmpassword 
-
-
-    });
-    if (!errors.isEmpty()) {
-      // There are errors. Render the form again with sanitized values/error messages.
-      res.render('Event_head.hbs', {
-        title: 'Create Team',
-        team: team,
-        errors: errors.array(),
-      });
-      return;
-    } else {
-      // Data from form is valid.
-      // Check if Category with same name already exists.
-      Eventhaed.findOne({ 
-        name: req.body.name ,
-        email: req.body.email ,
-        password: req.body.password ,
-        confirmpassword: req.body.confirmpassword 
-
-      
-      }).exec(function (
-        err,
-        found_Team
-      ) {
-        if (err) {
-          return next(err);
-        }
-        if (found_Team) {
-          // Category exists, redirect to its detail page.
-          res.redirect(found_Team.url);
-        } else {
-          team.save(function (err) {
-            if (err) {
-              return next(err);
-            }
-            // Category saved. Redirect to category detail page.
-            // res.redirect(category.url);
-            // alert("message")
-
-            res.render('Event_head.hbs')
-          });
-        }
-      });
-    }
-  },
-];
+}
