@@ -4,6 +4,7 @@
   {{!-- <h1>Welcome to VisioSpark Dashboard</h1><br><br> --}}
 <br><br>
        <div class="content">
+       
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-sm-12">
@@ -23,11 +24,12 @@
                                     <div class="card mini-stat cart">
                                         <div class="card-body mini-stat-img">
                                             <div class="mini-stat-icon">
-                                                <i class="mdi mdi-cube-outline float-right"></i>
+                                                <img src="/images/teamwork.png" alt="">
+                                                {{!-- <i class="mdi mdi-cube-outline float-right"></i> --}}
                                             </div>
                                             <div class="text-white">
                                                 <h6 class="text-uppercase mb-3">Total Teams</h6>
-                                                <h4 class="mb-4">4</h4>
+                                                <h4 class="mb-4">{{data.team_count}}</h4>
                                                 <span class="badge badge-info"> +11% </span> <span class="ml-2">From previous period</span>
                                             </div>
                                         </div>
@@ -41,7 +43,7 @@
                                             </div>
                                             <div class="text-white">
                                                 <h6 class="text-uppercase mb-3">Total Subbjects</h6>
-                                                <h4 class="mb-4">5</h4>
+                                                <h4 class="mb-4">{{data.subject_count}}</h4>
                                                 <span class="badge badge-danger"> -29% </span> <span class="ml-2">From previous period</span>
                                             </div>
                                         </div>
@@ -55,7 +57,7 @@
                                             </div>
                                             <div class="text-white">
                                                 <h6 class="text-uppercase mb-3">Total Questons</h6>
-                                                <h4 class="mb-4">15</h4>
+                                                <h4 class="mb-4">{{data.question_count}}</h4>
                                                 <span class="badge badge-warning"> 0% </span> <span class="ml-2">From previous period</span>
                                             </div>
                                         </div>

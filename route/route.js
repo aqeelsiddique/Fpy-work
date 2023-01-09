@@ -15,14 +15,12 @@ const User = require("../model/Head");
 module.exports = function (app) {
   //////////////////////////test 0001
   const bcrypt = require('bcryptjs');
+///////////////////dashboard code///////
 
-  app.get('/te', dashboard.index);
+  app.get('/dashboard', dashboard.index);
 
 
-  ///////////////////dashboard code///////
-  app.get("/dashboard", function (req, res) {
-    res.render("dashboard");
-  });
+
   /////////////final done of of Subject Route
   app.get("/AddSub", (req, res) => {
     res.render("subject_Add.hbs", {

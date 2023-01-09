@@ -19,6 +19,7 @@ app.use(bodyParser.urlencoded({extended:true}))
 // app.set("views", path.resolve(__dirname,"views/hbs"))
 ///////////////Template engine
 var exphbs = require('express-handlebars');
+const team = require('./model/team');
 app.engine('.hbs', exphbs.engine({ extname: '.hbs', defaultLayout: "main"}));
 app.set('view engine', '.hbs');
 app.use(express.static(path.join(__dirname, '/public')));
@@ -37,6 +38,16 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 //Endpoints
+
+const getDocument = async () => {
+  try {
+    const res = await team.find({}).countDocuments()
+    console.log(res)
+    
+  } catch (error) {
+    
+  }
+}
 require('./route/route')(app); 
 const port = process.env.PORT || 4000;
 app.listen(port, () => console.log(`Server started on port: ${port}`));
