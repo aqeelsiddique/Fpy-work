@@ -1,26 +1,45 @@
-const sidebar = document.querySelector('.sidebar');
-const navItems = document.querySelectorAll('nav .nav-item');
-const toggle = document.querySelector('.sidebar .toggle');
 
-toggle.addEventListener('click', () => {
+  const container = document.querySelector(".container");
 
-    if (sidebar.className === 'sidebar')
-        sidebar.classList.add('open');
-    else
-        sidebar.classList.remove('open');
+  const linkItems = document.querySelectorAll(".link-item");
+  const darkMode = document.querySelector(".dark-mode");
+  const logo = document.querySelector(".logo svg");
 
-});
+  //Container Hover
+  container.addEventListener("mouseenter", () => {
+    container.classList.add("active");
+  });
 
-navItems.forEach(navItem => {
+  //Container Hover Leave
+  container.addEventListener("mouseleave", () => {
+    container.classList.remove("active");
+  });
 
-    navItem.addEventListener('click', () => {
-
-        navItems.forEach(navItem => {
-            navItem.classList.remove('active');
+  //Link-items Clicked
+  for (let i = 0; i < linkItems.length; i++) {
+    if (!linkItems[i].classList.contains("dark-mode")) {
+      linkItems[i].addEventListener("click", (e) => {
+        linkItems.forEach((linkItem) => {
+          linkItem.classList.remove("active");
         });
+        linkItems[i].classList.add("active");
+      });
+    }
+  }
 
-        navItem.classList.add('active');
+  // Dark Mode Functionality
+  darkMode.addEventListener("click", function () {
+    if (document.body.classList.contains("dark-mode")) {
+      darkMode.querySelector("span").textContent = "dark mode";
+      darkMode.querySelector("ion-icon").setAttribute("name", "moon-outline");
 
-    });
+      logo.style.fill = "#363b46";
+    } else {
+      darkMode.querySelector("span").textContent = "light mode";
+      darkMode.querySelector("ion-icon").setAttribute("name", "sunny-outline");
+      logo.style.fill = "#fff";
+    }
+    document.body.classList.toggle("dark-mode");
+  });
 
-});
+

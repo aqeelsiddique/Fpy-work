@@ -3,13 +3,10 @@ var morgan=require('morgan')
 var bodyParser=require('body-parser');
 var methodOverride=require('method-override');
 // mongoose.connect('mongodb://localhost/local');
-
 var mongoose=require('mongoose');
-
 var express=require('express');
 var app=express();
 const path = require('path')
-
 app.use(bodyParser.urlencoded({extended:true}))
 // setup handlebars view engine
 // var handlebars = require('express-handlebars').create({ defaultLayout: 'main' });
@@ -38,16 +35,6 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 //Endpoints
-
-const getDocument = async () => {
-  try {
-    const res = await team.find({}).countDocuments()
-    console.log(res)
-    
-  } catch (error) {
-    
-  }
-}
 require('./route/route')(app); 
 const port = process.env.PORT || 4000;
 app.listen(port, () => console.log(`Server started on port: ${port}`));
