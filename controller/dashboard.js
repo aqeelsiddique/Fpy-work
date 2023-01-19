@@ -25,3 +25,25 @@ exports.index = function (req, res) {
     }
   );
 };
+exports.index = function (req, res) {
+  async.parallel(
+    {
+      team_count: function (callback) {
+        team.countDocuments({}, callback);
+      },
+      subject_count: function (callback) {
+        subject.countDocuments({}, callback);
+      },
+      question_count: function (callback) {
+        question.countDocuments({}, callback);
+      },
+    },
+    function (err, results) {
+      res.render('dashboard', {
+        title: 'Dashboard Home',
+        error: err,
+        data: results,
+      });
+    }
+  );
+};
