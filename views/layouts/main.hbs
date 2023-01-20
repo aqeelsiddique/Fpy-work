@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,6 +17,7 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/subjectmain.css">
   <link rel="stylesheet" href="/js/index.js">
+
 </head>
 
 <body>
@@ -79,12 +79,12 @@
           <ion-icon name="eye-outline"></ion-icon><span style="--i: 5">view subjectlist</span>
         </a>
       </li>
-      {{!-- <li class="link-item">
+      <li class="link-item">
         <a href="#" class="link">
           <ion-icon name="cog-outline"></ion-icon>
           <span style="--i: 6">settings</span>
         </a>
-      </li> --}}
+      </li>
       <li class="link-item">
         <a href="#" class="link">
           <ion-icon name="help-circle-outline"></ion-icon>
@@ -98,13 +98,13 @@
         </a>
       </li>
       <li class="link-item">
-        {{!-- <a href="#" class="link">
+        <a href="#" class="link">
           <img src="images/owner.jpg" alt="" />
           <span style="--i: 9">
             <h4>Mr.Aqeel</h4>
             <p>web developer</p>
           </span>
-        </a> --}}
+        </a>
 
       </li>
     </ul>
@@ -163,6 +163,8 @@
   <!-- /#page-content-wrapper -->
   </div>
   <!-- /#wrapper -->
+      <script src="index.js"></script>
+
 </body>
 {{!-- <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
@@ -204,6 +206,7 @@
   </div> --}}
   {{!--
 </nav> --}}
+
 {{#each js}}
 <script src="/js/{{this}}"></script>
 {{/each}}
@@ -214,11 +217,11 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <script>
+
 const container = document.querySelector(".container");
 const linkItems = document.querySelectorAll(".link-item");
 const darkMode = document.querySelector(".dark-mode");
 const logo = document.querySelector(".logo svg");
-
 //Container Hover
 container.addEventListener("mouseenter", () => {
   container.classList.add("active");
@@ -240,13 +243,11 @@ for (let i = 0; i < linkItems.length; i++) {
     });
   }
 }
-
 // Dark Mode Functionality
 darkMode.addEventListener("click", function () {
   if (document.body.classList.contains("dark-mode")) {
     darkMode.querySelector("span").textContent = "dark mode";
     darkMode.querySelector("ion-icon").setAttribute("name", "moon-outline");
-
     logo.style.fill = "#363b46";
   } else {
     darkMode.querySelector("span").textContent = "light mode";
@@ -255,8 +256,6 @@ darkMode.addEventListener("click", function () {
   }
   document.body.classList.toggle("dark-mode");
 });
-
-
   function(){
     alert("Sucessfully");
   }

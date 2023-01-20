@@ -7,6 +7,7 @@ document
     event.preventDefault();
     window.open("/popup");
   });
+  
   const container = document.querySelector(".container");
 
   const linkItems = document.querySelectorAll(".link-item");
