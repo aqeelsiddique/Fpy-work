@@ -66,23 +66,15 @@
           <span style="--i: 3"> Even_Head </span>
         </a>
       </li>
-      {{!-- ////////////////////end dropdown/////////// --}}
-      {{!-- <li class="link-item">
-        <a href="#" class="link">
-          <ion-icon class="noti-icon" name="notifications-outline"></ion-icon>
-          <span style="--i: 4">notifications</span>
-          <span class="num-noti">4</span>
-        </a>
-      </li> --}}
       <li class="link-item">
         <a href="#" class="link">
           <ion-icon name="eye-outline"></ion-icon><span style="--i: 5">view subjectlist</span>
         </a>
       </li>
-      <li class="link-item">
+       <li class="link-item dark-mode">
         <a href="#" class="link">
-          <ion-icon name="cog-outline"></ion-icon>
-          <span style="--i: 6">settings</span>
+          <ion-icon name="moon-outline"></ion-icon>
+          <span style="--i: 8">dark mode</span>
         </a>
       </li>
       <li class="link-item">
@@ -91,22 +83,8 @@
           <span style="--i: 7">help</span>
         </a>
       </li>
-      <li class="link-item dark-mode">
-        <a href="#" class="link">
-          <ion-icon name="moon-outline"></ion-icon>
-          <span style="--i: 8">dark mode</span>
-        </a>
-      </li>
-      <li class="link-item">
-        <a href="#" class="link">
-          <img src="images/owner.jpg" alt="" />
-          <span style="--i: 9">
-            <h4>Mr.Aqeel</h4>
-            <p>web developer</p>
-          </span>
-        </a>
-
-      </li>
+    
+      
     </ul>
   </div>
 
@@ -162,54 +140,12 @@
   </div>
   <!-- /#page-content-wrapper -->
   </div>
+
   <!-- /#wrapper -->
-      <script src="index.js"></script>
+      {{!-- <script src="index.js"></script> --}}
 
 </body>
-{{!-- <nav class="navbar navbar-expand-lg bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">VisioSpark</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button> --}}
-    {{!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled">Disabled</a>
-        </li>
-      </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
-    </div>
-  </div> --}}
-  {{!--
-</nav> --}}
 
-{{#each js}}
-<script src="/js/{{this}}"></script>
-{{/each}}
 {{!--
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> --}}
 
@@ -256,9 +192,7 @@ darkMode.addEventListener("click", function () {
   }
   document.body.classList.toggle("dark-mode");
 });
-  function(){
-    alert("Sucessfully");
-  }
+ 
 </script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
