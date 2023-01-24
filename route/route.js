@@ -254,6 +254,6 @@ module.exports = function (app) {
 
 
   app.get("/test1", function (req, res) {
-    res.render("test");
+    res.render("register");
   });
 };
