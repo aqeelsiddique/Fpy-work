@@ -50,28 +50,15 @@
 						<td></td>
 						<td>{{this.teamname}}</td>
 						<td class="liststyle">
-							{{!-- <a href="/update/{{this._id}}" class="edit" data-toggle="modal"><i
-									class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> --}}
-							<form method="POST" action="/update/{{_id}}">
+							<form method="POST" action="/updat/{{_id}}">
 								<button class="btn" onclick="return confirm('Are you sure to update this record ?');"><i
-										class="class=fas fa-edit"></i></button>
-
+									class="fa fa-edit"></i></button>
 							</form>
 							<form method="POST" action="/delete_team/{{_id}}">
 								<button class="btn" onclick="return confirm('Are you sure to delete this record ?');"><i
 										class="fa fa-trash"></i></button>
-
 							</form>
-
-							{{!-- <a href="/deltedata/{{_id}}" class="delete" data-toggle="modal"><i
-									class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a> --}}
 						</td>
-						{{!-- <td>
-							<a href="/update/{{this._id}}" class="edit" data-toggle="modal"><i class="material-icons"
-									data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="/delete_team/{{this._id}}" class="delete" data-toggle="modal"><i
-									class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td> --}}
 					</tr>
 					{{/each}}
 				</tbody>

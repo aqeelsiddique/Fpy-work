@@ -49,11 +49,23 @@ const eventhead_list = function (req, res, next) {
       // console.log(list_EventHead)
     });
 };
+// Delete a user with specified user id in the request
+const eventdelete = (req, res)=>{
+
+  User.findByIdAndDelete(req.params.id, (err, doc)=>{
+    if(!err){
+        res.redirect('/eventheadlists');            
+    } else {
+        console.log('Error while deleting', err)
+    }
+});
+}
 
 
 module.exports = {
   eventheadregister,
   eventhead_list,
+  eventdelete
   
 
 

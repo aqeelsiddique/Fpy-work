@@ -1,15 +1,11 @@
 const controller = require("../controller/questions");
 var Controller = require("../controller/questions");
-const Subjectvs = require("../model/user");
-const mongoose = require("mongoose");
-const empModel = require("../model/user");
+
 const subject = require("../controller/subject");
-const Subject = require("../model/subject");
-const Question = require("../model/question");
+
 const Team = require('../controller/team')
 const  dashboard  = require("../controller/dashboard");
-const { evenhead_create_post, eventheadregister, eventhead_list } = require("../controller/evenhead");
-const alert =  require ('alert')
+const {  eventheadregister, eventhead_list, eventdelete } = require("../controller/evenhead");
 
 const User = require("../model/Head");
 module.exports = function (app) {
@@ -51,6 +47,8 @@ module.exports = function (app) {
   });
   app.post("/register",eventheadregister )
   app.get('/eventheadlists', eventhead_list)
+  app.post("/eventhead_team/:id", eventdelete);
+
   //////////////////End//////////////////////
 ////asyn code
 app.post('/register' , async (req, res) =>{

@@ -1,76 +1,4 @@
-{{!--
 
-{{#if showTitle}}
-<h1>Home</h1>
-<h1></h1>
-{{/if}}
-
-<p>{{foo}}</p>
-
-<p>{{bar}}</p>
-
-</body>
-
-</html>
-
-<h1>{{title}}</h1>
-
-<div class="container2">
-    <div class="box-nav d-flex justify-between">
-        <a href="/AddSub" class="border-shadow">
-            <span class="text-gradient">New User <i class="fas fa-user"></i></span>
-        </a>
-    </div>
-    <h3>{{titlename}}</h3>
-
-
-    <table class="table">
-        <thead>
-            <tr>
-
-                <th scope="col">#</th>
-                <th scope="col">Subject Name</th>
-                <th scope="col">Action</th>
-
-
-
-
-
-            </tr>
-        </thead>
-
-        <tbody>
-
-
-            {{#each list_subject}}
-
-            <tr>
-                <th scope="row">1</th>
-
-                <td>{{this.name}}</td>
-                <td href="#" type="button" class="btn btn-light btn-small"><i class="bi bi-eye"></i>View</td>
-                <td>
-                    <a href="/update/{{this._id}}" type="button" class="btn btn-light btn-small"><i
-                            class="bi bi-pencil"></i>Edit</a>
-
-
-                </td>
-                <td>
-
-
-
-                    <a href="/deltedata/{{this._id}}" class="btn btn-light btn-small"
-                        onclick="return confirm('Are you sure about removing this Subject record?')"><i
-                            class="text-danger fa fa-trash">Delete</i></a>
-
-
-                </td>
-            </tr>
-            {{/each}}
-        </tbody>
-    </table>
-
-    --}}
     <div class="container-xl">
         <div class="table-responsive">
             <div class="table-wrapper">
@@ -125,13 +53,28 @@
                             <td></td>
                             <td>{{this.email}}</td>
                             <td></td>
-                            <td>
+                            <td class="liststyle">
+
+								<form method="POST" action="/update_Question/{{_id}}">
+									<button class="btn"
+										onclick="return confirm('Are you sure to update this record ?');"><i
+											class="fa fa-edit"></i></button>
+
+								</form>
+								<form method="POST" action="/eventhead_team/{{_id}}">
+									<button class="btn"
+										onclick="return confirm('Are you sure to delete this record ?');"><i
+											class="fa fa-trash"></i></button>
+
+								</form>
+							</td>
+                            {{!-- <td>
                                 <a href="/update_Question/{{this._id}}" class="edit" data-toggle="modal"><i
                                         class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                 <a href="/delete_Question/{{this._id}}" class="delete" data-toggle="modal"><i
                                         class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                             </td>
-                        </tr>
+                        </tr> --}}
 
                         {{/each}}
                     </tbody>

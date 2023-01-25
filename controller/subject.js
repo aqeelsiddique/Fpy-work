@@ -84,6 +84,7 @@ exports.update =  (req, res) => {
             viewTitle: "Update subject",
             subject: doc
         });
+        
     }
 });
 }
