@@ -31,7 +31,7 @@ const process_create_get = function (req, res, next) {
   );
 };
 const question_create_post = [
-  body('select_subject', 'subject must not be empty.').isLength({ min: 1 }).trim(),
+  // body('select_subject', 'subject must not be empty.').isLength({ min: 1 }).trim(),
   body('ques', 'question must not be empty.').isLength({ min: 1 }).trim(),
   body('option1', 'option1 must not be empty.').isLength({ min: 1 }).trim(),
   body('option2', 'option2 must not be empty.').isLength({ min: 1 }).trim(),
@@ -46,8 +46,8 @@ const question_create_post = [
       const errors = validationResult(req);
       // Create a category object with escaped and trimmed data.]
       const question = new Question({
-        select_subject: req.body.select_subject, 
-         ques: req.body.name, 
+        // select_subject: req.body.select_subject, 
+         ques: req.body.ques, 
          option1: req.body.option1, 
          option2: req.body.option2 ,
          option3: req.body.option3 ,

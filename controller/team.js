@@ -96,7 +96,7 @@ exports.teamdelete = (req, res)=>{
 
   Team.findByIdAndDelete(req.params.id, (err, doc)=>{
     if(!err){
-        res.redirect('/createteam');            
+        res.redirect('/teamlist');            
     } else {
         console.log('Error while deleting', err)
     }

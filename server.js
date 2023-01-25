@@ -18,6 +18,8 @@ app.use(bodyParser.urlencoded({extended:true}))
 var exphbs = require('express-handlebars');
 const team = require('./model/team');
 app.engine('.hbs', exphbs.engine({ extname: '.hbs', defaultLayout: "main"}));
+// app.engine('.hbs', exphbs.engine({ extname: '.hbs', defaultLayout: "register"}));
+
 app.set('view engine', '.hbs');
 app.use(express.static(path.join(__dirname, '/public')));
 const db = process.env.MONGODB_URI || 'mongodb+srv://Aqeel:aqeel12345@cluster0.uhg7y9z.mongodb.net/visiosparkwebsite?retryWrites=true&w=majority';

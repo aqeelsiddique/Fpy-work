@@ -24,6 +24,9 @@ body.dark-mode {
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
+.liststyle{
+  display: flex;
+}
 
 img {
   width: 50px;
