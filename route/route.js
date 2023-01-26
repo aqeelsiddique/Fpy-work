@@ -20,7 +20,7 @@ module.exports = function (app) {
     });
   });
   app.post("/add_Subject", subject.subject_create_post);
-  app.post("/update/:id", subject.update);
+  app.post("/subupdate/:id", subject.update);
   app.post("/deltedata/:id", subject.delete);
   app.get("/list_subjects", subject.subject_list);
   //////////////////////////final Question route portion start//////////////
@@ -30,7 +30,7 @@ module.exports = function (app) {
   app.get("/addques", controller.process_create_get);
   app.post("/add_Question", Controller.question_create_post);
   app.get("/showlist", controller.question_list);
-  app.get("/update_Question/:id", controller.updatequestion);
+  app.post("/update_Question/:id", controller.updatequestion);
   app.post("/delete_Question/:id", controller.deletequestion);
   //////////////////////End of Question portion////////////////////////
   ///////////////////////////////////////Team Section/////////////////////////////
@@ -40,9 +40,13 @@ module.exports = function (app) {
   app.post("/addteam", Team.Team_create_post)
   app.get("/teamlist",Team.Team_list )
   app.post("/delete_team/:id", Team.teamdelete);
+  app.post('/updateteam/:id', Team.update)
   ///////////////////////////////////Team Section End//////////////////////////////////
   //////////////////EventHead Section////////////////////
   app.get("/evenhead", (req, res) => {
+    res.render("Event_head.hbs");
+  });
+  app.post("/evenhead", (req, res) => {
     res.render("Event_head.hbs");
   });
   app.post("/register",eventheadregister )
@@ -108,6 +112,8 @@ app.post('/singin', async (req, res)=>{
   // console.log(req.body);
   // res.send({message:"awesome"});
 })
+
+
   app.get("/test1", function (req, res) {
     res.render("teamlist");
   });

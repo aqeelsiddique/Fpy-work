@@ -7,9 +7,14 @@
 						<h2>Manage <b>Team-Name</b></h2>
 					</div>
 					<div class="col-sm-6">
+						<form method="post" action="/Addteam">
+							<button class="btn btn-success" data-toggle="modal">
+								Add New Team-Name
+								<i class="material-icons">&#xE147;</i>
+							</button>
 
-						<a href="/Addteam" class="btn btn-success" data-toggle="modal"><i
-								class="material-icons">&#xE147;</i> <span>Add New Team</span></a>
+						{{!-- <a href="/Addteam" class="btn btn-success" data-toggle="modal"><i
+								class="material-icons">&#xE147;</i> <span>Add New Team</span></a> --}}
 						<a href="/deltedata/{{this._id}}" class="btn btn-danger" data-toggle="modal"><i
 								class="material-icons">&#xE15C;</i> <span>Delete</span></a>
 					</div>
@@ -50,7 +55,7 @@
 						<td></td>
 						<td>{{this.teamname}}</td>
 						<td class="liststyle">
-							<form method="POST" action="/updat/{{_id}}">
+							<form method="POST" action="/updateteam/{{_id}}">
 								<button class="btn" onclick="return confirm('Are you sure to update this record ?');"><i
 									class="fa fa-edit"></i></button>
 							</form>

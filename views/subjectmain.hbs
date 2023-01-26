@@ -7,8 +7,13 @@
 						<h2>Manage <b>SubjectName</b></h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="/AddSub" class="btn btn-success" data-toggle="modal"><i
-								class="material-icons">&#xE147;</i> <span>Add New Subject-Name</span></a>
+						<form method="post" action="/add_Subject">
+							<button class="btn btn-success" data-toggle="modal">
+								Add New Subject
+								<i class="material-icons">&#xE147;</i>
+							</button>
+						{{!-- <a href="/AddSub" class="btn btn-success" data-toggle="modal"><i
+								class="material-icons">&#xE147;</i> <span>Add New Subject-Name</span></a> --}}
 						<a href="/deltedata/{{this._id}}" class="btn btn-danger" data-toggle="modal"><i
 								class="material-icons">&#xE15C;</i> <span>Delete</span></a>
 					</div>
@@ -51,7 +56,7 @@
 						<td class="liststyle">
 							{{!-- <a href="/update/{{this._id}}" class="edit" data-toggle="modal"><i
 									class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> --}}
-							<form method="POST" action="/update/{{_id}}">
+							<form method="POST" action="/subupdate/{{_id}}">
 								<button class="btn" onclick="return confirm('Are you sure to update this record ?');"><i
 										class="fa fa-edit"></i></button>
 

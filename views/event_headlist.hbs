@@ -5,12 +5,17 @@
                 <div class="table-title">
                     <div class="row">
                         <div class="col-sm-6">
-                            <h2>Manage <b>QuestionName</b></h2>
+                            <h2>Manage <b>EventHead</b></h2>
                         </div>
                         <div class="col-sm-6">
+                            <form method="post" action="/evenhead">
+							<button class="btn btn-success" data-toggle="modal">
+								Add New TeamHead-Name
+								<i class="material-icons">&#xE147;</i>
+							</button>
 
-                            <a href="/add_Question" class="btn btn-success" data-toggle="modal"><i
-                                    class="material-icons">&#xE147;</i> <span>Add New EventHead</span></a>
+                            {{!-- <a href="/add_Question" class="btn btn-success" data-toggle="modal"><i
+                                    class="material-icons">&#xE147;</i> <span>Add New EventHead</span></a> --}}
                             <a href="/deltedata/{{this._id}}" class="btn btn-danger" data-toggle="modal"><i
                                     class="material-icons">&#xE15C;</i> <span>Delete</span></a>
                         </div>
@@ -36,9 +41,6 @@
                     </thead>
                     <tbody>
                         {{#each list_EventHead}}
-
-
-
                         <tr>
                             <td>
                                 <span class="custom-checkbox">

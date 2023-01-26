@@ -33,8 +33,6 @@ exports.subject_create_post = [
       // Data from form is valid.
       // Check if Category with same name already exists.
       Subject.findOne({ name: req.body.name 
-
-      
       }).exec(function (
         err,
         found_subject
@@ -76,18 +74,34 @@ exports.subject_list = function (req, res, next) {
       console.log(list_subject)
     });
 };
-///////////////Update A data
+///////////////Update A data //https://github.com/CodAffection/Node.js-Expess-MongoDB-CRUD/blob/74a11aee717bcb9773d1360314e20dbf7248d33e/project/controllers/employeeController.js#L31
 exports.update =  (req, res) => {
   Subject.findById(req.params.id, (err, doc) => {
     if (!err) {
         res.render("Subject_Add.hbs", {
             viewTitle: "Update subject",
             subject: doc
-        });
-        
+        });  
     }
 });
 }
+// exports.update =  (req, res) => {
+//   Subject.updateOne({ _id: req.body._id }, req.body, { new: true }, (err, doc) => {
+//     if (!err) { res.redirect('/add_Subject'); }
+//     else {
+//         if (err.name == 'ValidationError') {
+//             handleValidationError(err, req.body);
+//             res.render("Subject_Add", {
+//                 viewTitle: 'Update subject',
+//                 employee: req.body
+//             });
+//         }
+//         else 
+//             console.log('Error during record edit : ' + err);
+//     }
+// });
+// }
+
 // Delete a user with specified user id in the request
 exports.delete = (req, res)=>{
 

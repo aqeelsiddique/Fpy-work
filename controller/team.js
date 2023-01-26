@@ -2,10 +2,7 @@
 const { body, validationResult } = require('express-validator');
 // const st = require('st');
 const Team = require('../model/team');
-
 // let alert = require('alert'); 
-
-
 // Handle Category create on POST.
 exports.Team_create_post = [
   // Validate that the name field is not empty.
@@ -71,17 +68,13 @@ exports.Team_list = function (req, res, next) {
       // Successful, so render.
       res.render('teamlist', {
         title: 'Team List',
-        list_Team: list_Team,
-
-        
+        list_Team: list_Team,        
       });
       console.log(list_Team)
     });
 };
-
 ///////////////Update A data
 exports.update =  (req, res) => {
-
   Team.findById(req.params.id, (err, doc) => {
     if (!err) {
         res.render("Team_Add.hbs", {
