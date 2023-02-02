@@ -1,38 +1,36 @@
 <style>
   .form-control {
-        margin: 15px;
-        border-radius: 3px 3px 0 0;
-    }
+    margin: 15px;
+    border-radius: 3px 3px 0 0;
+  }
 
-    .table-wrapper {
-        margin-top: 100px;
-        margin-left: 5%;
-        margin-right: 5%;
-        border-radius: 3px 3px 0 0;
-    }
+  .table-wrapper {
+    margin-top: 100px;
+    margin-left: 5%;
+    margin-right: 5%;
+    border-radius: 3px 3px 0 0;
+  }
 
-    h1 {
-        background: #7522E6;
-        color: #fff;
-        padding: 16px 30px;
-        min-width: 100%;
-        margin: -20px -25px 10px;
-        border-radius: 3px 3px 0 0;
+  h1 {
+    background: #7522E6;
+    color: #fff;
+    padding: 16px 30px;
+    min-width: 100%;
+    margin: -20px -25px 10px;
+    border-radius: 3px 3px 0 0;
 
-    }
+  }
 </style>
 
-<form action="" method="POST" class="table-wrapper" >
-  
+<form action="" method="POST" class="table-wrapper">
+
   <h1>Add a Question</h1><br>
-  {{!-- updaete code --}}
-  {{!-- <div class="form-group">
-    <h1>{{title}}</h1>
-    <label for="select_subject">Quiz : </label>
-    <select class="form-control" id="select_subject" name="select_subject" placeholder="Select machine" required="true">
-      {{#if question}}
+  <div class="form-group">
+    <label for="machine">Quiz : </label>
+    <select class="form-control" id="machine" name="machine" placeholder="Select machine" required="true">
+      {{#if process}}
       {{#each select_subjects}}
-      <option value={{this._id}} {{isSelected this._id}}>{{this.name}}</option>
+      <option value={{this._id}} {{isSelected this._id ../process.machine._id}}>{{this.name}}</option>
       {{/each}}
       {{else}}
       {{#each select_subjects}}
@@ -40,7 +38,7 @@
       {{/each}}
       {{/if}}
     </select>
-  </div> --}}
+  </div>
   {{!-- ///////////////update end code/////// --}}
   <div class="form-group">
     <input type="text" class="form-control" name="ques" placeholder="Question" required>
@@ -52,8 +50,8 @@
     {{!-- <input type="text" class="form-control" name="fullSubjectName" placeholder="Subject Name"> --}}
   </div><br>
   <div class="form-group">
-    <button type="submit" class="btn btn-info" onclick="myFunction()" >
-      <i class="fa fa-database" ></i>
+    <button type="submit" class="btn btn-info" onclick="myFunction()">
+      <i class="fa fa-database"></i>
       Submit
     </button>
     <a href="/showlist" class="btn btn-danger">

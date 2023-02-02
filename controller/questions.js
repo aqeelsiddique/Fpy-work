@@ -5,10 +5,9 @@ const { body, validationResult } = require('express-validator');
 var mongoose=require('mongoose');
 const subject = require('../model/subject');
 const async = require('async');
-
+const question = require('../model/question');
 ///////////////////////////questions Portion COntroller Code /////////////////////Addmin site
 // Handle Question create on POST.
-
 // Display process create form on GET.
 const process_create_get = function (req, res, next) {
   // Get all machines and categories, which we can use for adding to our process.
@@ -16,8 +15,7 @@ const process_create_get = function (req, res, next) {
     {
       subjects: function (callback) {
         subject.find(callback).lean();
-      },
-     
+      },    
     },
     function (err, results) {
       if (err) {
@@ -30,8 +28,70 @@ const process_create_get = function (req, res, next) {
     }
   );
 };
-const question_create_post = [
-  // body('select_subject', 'subject must not be empty.').isLength({ min: 1 }).trim(),
+///////////////test post question with selected subject/////
+// Handle process create on POST.
+const question_create_post = [ 
+  body('select_subject', 'subject must not be empty.').isLength({ min: 1 }).trim(),
+  body('ques', 'question must not be empty.').isLength({ min: 1 }).trim(),
+  body('option1', 'option1 must not be empty.').isLength({ min: 1 }).trim(),
+  body('option2', 'option2 must not be empty.').isLength({ min: 1 }).trim(),
+  body('option3', 'option3 must not be empty.').isLength({ min: 1 }).trim(),
+  body('option4', 'option4 must not be empty.').isLength({ min: 1 }).trim(),
+  body('ans', 'ans must not be empty.').isLength({ min: 1 }).trim(), 
+  body('*').escape(),
+  // Process request after validation and sanitization.
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    // Create a Process object with escaped and trimmed data.
+    const process = new question({
+      select_subject: req.body.select_subject, 
+      ques: req.body.ques, 
+      option1: req.body.option1, 
+      option2: req.body.option2 ,
+      option3: req.body.option3 ,
+      option4: req.body.option4,
+      ans: req.body.ans,
+    });
+
+    if (!errors.isEmpty()) {
+
+      // Get all machines and categories for form.
+      async.parallel(
+        {
+          machines: function (callback) {
+            subject.find(callback).lean();
+            console.log(machines)
+          },
+        },
+        function (err, results) {
+          if (err) {
+            return next(err);
+          }
+          res.render('process_form', {
+            title: 'Create Process',
+            machines: results.machines,
+            process: process,
+            errors: errors.array(),
+          });
+        }
+      );
+      return;
+    } else {
+      // Data from form is valid. Save process.
+      process.save(function (err) {
+        if (err) {
+          return next(err);
+        }
+        //successful - redirect to new process record.
+        // res.redirect(process.url);
+      });
+    }
+  },
+];
+////test end///////
+const question1_create_post = [
+  body('select_subject', 'subject must not be empty.').isLength({ min: 1 }).trim(),
   body('ques', 'question must not be empty.').isLength({ min: 1 }).trim(),
   body('option1', 'option1 must not be empty.').isLength({ min: 1 }).trim(),
   body('option2', 'option2 must not be empty.').isLength({ min: 1 }).trim(),
@@ -46,7 +106,7 @@ const question_create_post = [
       const errors = validationResult(req);
       // Create a category object with escaped and trimmed data.]
       const question = new Question({
-        // select_subject: req.body.select_subject, 
+        select_subject: req.body.select_subject, 
          ques: req.body.ques, 
          option1: req.body.option1, 
          option2: req.body.option2 ,
@@ -61,7 +121,7 @@ const question_create_post = [
           async.parallel(
             {
               select_subjects: function (callback) {
-                subject.find(callback).lean();
+                subject.find().lean();
               }
             },
             function (err, results) {
