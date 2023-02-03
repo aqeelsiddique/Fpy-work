@@ -58,10 +58,10 @@ const question_create_post = [
 
       // Get all machines and categories for form.
       async.parallel(
+        
         {
           machines: function (callback) {
-            subject.find(callback).lean();
-            console.log(machines)
+            subject.find().lean();
           },
         },
         function (err, results) {
@@ -157,51 +157,7 @@ const question1_create_post = [
         }
       },
     ];
-  //     if (!errors.isEmpty()) {
-        
-  //       // There are errors. Render the form again with sanitized values/error messages.
-  //       res.render('question.hbs', {
-  //         title: 'Create Question',
-  //         question: question,
-  //         errors: errors.array(),
-  //       });
-  //       return;
-  //     } 
-  //     else {
-  //       // Data from form is valid.
-  //       // Check if Category with same name already exists.
-  //       Question.findOne({ ques: req.body.ques }).exec(function (
-  //         err,
-  //         found_subject
-  //       ) {
-  //         if (err) {
-  //           return next(err);
-  //         }
-  //         if (found_subject) {
-  //           // Category exists, redirect to its detail page.
-  //           res.redirect(found_subject.url);
-  //         } else {
-  //           question.save(function (err) {
-  //             if (err) {
-  //               return next(err);
-  //             }
-  //             // Category saved. Redirect to category detail page.
-  //             // res.redirect(category.url);
-  //             // alert("message")
   
-  //             res.render('question.hbs')
-  //           });
-  //         }
-  //       });
-  //     }
-  //   },
-  // ];
-
-
-
-
-
-
 // list of all Question.
 const question_list = function (req, res, next) {
   Question.find().lean()
