@@ -9,25 +9,33 @@ const question = require('../model/question');
 ///////////////////////////questions Portion COntroller Code /////////////////////Addmin site
 // Handle Question create on POST.
 // Display process create form on GET.
-const process_create_get = function (req, res, next) {
+// Display process create form on GET.
+ const process_create_get = function (req, res, next) {
   // Get all machines and categories, which we can use for adding to our process.
   async.parallel(
     {
-      subjects: function (callback) {
-        subject.find(callback).lean();
-      },    
+      machines: function (callback) {
+        Machine.find(callback).lean();
+      },
+      
+      // categories: function (callback) {
+      //   Category.find(callback);
+      // },
     },
+    
     function (err, results) {
       if (err) {
         return next(err);
       }
       res.render('question', {
-        title: 'Create Subject',
-        subjects: results.subjects,
+        title: 'Create Process',
+        machines: results.machines,
+        // categories: results.categories,
       });
     }
   );
 };
+
 ///////////////test post question with selected subject/////
 // Handle process create on POST.
 const question_create_post = [ 
@@ -53,16 +61,6 @@ const question_create_post = [
       option4: req.body.option4,
       ans: req.body.ans,
     });
-    const process2 = new question({
-      select_subject: req.body.select_subject, 
-      ques: req.body.ques, 
-      option1: req.body.option1, 
-      option2: req.body.option2 ,
-      option3: req.body.option3 ,
-      option4: req.body.option4,
-      ans: req.body.ans,
-    });
-
     if (!errors.isEmpty()) {
 
       // Get all machines and categories for form.

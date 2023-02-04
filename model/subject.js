@@ -2,15 +2,14 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const SubjectSchema = new Schema({
-  name: { type: String, required: true, min: 3, max: 100 }
+const MachineSchema = new Schema({
+  name: { type: String, required: true, max: 100 },
+  description: { type: String, required: true },
+  date_of_retirement: { type: Date }
 });
 
-// Virtual for this category instance URL.
-// CategorySchema.virtual('url').get(function() {
-//   return '/dashboard/category/' + this._id;
-// });
-//Export model.
 
-module.exports = mongoose.model('Subject', SubjectSchema);
-////////done
+
+//Export model
+module.exports = mongoose.model('testsubj', MachineSchema);
+
