@@ -53,6 +53,15 @@ const question_create_post = [
       option4: req.body.option4,
       ans: req.body.ans,
     });
+    const process2 = new question({
+      select_subject: req.body.select_subject, 
+      ques: req.body.ques, 
+      option1: req.body.option1, 
+      option2: req.body.option2 ,
+      option3: req.body.option3 ,
+      option4: req.body.option4,
+      ans: req.body.ans,
+    });
 
     if (!errors.isEmpty()) {
 
