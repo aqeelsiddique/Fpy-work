@@ -26,17 +26,19 @@
 
   <h1>Add a Question</h1><br>
   <div class="form-group">
-    <label for="machine">Quiz : </label>
-   <select class="form-control" id="machine" name="machine" placeholder="Select machine" required="true">
-      {{#if process}}
-      {{#each machines}}
-      <option value={{this._id}} {{isSelected this._id ../question.machine._id}}>{{this.name}}</option>
-      {{/each}}
-      {{else}}
-      {{#each machines}}
+    <label for="machine">Quiz :y</label>
+       {{#each list_subject}}
+      <h1>vytvyfyu{{this.name}}</h1>
       <option value={{this._id}}>{{this.name}}</option>
       {{/each}}
-      {{/if}}
+   <select class="form-control" id="machine" name="machine" placeholder="Select machine" required="true">
+      {{#each list_subject}}
+      <h1>{{this.name}}</h1>
+      <option value={{this._id}}>{{this.name}}</option>
+      {{/each}}
+      {{#each list_subject}}
+      <option value={{this._id}}>{{this.name}}</option>
+      {{/each}}
     </select>
   </div>
   {{!-- ///////////////update end code/////// --}}

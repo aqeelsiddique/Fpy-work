@@ -6,11 +6,41 @@ const subject = require("../controller/subject");
 const Team = require('../controller/team')
 const  dashboard  = require("../controller/dashboard");
 const {  eventheadregister, eventhead_list, eventdelete } = require("../controller/evenhead");
+const multer = require('multer');
+const images = require('../model/image')
+const image = require("../model/image");
 
 const User = require("../model/Head");
 module.exports = function (app) {
   //////////////////////////test 0001
-  const bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs');
+////////image code
+
+const upload = multer({
+  dest: './public/images'
+})
+
+
+app.post('/api/image-upload', upload.single('profile'), (req, res) => {
+  console.log( req.file)
+  if(!req.file){
+    res.send({code:500, msg:"err"})
+  }
+  else {
+    const imagestore = new image({
+      image:{
+        data:req.file.filename,
+        contentType: "image/png"
+      }
+      
+    })
+    imagestore.save().then(() => res.send("successfull upload image")).catch(err => console.log(err))
+    res.send({code : 200, msg:"upload success"})
+  }
+  
+});
+
+
 ///////////////////dashboard code///////
   app.get('/dashboard', dashboard.index);
   /////////////final done of of Subject Route

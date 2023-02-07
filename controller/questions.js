@@ -11,29 +11,36 @@ const question = require('../model/question');
 // Display process create form on GET.
 // Display process create form on GET.
  const process_create_get = function (req, res, next) {
-  // Get all machines and categories, which we can use for adding to our process.
   async.parallel(
     {
       machines: function (callback) {
-        Machine.find(callback).lean();
+        subject.find(callback).lean();
       },
-      
-      // categories: function (callback) {
-      //   Category.find(callback);
-      // },
-    },
-    
+    },    
     function (err, results) {
       if (err) {
         return next(err);
       }
       res.render('question', {
         title: 'Create Process',
-        machines: results.machines,
-        // categories: results.categories,
+        machines:machines,
       });
     }
   );
+};
+const process5_create_get = function (req, res, next) {
+  subject.find().lean()
+    .exec(function (err, list_subject) {
+      if (err) {
+        return next(err);
+      }      
+      // Successful, so render.
+      res.render('question', {
+        title: 'subject List',
+        list_subject: list_subject,        
+      });
+      console.log(list_subject)
+    });
 };
 
 ///////////////test post question with selected subject/////
