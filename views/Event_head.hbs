@@ -22,7 +22,7 @@
 
     }
 </style>
-<form action="/register" method="post" id="add_user" class="table-wrapper" autocomplete="off">
+<form action="/register" method="post" id="add_user" class="table-wrapper" autocomplete="off" enctype="multipart/form-data">
     {{!-- <div class="form-group">
         <input type="text" class="form-control" name="fullname" placeholder="No">
     </div> --}}
@@ -32,6 +32,9 @@
         <input type="text" class="form-control" name="email" placeholder="Enter Email " required>
         <input type="text" class="form-control" name="password" placeholder="Password" required>
         <input type="text" class="form-control" name="cpassword" placeholder="confirmPassword" required>
+          <div>
+    <input type="file" id="profile" name="profile">
+  </div>
     </div>
     <button type="submit" class="btn btn-info" onclick="myFunction()">
         <i class="fa fa-database"></i>

@@ -18,6 +18,10 @@ const userShema = new mongoose.Schema({
     cpassword: {
         type: String,
         require: true
+    },
+    image: {
+        data:Buffer,
+        contentType:String
     }
     // tokens: [
     //     {

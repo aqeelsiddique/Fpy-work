@@ -14,12 +14,21 @@ const User = require("../model/Head");
 module.exports = function (app) {
   //////////////////////////test 0001
 const bcrypt = require('bcryptjs');
+const path = require('path');
+
 ////////image code
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/images');
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  }
+});
 
 const upload = multer({
-  dest: './public/images'
+  storage: storage
 })
-
 
 app.post('/api/image-upload', upload.single('profile'), (req, res) => {
   console.log( req.file)
@@ -28,16 +37,14 @@ app.post('/api/image-upload', upload.single('profile'), (req, res) => {
   }
   else {
     const imagestore = new image({
+
       image:{
         data:req.file.filename,
         contentType: "image/png"
-      }
-      
+      }    
     })
     imagestore.save().then(() => res.send("successfull upload image")).catch(err => console.log(err))
-    res.send({code : 200, msg:"upload success"})
-  }
-  
+  }  
 });
 
 
@@ -82,13 +89,12 @@ app.post('/api/image-upload', upload.single('profile'), (req, res) => {
   app.post("/register",eventheadregister )
   app.get('/eventheadlists', eventhead_list)
   app.post("/eventhead_team/:id", eventdelete);
-
   //////////////////End//////////////////////
 ////asyn code
-app.post('/register' , async (req, res) =>{
+app.post('/register' , upload.single('profile'), async (req, res) =>{
   //this code line means agr humy specfie data chaiyae tu yeh estmal kr sgthy
-  const {name, email, password, cpassword} = req.body;
-  if (!name || !email || !password || !cpassword){
+  const {name, email, password, cpassword , image} = req.body;
+  if (!name || !email || !password || !cpassword || !image){
       return res.status(422).json({error: "plz filled the field properly"});
   }
   try {
@@ -97,9 +103,13 @@ app.post('/register' , async (req, res) =>{
           return res.status(422).json({ error: "Email alredy Exist"});
       } else if(password != cpassword) {
           return res.status(422).json({ error: "password are not match"})
-
       } else {
-          const user = new User({name, email, password, cpassword})
+          const user = new User({name, email, password, cpassword,
+            image:{
+              data:req.file.filename,
+              contentType: "image/png"
+            } 
+          })          
           ///save hony sy phylae hashed mae change keo password
            await user.save();        
           res.status(201).json({ message: "user register succesfully"})
@@ -130,7 +140,6 @@ app.post('/singin', async (req, res)=>{
               res.status(422).send({message: "user error"})
           } else {
             res.render('main');
-              // res.send({meassage:" wellcome user  login sucessfully"})            
           }
       } 
       else {
@@ -139,13 +148,9 @@ app.post('/singin', async (req, res)=>{
   } catch(err) {
       console.log(err);
   }
-  // console.log(req.body);
-  // res.send({message:"awesome"});
 })
-
-
   app.get("/test1", function (req, res) {
-    res.render("teamlist");
+    res.render("image");
   });
 
 };
