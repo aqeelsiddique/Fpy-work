@@ -3,53 +3,60 @@ var Controller = require("../controller/questions");
 
 const subject = require("../controller/subject");
 
-const Team = require('../controller/team')
-const  dashboard  = require("../controller/dashboard");
-const {  eventheadregister, eventhead_list, eventdelete } = require("../controller/evenhead");
-const multer = require('multer');
-const images = require('../model/image')
+const Team = require("../controller/team");
+const dashboard = require("../controller/dashboard");
+const {
+  eventheadregister,
+  eventhead_list,
+  eventdelete,
+} = require("../controller/evenhead");
+const multer = require("multer");
+const images = require("../model/image");
 const image = require("../model/image");
 
 const User = require("../model/Head");
 module.exports = function (app) {
   //////////////////////////test 0001
-const bcrypt = require('bcryptjs');
-const path = require('path');
+  const bcrypt = require("bcryptjs");
+  const path = require("path");
 
-////////image code
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './public/images');
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-  }
-});
+  ////////image code
+  const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, "./public/images");
+    },
+    filename: function (req, file, cb) {
+      cb(
+        null,
+        file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+      );
+    },
+  });
 
-const upload = multer({
-  storage: storage
-})
+  const upload = multer({
+    storage: storage,
+  });
 
-app.post('/api/image-upload', upload.single('profile'), (req, res) => {
-  console.log( req.file)
-  if(!req.file){
-    res.send({code:500, msg:"err"})
-  }
-  else {
-    const imagestore = new image({
+  app.post("/api/image-upload", upload.single("profile"), (req, res) => {
+    console.log(req.file);
+    if (!req.file) {
+      res.send({ code: 500, msg: "err" });
+    } else {
+      const imagestore = new image({
+        image: {
+          data: req.file.filename,
+          contentType: "image/png",
+        },
+      });
+      imagestore
+        .save()
+        .then(() => res.send("successfull upload image"))
+        .catch((err) => console.log(err));
+    }
+  });
 
-      image:{
-        data:req.file.filename,
-        contentType: "image/png"
-      }    
-    })
-    imagestore.save().then(() => res.send("successfull upload image")).catch(err => console.log(err))
-  }  
-});
-
-
-///////////////////dashboard code///////
-  app.get('/dashboard', dashboard.index);
+  ///////////////////dashboard code///////
+  app.get("/dashboard", dashboard.index);
   /////////////final done of of Subject Route
   app.get("/AddSub", (req, res) => {
     res.render("subject_Add.hbs", {
@@ -74,10 +81,10 @@ app.post('/api/image-upload', upload.single('profile'), (req, res) => {
   app.get("/createteam", (req, res) => {
     res.render("Team_Add.hbs");
   });
-  app.post("/addteam", Team.Team_create_post)
-  app.get("/teamlist",Team.Team_list )
+  app.post("/addteam", Team.Team_create_post);
+  app.get("/teamlist", Team.Team_list);
   app.post("/delete_team/:id", Team.teamdelete);
-  app.post('/updateteam/:id', Team.update)
+  app.post("/updateteam/:id", Team.update);
   ///////////////////////////////////Team Section End//////////////////////////////////
   //////////////////EventHead Section////////////////////
   app.get("/evenhead", (req, res) => {
@@ -86,71 +93,74 @@ app.post('/api/image-upload', upload.single('profile'), (req, res) => {
   app.post("/evenhead", (req, res) => {
     res.render("Event_head.hbs");
   });
-  app.post("/register",eventheadregister )
-  app.get('/eventheadlists', eventhead_list)
+  // app.post("/register", eventheadregister);
+  app.get("/eventheadlists", eventhead_list);
   app.post("/eventhead_team/:id", eventdelete);
   //////////////////End//////////////////////
-////asyn code
-app.post('/register' , upload.single('profile'), async (req, res) =>{
-  //this code line means agr humy specfie data chaiyae tu yeh estmal kr sgthy
-  const {name, email, password, cpassword , image} = req.body;
-  if (!name || !email || !password || !cpassword || !image){
-      return res.status(422).json({error: "plz filled the field properly"});
-  }
-  try {
-      const userExist = await User.findOne({ email: email});
+  ////asyn code
+  app.post("/register", upload.single("profile"), async (req, res) => {
+    //this code line means agr humy specfie data chaiyae tu yeh estmal kr sgthy
+    const { name, email, password, cpassword } = req.body;
+    console.log(req.file);
+
+    // if (!name || !email || !password || !cpassword) {
+    //   return res.status(422).json({ error: "plz filled the field properly" });
+    // }
+    try {
+      const userExist = await User.findOne({ email: email });
       if (userExist) {
-          return res.status(422).json({ error: "Email alredy Exist"});
-      } else if(password != cpassword) {
-          return res.status(422).json({ error: "password are not match"})
+        return res.status(422).json({ error: "Email alredy Exist" });
+      } else if (password != cpassword) {
+        return res.status(422).json({ error: "password are not match" });
       } else {
-          const user = new User({name, email, password, cpassword,
-            image:{
-              data:req.file.filename,
-              contentType: "image/png"
-            } 
-          })          
-          ///save hony sy phylae hashed mae change keo password
-           await user.save();        
-          res.status(201).json({ message: "user register succesfully"})
-          console.log(user)
+        const user = new User({
+          name,
+          email,
+          password,
+          cpassword,
+          image: {
+            data: req.file.filename,
+            contentType: "image/png",
+          },
+        });
+        ///save hony sy phylae hashed mae change keo password
+        await user.save();
+        res.status(201).json({ message: "user register succesfully" });
+        console.log("user", user);
       }
-  }
-  catch(err) {
+    } catch (err) {
       console.log(err);
-  }
-}); 
-///LOGIN  ROUTE
-app.get("/singin", (req, res) => {
-  res.render("main", {
-    subjecttitle: "Add a Subject",
+    }
   });
-});
-app.post('/singin', async (req, res)=>{
-  try {
-      const {name , password} = req.body;
+  ///LOGIN  ROUTE
+  app.get("/singin", (req, res) => {
+    res.render("main", {
+      subjecttitle: "Add a Subject",
+    });
+  });
+  app.post("/singin", async (req, res) => {
+    try {
+      const { name, password } = req.body;
       if (!name) {
-          return res.status(400).send({error:"invalid"})
-      }    
-      const userlogin = await User.findOne({ 
-        name: name
-       });
-      if (userlogin){
-          if(!userlogin ) {
-              res.status(422).send({message: "user error"})
-          } else {
-            res.render('main');
-          }
-      } 
-      else {
-          res.status(422).send({message: "invalid"})
+        return res.status(400).send({ error: "invalid" });
       }
-  } catch(err) {
+      const userlogin = await User.findOne({
+        name: name,
+      });
+      if (userlogin) {
+        if (!userlogin) {
+          res.status(422).send({ message: "user error" });
+        } else {
+          res.render("main");
+        }
+      } else {
+        res.status(422).send({ message: "invalid" });
+      }
+    } catch (err) {
       console.log(err);
-  }
-})
+    }
+  });
   app.get("/test1", function (req, res) {
     res.render("image");
   });
-
 };
