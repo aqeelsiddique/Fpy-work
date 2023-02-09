@@ -20,8 +20,9 @@ const userShema = new mongoose.Schema({
         require: true
     },
     image: {
-        data:Buffer,
-        contentType:String
+        type: String,
+        require: true
+       
     }
     // tokens: [
     //     {

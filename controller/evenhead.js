@@ -42,11 +42,12 @@ const eventhead_list = function (req, res, next) {
      // Successful, so render.
       res.render('event_headlist', {
         title: 'list_EventHead List',
-        list_EventHead: list_EventHead,
-
-        
+        list_EventHead: list_EventHead,  
       });
-      // console.log(list_EventHead)
+      console.log(list_EventHead)
+      console.log(list_EventHead.name)
+
+
     });
 };
 // Delete a user with specified user id in the request
