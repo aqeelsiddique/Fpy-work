@@ -11,6 +11,7 @@ const {
   eventdelete,
 } = require("../controller/evenhead");
 const multer = require("multer");
+const fs = require('fs')
 const images = require("../model/image");
 const image = require("../model/image");
 
@@ -23,7 +24,7 @@ module.exports = function (app) {
   ////////image code
   const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, "./public/images");
+      cb(null, "uploads");
     },
     filename: function (req, file, cb) {
       cb(
@@ -44,7 +45,7 @@ module.exports = function (app) {
     } else {
       const imagestore = new image({
         image: {
-          data: req.file.filename,
+          data: fs.readFileSync("uploads/", req.file.filename),
           contentType: "image/png",
         },
       });
@@ -162,5 +163,9 @@ module.exports = function (app) {
   });
   app.get("/test1", function (req, res) {
     res.render("image");
+  });
+  app.get("/testimage", async (req, res)=> {
+    const alldata = await User.find()
+    res.json(alldata)
   });
 };
