@@ -101,7 +101,7 @@ module.exports = function (app) {
   ////asyn code
   app.post("/register", upload.single("profile"), async (req, res) => {
     //this code line means agr humy specfie data chaiyae tu yeh estmal kr sgthy
-    const { name, email, password, cpassword } = req.body;
+    const { name, email, password, cpassword, image } = req.body;
     console.log(req.file);
 
     // if (!name || !email || !password || !cpassword) {
@@ -119,10 +119,8 @@ module.exports = function (app) {
           email,
           password,
           cpassword,
-          image: {
-            data: req.file.filename,
-            contentType: "image/png",
-          },
+          image: req.file.path
+
         });
         ///save hony sy phylae hashed mae change keo password
         await user.save();
