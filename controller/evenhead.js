@@ -45,8 +45,8 @@ const eventhead_list = function (req, res, next) {
         list_EventHead: list_EventHead,  
       });
       console.log(list_EventHead)
-      console.log(list_EventHead.name)
 
+      
 
     });
 };

@@ -104,9 +104,9 @@ module.exports = function (app) {
     const { name, email, password, cpassword, image } = req.body;
     console.log(req.file);
 
-    // if (!name || !email || !password || !cpassword) {
-    //   return res.status(422).json({ error: "plz filled the field properly" });
-    // }
+    if (!name || !email || !password || !cpassword) {
+      return res.status(422).json({ error: "plz filled the field properly" });
+    }
     try {
       const userExist = await User.findOne({ email: email });
       if (userExist) {
