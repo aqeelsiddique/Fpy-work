@@ -59,8 +59,7 @@ exports.Team_create_post = [
 ];
 // Display list of all Team.
 exports.Team_list = function (req, res, next) {
-  Team.find().lean()
-    .exec(function (err, list_Team) {
+  Team.find().lean().exec(function (err, list_Team) {
       if (err) {
         return next(err);
       }

@@ -2,8 +2,7 @@ const controller = require("../controller/questions");
 var Controller = require("../controller/questions");
 
 const subject = require("../controller/subject");
-
-const Team = require("../controller/team");
+const Team = require("../controller/team")
 const dashboard = require("../controller/dashboard");
 const {
   eventheadregister,
@@ -11,7 +10,7 @@ const {
   eventdelete,
 } = require("../controller/evenhead");
 const multer = require("multer");
-const fs = require('fs')
+const fs = require("fs");
 const images = require("../model/image");
 const image = require("../model/image");
 
@@ -24,7 +23,7 @@ module.exports = function (app) {
   ////////image code
   const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, "uploads");
+      cb(null, "./public/uploads/");
     },
     filename: function (req, file, cb) {
       cb(
@@ -45,8 +44,8 @@ module.exports = function (app) {
     } else {
       const imagestore = new image({
         image: {
-          data: fs.readFileSync("uploads/", req.file.filename),
-          contentType: "image/png",
+          image: req.file.path,
+
         },
       });
       imagestore
@@ -55,6 +54,31 @@ module.exports = function (app) {
         .catch((err) => console.log(err));
     }
   });
+  app.get("/image", function (req, res) {
+    image.find()
+      .lean()
+      .exec(function (err, list_Team) {
+        if (err) {
+          return next(err);
+        }
+
+        // Successful, so render.
+        res.render("teamlist", {
+          title: "Team List",
+          list_Team: list_Team,
+        });
+        console.log(list_Team);
+      });
+  });
+
+  // Retrieve all documents in the 'images' collection
+  // image.find().toArray(function(err, documents) {
+  //   if (err) throw err;
+
+  //   // Render the 'home' template and pass in the array of images as data
+  //   res.render('image', { images: documents });
+
+  // });
 
   ///////////////////dashboard code///////
   app.get("/dashboard", dashboard.index);
@@ -119,8 +143,7 @@ module.exports = function (app) {
           email,
           password,
           cpassword,
-          image: req.file.path
-
+          image: req.file.path,
         });
         ///save hony sy phylae hashed mae change keo password
         await user.save();
@@ -162,8 +185,8 @@ module.exports = function (app) {
   app.get("/test1", function (req, res) {
     res.render("image");
   });
-  app.get("/testimage", async (req, res)=> {
-    const alldata = await User.find()
-    res.json(alldata)
+  app.get("/testimage", async (req, res) => {
+    const alldata = await User.find();
+    res.json(alldata);
   });
 };
