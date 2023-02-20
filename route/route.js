@@ -61,7 +61,6 @@ module.exports = function (app) {
         if (err) {
           return next(err);
         }
-
         // Successful, so render.
         res.render("teamlist", {
           title: "Team List",
