@@ -45,11 +45,9 @@ const eventhead_list = function (req, res, next) {
         list_EventHead: list_EventHead,  
       });
       console.log(list_EventHead)
-
-      
-
     });
 };
+
 // Delete a user with specified user id in the request
 const eventdelete = (req, res)=>{
 
