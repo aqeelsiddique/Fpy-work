@@ -1,12 +1,47 @@
-<form action="/api/image-upload" method="post" enctype="multipart/form-data">
+{{!-- <form action="/api/image-upload" method="post" enctype="multipart/form-data">
   <div>
     <label for="profile">Choose an image to upload:</label>
     <input type="file" id="profile" name="profile">
   </div>
   <button type="submit">Upload Image</button>
-</form>
+</form> --}}
 
-<h1>Images</h1>
-    {{!-- {{#each images}}
-      <img src="{{image}}">
-    {{/each}} --}}
+<h1>To Upload Image on mongoDB</h1>
+<hr>
+<div>
+  <form action="/imageuploadtest" method="POST" enctype="multipart/form-data">
+    <div>
+      <label for="name">Image Title</label>
+      <input type="text" id="name" placeholder="Name" value="" name="name" required>
+    </div>
+    <div>
+      <label for="desc">Image Description</label>
+      <textarea id="desc" name="desc" value="" rows="2" placeholder="Description" required>
+                </textarea>
+    </div>
+    <div>
+      <label for="image">Upload Image</label>
+      <input type="file" id="image" name="image" value="" required>
+    </div>
+    <div>
+      <button type="submit">Submit</button>
+    </div>
+  </form>
+</div>
+<h1>Uploaded Images</h1>
+{{#each items}}
+  <div>
+    <div>
+      <img src="data:image/{{this.img.contentType}};base64,{{this.img.data.toString 'base64'}}">
+      <div>
+        <h5>{{this.name}}</h5>
+        <p>{{this.desc}}</p>
+      </div>
+    </div>
+  </div>
+{{/each}}
+    
+
+    </div>{{!-- {{#each images}}
+<img src="{{image}}">
+{{/each}} --}}

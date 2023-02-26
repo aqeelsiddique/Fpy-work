@@ -2,7 +2,7 @@ const controller = require("../controller/questions");
 var Controller = require("../controller/questions");
 
 const subject = require("../controller/subject");
-const Team = require("../controller/team")
+const Team = require("../controller/team");
 const dashboard = require("../controller/dashboard");
 const {
   eventheadregister,
@@ -11,9 +11,7 @@ const {
 } = require("../controller/evenhead");
 const multer = require("multer");
 const fs = require("fs");
-const images = require("../model/image");
 const image = require("../model/image");
-
 const User = require("../model/Head");
 module.exports = function (app) {
   //////////////////////////test 0001
@@ -32,43 +30,68 @@ module.exports = function (app) {
       );
     },
   });
-
   const upload = multer({
     storage: storage,
   });
-
-  app.post("/api/image-upload", upload.single("profile"), (req, res) => {
-    console.log(req.file);
-    if (!req.file) {
-      res.send({ code: 500, msg: "err" });
-    } else {
-      const imagestore = new image({
-        image: {
-          image: req.file.path,
-
-        },
-      });
-      imagestore
-        .save()
-        .then(() => res.send("successfull upload image"))
-        .catch((err) => console.log(err));
-    }
+  ///////////test image code
+  app.get("/test1", function (req, res) {
+    res.render("image");
   });
-  app.get("/image", function (req, res) {
-    image.find()
-      .lean()
-      .exec(function (err, list_Team) {
+  // app.get("/testimage", async (req, res) => {
+  //   const alldata = await User.find();
+  //   res.json(alldata);
+  // });
+  app.post("/imageuploadtest", upload.single("image"), (req, res, next) => {
+    var obj = {
+      name: req.body.name,
+      desc: req.body.desc,
+      img: {
+        // data: fs.readFileSync(
+        //   path.join(__dirname + "./uploads/" + req.file.filename)
+        // ),
+        contentType: "image/png",
+      },
+    };
+    image.create(obj, (err, item) => {
+      if (err) {
+        console.log(err);
+      } else {
+        // item.save();
+        res.redirect("/test1");
+      }
+    });
+  });
+  //////
+  app.get('/test1', (req, res) => {
+    image.find({}, (err, items) => {
         if (err) {
-          return next(err);
+            console.log(err);
+            res.status(500).send('An error occurred', err);
         }
-        // Successful, so render.
-        res.render("teamlist", {
-          title: "Team List",
-          list_Team: list_Team,
-        });
-        console.log(list_Team);
-      });
-  });
+        else {
+            res.render('image', { items: items });
+        }
+    });
+    console.log(items)
+});
+  // app.get("/image", function (req, res) {
+  //   image
+  //     .find()
+  //     .lean()
+  //     .exec(function (err, list_Team) {
+  //       if (err) {
+  //         return next(err);
+  //       }
+  //       // Successful, so render.
+  //       res.render("teamlist", {
+  //         title: "Team List",
+  //         list_Team: list_Team,
+  //       });
+  //       console.log(list_Team);
+  //     });
+  // });
+
+  //////////////////////////end test code////////
 
   // Retrieve all documents in the 'images' collection
   // image.find().toArray(function(err, documents) {
@@ -180,12 +203,5 @@ module.exports = function (app) {
     } catch (err) {
       console.log(err);
     }
-  });
-  app.get("/test1", function (req, res) {
-    res.render("image");
-  });
-  app.get("/testimage", async (req, res) => {
-    const alldata = await User.find();
-    res.json(alldata);
   });
 };
