@@ -5,6 +5,11 @@
   </div>
   <button type="submit">Upload Image</button>
 </form> --}}
+ <h1>Upload Image</h1>
+    <form action="/uploadphoto" enctype="multipart/form-data" method="POST">
+        <input type="file" name="myImage" accept="image/*">
+        <input type="submit" value="Upload Photo">
+    </form>
 
 <h1>To Upload Image on mongoDB</h1>
 <hr>
@@ -29,17 +34,19 @@
   </form>
 </div>
 <h1>Uploaded Images</h1>
-{{#each items}}
+{{#each list_Team}}
   <div>
     <div>
-      <img src="data:image/{{this.img.contentType}};base64,{{this.img.data.toString 'base64'}}">
+      {{!-- <img src="data:image/{{this.img.contentType}};base64,{{this.img.data.toString 'base64'}}"> --}}
       <div>
+        <img src={{this.img}} ;base64,{{this.img.data.toString 'base64'}} alt="image">
         <h5>{{this.name}}</h5>
         <p>{{this.desc}}</p>
       </div>
     </div>
   </div>
 {{/each}}
+<h1>yugugu</h1>
     
 
     </div>{{!-- {{#each images}}
