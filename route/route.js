@@ -89,6 +89,7 @@ module.exports = function (app) {
       const filename = req.file.filename;
       const imagess = new image({ title, description, filename });
       await imagess.save();
+      
       res.redirect('/imagee');
       console.log(imagess)
     } catch (err) {
