@@ -83,13 +83,13 @@ module.exports = function (app) {
   //   });
   // });
   //////
-  app.post('/imagee', upload.single('image'), async (req, res) => {
+  app.post('/imagee', upload.single('myImage'), async (req, res) => {
     try {
       const { title, description } = req.body;
       const filename = req.file.filename;
       const imagess = new image({ title, description, filename });
       await imagess.save();
-      
+
       res.redirect('/imagee');
       console.log(imagess)
     } catch (err) {
@@ -101,6 +101,7 @@ module.exports = function (app) {
     try {
       const images = await image.find();
       res.render('image', { images });
+      res.send(images)
       console.log(images)
     } catch (err) {
       console.log(err);
