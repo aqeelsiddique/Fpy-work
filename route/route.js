@@ -19,16 +19,20 @@ module.exports = function (app) {
   //////////////////////////test 0001
   ////////image code
   // SET STORAGE
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads')
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now())
-  }
-})
+// var storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, 'uploads')
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, file.fieldname + '-' + Date.now())
+//   }
+// })
+
   const upload = multer({
-    storage: storage,
+    dest:"images",
+    limits:{
+      fileSize:1000000
+    }
   });
   ///////////test image code
   app.get("/test1", function (req, res) {
@@ -39,20 +43,22 @@ var storage = multer.diskStorage({
   //   res.json(alldata);
   // });
   app.post("/uploadphoto",upload.single('myImage'),(req,res)=>{
+    // res.send()
     var img = fs.readFileSync(req.file.path);
     var encode_img = img.toString('base64');
     var final_img = {
         contentType:req.file.mimetype,
         image:new Buffer(encode_img,'base64')
     };
-    images.create(final_img,function(err,result){
+    image.create(final_img,function(err,result){
         if(err){
             console.log(err);
         }else{
             console.log(result.img.Buffer);
             console.log("Saved To database");
-            res.contentType(final_img.contentType);
-            res.send(final_img.image);
+            console.log("sucessfull")
+            // res.contentType(final_img.contentType);
+            // res.send(final_img.image);
         }
     })
 })
@@ -77,6 +83,29 @@ var storage = multer.diskStorage({
   //   });
   // });
   //////
+  app.post('/imagee', upload.single('image'), async (req, res) => {
+    try {
+      const { title, description } = req.body;
+      const filename = req.file.filename;
+      const imagess = new image({ title, description, filename });
+      await imagess.save();
+      res.redirect('/imagee');
+      console.log(imagess)
+    } catch (err) {
+      console.log(err);
+      res.status(500).send('Server Error');
+    }
+  });
+  app.get('/imagee', async (req, res) => {
+    try {
+      const images = await image.find();
+      res.render('image', { images });
+      console.log(images)
+    } catch (err) {
+      console.log(err);
+      res.status(500).send('Server Error');
+    }
+  });
   app.get('/test1', (req, res) => {
     image.lean().find({}, (err, items) => {
         if (err) {
