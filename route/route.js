@@ -10,11 +10,12 @@ const {
   eventdelete,
 } = require("../controller/evenhead");
 const multer = require("multer");
-const fs = require("fs");
+var fs = require('fs');
 const image = require("../model/image");
 const User = require("../model/Head");
 const bcrypt = require("bcryptjs");
 const path = require("path");
+
 module.exports = function (app) {
   //////////////////////////test 0001
   ////////image code
@@ -27,7 +28,15 @@ module.exports = function (app) {
 //     cb(null, file.fieldname + '-' + Date.now())
 //   }
 // })
-
+// var storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//       cb(null, 'uploads')
+//   },
+//   filename: (req, file, cb) => {
+//       cb(null, file.fieldname + '-' + Date.now())
+//   }
+// });
+// var upload = multer({ storage: storage });
   const upload = multer({
     dest:"images",
     limits:{
@@ -36,7 +45,7 @@ module.exports = function (app) {
   });
   ///////////test image code
   app.get("/test1", function (req, res) {
-    res.render("image");
+    res.render("imagee");
   });
   // app.get("/testimage", async (req, res) => {
   //   const alldata = await User.find();
@@ -100,7 +109,7 @@ module.exports = function (app) {
   app.get('/imagee', async (req, res) => {
     try {
       const images = await image.find();
-      res.render('image', { images });
+      res.render('image.ejs', { images });
       // res.send(images)
       // console.log(images)
     } 
@@ -137,6 +146,40 @@ module.exports = function (app) {
         console.log(list_Team);
       });
   });
+  /////////ejs test
+  app.post('/upl', upload.single('image'), (req, res, next) => {
+ 
+    var obj = {
+        name: req.body.name,
+        desc: req.body.desc,
+        img: {
+            data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+            contentType: 'image/png'
+        }
+    }
+    image.create(obj, (err, item) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            // item.save();
+            res.redirect('/');
+        }
+    });
+});
+  app.get('/', (req, res) => {
+    image.find({}, (err, items) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send('An error occurred', err);
+        }
+        else {
+            res.render('imagee.ejs', { items: items });
+            console.log(items)
+        }
+    });
+});
+
 
   //////////////////////////end test code////////
 

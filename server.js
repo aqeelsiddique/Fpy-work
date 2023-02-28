@@ -6,6 +6,8 @@ var methodOverride=require('method-override');
 var mongoose=require('mongoose');
 var express=require('express');
 var app=express();
+const ejs = require('ejs');
+
 const handlebars = require('handlebars');
 
 const path = require('path')
@@ -19,12 +21,13 @@ app.use(bodyParser.urlencoded({extended:true}))
 ///////////////Template engine
 var exphbs = require('express-handlebars');
 
-app.engine('.hbs', exphbs.engine({ extname: '.hbs', defaultLayout: "main",
-allowedProtoMethods: { },
-allowedProtoProperties: { }
+app.engine('.hbs', exphbs.engine({ extname: '.hbs', defaultLayout: "main"
+
+
 
 }));
 // app.engine('.hbs', exphbs.engine({ extname: '.hbs', defaultLayout: "register"}));
+app.set("view engine", "ejs");
 
 app.set('view engine', '.hbs');
 app.use(express.static(path.join(__dirname, '/public')));
