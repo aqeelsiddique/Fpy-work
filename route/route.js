@@ -38,7 +38,7 @@ module.exports = function (app) {
 // });
 // var upload = multer({ storage: storage });
   const upload = multer({
-    dest:"images",
+    dest:"uploads",
     limits:{
       fileSize:1000000
     }
@@ -153,7 +153,7 @@ module.exports = function (app) {
         name: req.body.name,
         desc: req.body.desc,
         img: {
-            data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+            // data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
             contentType: 'image/png'
         }
     }
