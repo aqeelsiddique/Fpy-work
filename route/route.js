@@ -101,9 +101,10 @@ module.exports = function (app) {
     try {
       const images = await image.find();
       res.render('image', { images });
-      res.send(images)
-      console.log(images)
-    } catch (err) {
+      // res.send(images)
+      // console.log(images)
+    } 
+    catch (err) {
       console.log(err);
       res.status(500).send('Server Error');
     }
