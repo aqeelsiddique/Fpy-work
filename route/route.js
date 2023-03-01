@@ -44,15 +44,30 @@ module.exports = function (app) {
   //     fileSize:1000000
   //   }
   // });
-  var storage = multer.diskStorage({
-    destination: function (req, file, callback) {
-      callback(null, './uploads/')
-    },
-    filename: function (req, file, callback) {
-      callback(null, file.fieldname+'-' + Date.now()+path.extname(file.originalname))
+  let storage = multer.diskStorage({
+    destination:'./public/images', //directory (folder) setting
+    filename:(req, file, cb)=>{
+        cb(null, Date.now()+file.originalname) // file name setting
     }
-  });
-  var upload = multer({ storage: storage });
+})
+
+  var upload = multer({ storage: storage,
+    fileFilter:(req, file, cb)=>{
+      if(
+          file.mimetype == 'image/jpeg' ||
+          file.mimetype == 'image/jpg' ||
+          file.mimetype == 'image/png' ||
+          file.mimetype == 'image/gif'
+  
+      ){
+          cb(null, true)
+      }
+      else{
+          cb(null, false);
+          cb(new Error('Only jpeg,  jpg , png, and gif Image allow'))
+      }
+     }
+   });
 
   ///////////test image code
   app.get("/test1", function (req, res) {
@@ -103,18 +118,18 @@ module.exports = function (app) {
   //   });
   // });
   //////
-  app.post('/imagee', upload.single('myImage'), async (req, res) => {
+  app.post('/imagee', upload.single('myImage'),  (req, res) => {
     try {
       const { title, description } = req.body;
       const filename = req.file.filename;
-      const imagess = new image({ title, description, img:filename });
-      await imagess.save();
-      imagess.exec(function(err, docs){
-        if(err)throw err;
-        res.render('image', {tittle: 'uploaded file', records:docs})
-        console.log("test",records)
+      const imagess = new User({ title, description, image:filename });
+        imagess.save(function(err,data){
+          if(err) throw err;
+          res.render('image', {tittle: 'uploaded file', records:data})
 
-      })
+
+        });
+
 
       res.redirect('/imagee');
       // console.log(imagess)
@@ -123,22 +138,34 @@ module.exports = function (app) {
       res.status(500).send('Server Error');
     }
   });
+  app.get('/imagee', (req, res)=>{
+    User.find({})
+    .then((x)=>{
+        res.render('image.ejs', {x})
+        console.log(x)
+    })
+    .catch((y)=>{
+        console.log(y)
+    })
+
+    
+})
 
 
-  app.get('/imagee', async (req, res) => {
+  // app.get('/imagee', async (req, res) => {
 
-    try {
-      const images = await image.find();
+  //   try {
+  //     const images = await image.find();
 
-      res.render('image.ejs', { images });
-      // res.send(images)
-      console.log("ilu",images)
-    } 
-    catch (err) {
-      console.log(err);
-      res.status(500).send('Server Error');
-    }
-  });
+  //     res.render('image.ejs', { images });
+  //     // res.send(images)
+  //     console.log("ilu",images)
+  //   } 
+  //   catch (err) {
+  //     console.log(err);
+  //     res.status(500).send('Server Error');
+  //   }
+  // });
   app.get('/test1', (req, res) => {
     image.lean().find({}, (err, items) => {
         if (err) {
@@ -258,7 +285,7 @@ module.exports = function (app) {
   ////asyn code
   app.post("/register", upload.single("profile"), async (req, res) => {
     //this code line means agr humy specfie data chaiyae tu yeh estmal kr sgthy
-    const { name, email, password, cpassword, image } = req.body;
+    const { name, email, password, cpassword } = req.body;
     console.log(req.file);
 
     if (!name || !email || !password || !cpassword) {

@@ -5,6 +5,7 @@
   </div>
   <button type="submit">Upload Image</button>
 </form> --}} -->
+
 <h1>Upload Image</h1>
 <form action="/imagee" enctype="multipart/form-data" method="POST">
   <input type="file" name="myImage" />
@@ -15,78 +16,17 @@
 </form>
 <div class="container">
   <div class="row">
-    <% images.forEach(function(image) { %>
-      <div>
-        <div>
-          <div>
-            <h1><%= image.desc %></h1>
-           <img src="./uploads/<%=image.img %>" alt="imagee" >
-      
-          
-          </div>
-        </div>
-      </div>
-      <% }) %> 
+    
+  <%x.forEach((y)=>{%>
+    <div class="col-lg-4">
+        <img src="/images/<%=y.image%>" alt="image" width="100">
+        <h1><%= y.name %></h1>
+
+        <h1><%= y.email %></h1>
+        
+    </div>
+    <%})%>
+    
   </div>
 </div>
-<!-- <% images.forEach(function(image) { %>
-<div>
-  <div>
-    <div>
-      <h5><%= image.name %></h5>
 
-      <p><%= image.desc %></p>
-    </div>
-  </div>
-</div>
-<% }) %> -->
-<!-- 
-{{!-- <h1>To Upload Image on mongoDB</h1>
-<hr>
-<div>
-  <form action="/imageuploadtest" method="POST" enctype="multipart/form-data">
-    <div>
-      <label for="name">Image Title</label>
-      <input type="text" id="name" placeholder="Name" value="" name="name" required>
-    </div>
-    <div>
-      <label for="desc">Image Description</label>
-      <textarea id="desc" name="desc" value="" rows="2" placeholder="Description" required>
-                </textarea>
-    </div>
-    <div>
-      <label for="image">Upload Image</label>
-      <input type="file" id="image" name="image" value="" required>
-    </div>
-    <div>
-      <button type="submit">Submit</button>
-    </div>
-  </form>
-</div>
-<h1>Uploaded Images</h1>
-{{#each list_Team}}
-<div>
-  <div>
-    <div>
-      <img src={{this.img}} alt="image">
-      <h5>{{this.name}}</h5>
-      <p>{{this.desc}}</p>
-    </div>
-  </div>
-</div>
-{{/each}}
-<h1>yugugu</h1>
-
-
-</div> --}}
-{{!-- {{#each images}}
-  <h2>{{this.title}}</h2>
-  <p>{{this.description}}</p>
-  {{!-- <img src="/uploads/{{filename}}" alt="{{title}}" /> --}}
-
-{{!-- {{/each}} --}} 
-
-
-{{!-- {{#each images}}
-<img src="{{image}}">
-{{/each}} --}} -->
