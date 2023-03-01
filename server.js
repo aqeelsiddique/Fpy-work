@@ -30,7 +30,7 @@ app.engine('.hbs', exphbs.engine({ extname: '.hbs', defaultLayout: "main"
 app.set("view engine", "ejs");
 
 app.set('view engine', '.hbs');
-app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, './public')));
 const db = process.env.MONGODB_URI || 'mongodb+srv://Aqeel:aqeel12345@cluster0.uhg7y9z.mongodb.net/visiosparkwebsite?retryWrites=true&w=majority';
 
 // Connect to MongoDB instance

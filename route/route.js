@@ -15,6 +15,7 @@ const image = require("../model/image");
 const User = require("../model/Head");
 const bcrypt = require("bcryptjs");
 const path = require("path");
+const savedimage = image.find({})
 
 module.exports = function (app) {
   //////////////////////////test 0001
@@ -37,12 +38,22 @@ module.exports = function (app) {
 //   }
 // });
 // var upload = multer({ storage: storage });
-  const upload = multer({
-    dest:"uploads",
-    limits:{
-      fileSize:1000000
+  // const upload = multer({
+  //   dest:"uploads",
+  //   limits:{
+  //     fileSize:1000000
+  //   }
+  // });
+  var storage = multer.diskStorage({
+    destination: function (req, file, callback) {
+      callback(null, './uploads/')
+    },
+    filename: function (req, file, callback) {
+      callback(null, file.fieldname+'-' + Date.now()+path.extname(file.originalname))
     }
   });
+  var upload = multer({ storage: storage });
+
   ///////////test image code
   app.get("/test1", function (req, res) {
     res.render("imagee");
@@ -96,22 +107,32 @@ module.exports = function (app) {
     try {
       const { title, description } = req.body;
       const filename = req.file.filename;
-      const imagess = new image({ title, description, filename });
+      const imagess = new image({ title, description, img:filename });
       await imagess.save();
+      imagess.exec(function(err, docs){
+        if(err)throw err;
+        res.render('image', {tittle: 'uploaded file', records:docs})
+        console.log("test",records)
+
+      })
 
       res.redirect('/imagee');
-      console.log(imagess)
+      // console.log(imagess)
     } catch (err) {
       console.log(err);
       res.status(500).send('Server Error');
     }
   });
+
+
   app.get('/imagee', async (req, res) => {
+
     try {
       const images = await image.find();
+
       res.render('image.ejs', { images });
       // res.send(images)
-      // console.log(images)
+      console.log("ilu",images)
     } 
     catch (err) {
       console.log(err);
@@ -255,7 +276,7 @@ module.exports = function (app) {
           email,
           password,
           cpassword,
-          image: req.file.path,
+          image: req.file.filename,
         });
         ///save hony sy phylae hashed mae change keo password
         await user.save();
