@@ -40,7 +40,7 @@ const eventhead_list = function (req, res, next) {
         return next(err);
       }
      // Successful, so render.
-      res.render('event_headlist.ejs', {
+      res.render('event_headlist', {
         title: 'list_EventHead List',
         list_EventHead: list_EventHead,  
       });

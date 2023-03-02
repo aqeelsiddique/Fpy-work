@@ -52,7 +52,7 @@
     {{!-- <input type="text" class="form-control" name="fullSubjectName" placeholder="Subject Name"> --}}
   </div><br>
   <div class="form-group">
-    <button type="submit" class="btn btn-info" onclick="myFunction()">
+    <button type="submit" class="btn btn-info" onclick="openpopup()">
       <i class="fa fa-database"></i>
       Submit
     </button>
@@ -62,7 +62,13 @@
     </a>
   </div>
 </form>
+<div class="popup" id="popup">
+  <img src="../images/404-tick.png" alt="">
+  <h4>Sucessfully</4>
+    <p>please cjd inmckl</p>
+    <button type="button" onclick="closepopup()">ok</button>
 
+</div>
 {{!--
 {{#if errors}}
 <label>Errors:</label>

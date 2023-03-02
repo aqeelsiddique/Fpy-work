@@ -21,29 +21,8 @@ module.exports = function (app) {
   //////////////////////////test 0001
   ////////image code
   // SET STORAGE
-// var storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, 'uploads')
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null, file.fieldname + '-' + Date.now())
-//   }
-// })
-// var storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//       cb(null, 'uploads')
-//   },
-//   filename: (req, file, cb) => {
-//       cb(null, file.fieldname + '-' + Date.now())
-//   }
-// });
-// var upload = multer({ storage: storage });
-  // const upload = multer({
-  //   dest:"uploads",
-  //   limits:{
-  //     fileSize:1000000
-  //   }
-  // });
+
+  
   let storage = multer.diskStorage({
     destination:'./public/images', //directory (folder) setting
     filename:(req, file, cb)=>{
@@ -73,162 +52,7 @@ module.exports = function (app) {
   app.get("/test1", function (req, res) {
     res.render("imagee");
   });
-  // app.get("/testimage", async (req, res) => {
-  //   const alldata = await User.find();
-  //   res.json(alldata);
-  // });
-  app.post("/uploadphoto",upload.single('myImage'),(req,res)=>{
-    // res.send()
-    var img = fs.readFileSync(req.file.path);
-    var encode_img = img.toString('base64');
-    var final_img = {
-        contentType:req.file.mimetype,
-        image:new Buffer(encode_img,'base64')
-    };
-    image.create(final_img,function(err,result){
-        if(err){
-            console.log(err);
-        }else{
-            console.log(result.img.Buffer);
-            console.log("Saved To database");
-            console.log("sucessfull")
-            // res.contentType(final_img.contentType);
-            // res.send(final_img.image);
-        }
-    })
-})
-  // app.post("/imageuploadtest", upload.single("image"), (req, res, next) => {
-  //   var obj = {
-  //     name: req.body.name,
-  //     desc: req.body.desc,
-  //     img: {
-  //       data: fs.readFileSync(
-  //         path.join(__dirname + "/uploads/" + req.file.filename)
-  //       ),
-  //       contentType: "image/png",
-  //     },
-  //   };
-  //   image.create(obj, (err, item) => {
-  //     if (err) {
-  //       console.log(err);
-  //     } else {
-  //       // item.save();
-  //       res.redirect("/test1");
-  //     }
-  //   });
-  // });
-  //////
-  app.post('/imagee', upload.single('myImage'),  (req, res) => {
-    try {
-      const { title, description } = req.body;
-      const filename = req.file.filename;
-      const imagess = new User({ title, description, image:filename });
-        imagess.save(function(err,data){
-          if(err) throw err;
-          res.render('image', {tittle: 'uploaded file', records:data})
-
-
-        });
-
-
-      res.redirect('/imagee');
-      // console.log(imagess)
-    } catch (err) {
-      console.log(err);
-      res.status(500).send('Server Error');
-    }
-  });
-  app.get('/imagee', (req, res)=>{
-    User.find({})
-    .then((x)=>{
-        res.render('image.ejs', {x})
-        console.log(x)
-    })
-    .catch((y)=>{
-        console.log(y)
-    })
-
-    
-})
-
-
-  // app.get('/imagee', async (req, res) => {
-
-  //   try {
-  //     const images = await image.find();
-
-  //     res.render('image.ejs', { images });
-  //     // res.send(images)
-  //     console.log("ilu",images)
-  //   } 
-  //   catch (err) {
-  //     console.log(err);
-  //     res.status(500).send('Server Error');
-  //   }
-  // });
-  app.get('/test1', (req, res) => {
-    image.lean().find({}, (err, items) => {
-        if (err) {
-            console.log(err);
-            res.status(500).send('An error occurred', err);
-        }
-        else {
-            res.render('image', { items: items });
-        }
-    });
-    console.log(items)
-});
-  app.get("/images", function (req, res) {
-    image
-      .find()
-      .lean()
-      .exec(function (err, list_Team) {
-        if (err) {
-          return next(err);
-        }
-        // Successful, so render.
-        res.render("image", {
-          title: "Team List",
-          list_Team: list_Team,
-        });
-        console.log(list_Team);
-      });
-  });
-  /////////ejs test
-  app.post('/upl', upload.single('image'), (req, res, next) => {
- 
-    var obj = {
-        name: req.body.name,
-        desc: req.body.desc,
-        img: {
-            // data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-            contentType: 'image/png'
-        }
-    }
-    image.create(obj, (err, item) => {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            // item.save();
-            res.redirect('/');
-        }
-    });
-});
-  app.get('/', (req, res) => {
-    image.find({}, (err, items) => {
-        if (err) {
-            console.log(err);
-            res.status(500).send('An error occurred', err);
-        }
-        else {
-            res.render('imagee.ejs', { items: items });
-            console.log(items)
-        }
-    });
-});
-
-
+  
   //////////////////////////end test code////////
 
   // Retrieve all documents in the 'images' collection
@@ -307,7 +131,11 @@ module.exports = function (app) {
         });
         ///save hony sy phylae hashed mae change keo password
         await user.save();
-        res.status(201).json({ message: "user register succesfully" });
+
+        res.redirect('/evenhead');            
+
+
+        // res.status(201).json({ message: "user register succesfully" });
         console.log("user", user);
       }
     } catch (err) {

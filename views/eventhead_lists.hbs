@@ -39,23 +39,31 @@
 					</tr>
 				</thead>
 				<tbody>
-                
-					<tr>
+                    <%x.forEach((y)=>{%>
+                        <div class="col-lg-4">
+                            <img src="/images/<%=y.img%>" alt="image" width="100">
+                            <h1><%= y.img %></h1>
+                    
+                            <h1><%= y.name %></h1>
+                        </div>
+                        <%})%>
+
                         <%x.forEach((y)=>{%>
+					<tr>
 						<td>
 							<span class="custom-checkbox">
 								<input type="checkbox" id="checkbox1" name="options[]" value="1">
 								<label for="checkbox1"></label>
 							</span>
 						</td>
-						<td> <img src="/images/<%=y.image%>" alt="image" width="100"></td>
+						<td> <img src="/images/<%=y.img%>" alt="image" width="100"></td>
 						<td></td>
 						<td></td>
 						<td></td>
 						<td></td>
 						<td></td>
-						<td><%= y.name %></td>
-						<!-- <td class="liststyle">
+						<td><%= y.teamname %></td>
+						<td class="liststyle">
 							<form method="POST" action="/updateteam/{{_id}}">
 								<button class="btn" onclick="return confirm('Are you sure to update this record ?');"><i
 									class="fa fa-edit"></i></button>
@@ -63,10 +71,10 @@
 							<form method="POST" action="/delete_team/{{_id}}">
 								<button class="btn" onclick="return confirm('Are you sure to delete this record ?');"><i
 										class="fa fa-trash"></i></button>
-							</form> -->
+							</form>
 						</td>
 					</tr>
-                    <%})%>
+					{{/each}}
 				</tbody>
 			</table>
 		</div>
