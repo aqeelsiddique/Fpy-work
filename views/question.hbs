@@ -21,36 +21,55 @@
 
   }
 </style>
-
 <form action="" method="POST" class="table-wrapper">
 
   <h1>Add a Question</h1><br>
   <div class="form-group">
-    <label for="machine">Quiz :y</label>
-       {{#each list_subject}}
-      <h1>vytvyfyu{{this.name}}</h1>
-      <option value={{this._id}}>{{this.name}}</option>
-      {{/each}}
-   <select class="form-control" id="machine" name="machine" placeholder="Select machine" required="true">
-      {{#each list_subject}}
-      <h1>{{this.name}}</h1>
-      <option value={{this._id}}>{{this.name}}</option>
-      {{/each}}
+    <label for="machine">Quiz:y</label>
+   
+    <select class="form-control" id="machine" name="machine" placeholder="Select machine" required="true">
+      {{#if process}}
       {{#each list_subject}}
       <option value={{this._id}}>{{this.name}}</option>
       {{/each}}
+      {{else}}
+      {{#each list_subject}}
+      <option value={{this._id}}>{{this.name}}</option>
+      {{/each}}
+      {{/if}}
     </select>
   </div>
   {{!-- ///////////////update end code/////// --}}
   <div class="form-group">
-    <input type="text" class="form-control" name="ques" placeholder="Question" required>
-    <input type="text" class="form-control" name="option1" placeholder="option1" required>
-    <input type="text" class="form-control" name="option2" placeholder="option2" required>
-    <input type="text" class="form-control" name="option3" placeholder="option3" required>
-    <input type="text" class="form-control" name="option4" placeholder="option4" required>
-    <input type="text" class="form-control" name="ans" placeholder="ans" required>
-    {{!-- <input type="text" class="form-control" name="fullSubjectName" placeholder="Subject Name"> --}}
-  </div><br>
+   <label for="question">Question : </label>
+    <input class="form-control" id="question" placeholder='question' name='question' required="true"
+      rows="5">{{process.question}}</input>
+  </div>
+  <div class="form-group">
+    <label for="option1">Option 1 : </label>
+    <input class="form-control" id="option1" placeholder='option1' name='option1' required="true"
+      rows="5">{{process.option1}}</input>
+  </div>
+  <div class="form-group">
+    <label for="option2">Option 2 : </label>
+    <input class="form-control" id="option2" placeholder='option2' name='option2' required="true"
+      rows="5">{{process.option2}}</input>
+  </div>
+    <div class="form-group">
+    <label for="option2">Option 3 : </label>
+    <input class="form-control" id="option3" placeholder='option3' name='option3' required="true"
+      rows="5">{{process.option3}}</input>
+  </div>
+    <div class="form-group">
+    <label for="option2">Option 4: </label>
+    <input class="form-control" id="option4" placeholder='option4' name='option4' required="true"
+      rows="5">{{process.option4}}</input>
+  </div>
+    <div class="form-group">
+    <label for="option2">ans : </label>
+    <input class="form-control" id="option2" placeholder='ans' name='ans' required="true"
+      rows="5">{{process.ans}}</input>
+  </div>
   <div class="form-group">
     <button type="submit" class="btn btn-info" onclick="openpopup()">
       <i class="fa fa-database"></i>

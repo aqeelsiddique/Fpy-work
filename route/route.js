@@ -77,9 +77,10 @@ module.exports = function (app) {
   app.post("/deltedata/:id", subject.delete);
   app.get("/list_subjects", subject.subject_list);
   //////////////////////////final Question route portion start//////////////
-  app.get("/add_Question", (req, res) => {
-    res.render("question");
-  });
+  // app.get("/add_Question", (req, res) => {
+  //   res.render("question");
+  // });
+  app.get("/add_Question", controller.addques)
   app.get("/addques", controller.process_create_get);
   app.post("/add_Question", Controller.question_create_post);
   app.get("/showlist", controller.question_list);

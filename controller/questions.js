@@ -42,6 +42,21 @@ const process5_create_get = function (req, res, next) {
       console.log(list_subject)
     });
 };
+// Display list of all Subject.
+const addques = function (req, res, next) {
+  subject.find().lean()
+    .exec(function (err, list_subject) {
+      if (err) {
+        return next(err);
+      }      
+      // Successful, so render.
+      res.render('question', {
+        title: 'subject List',
+        list_subject: list_subject,        
+      });
+      console.log(list_subject)
+    });
+};
 
 ///////////////test post question with selected subject/////
 // Handle process create on POST.
@@ -71,20 +86,19 @@ const question_create_post = [
     if (!errors.isEmpty()) {
 
       // Get all machines and categories for form.
-      async.parallel(
-        
-        {
-          machines: function (callback) {
-            subject.find().lean();
-          },
+      subject.find().lean()
+    .exec(function (err, list_subject) {
+      if (err) {
+        return next(err);
+      }  
         },
         function (err, results) {
           if (err) {
             return next(err);
           }
-          res.render('process_form', {
+          res.render('question', {
             title: 'Create Process',
-            machines: results.machines,
+            list_subject: results.list_subject,
             process: process,
             errors: errors.array(),
           });
@@ -178,19 +192,15 @@ const question_list = function (req, res, next) {
     .exec(function (err, list_question) {
       if (err) {
         return next(err);
-      }
-      
+      }     
       // Successful, so render.
       res.render('questionlist', {
         title: 'question List',
-        list_question: list_question,
-
-        
+        list_question: list_question,        
       });
       console.log(list_question)
     });
 };
-
 ///////////////Update A data
 const updatequestion =  (req, res) => {
 
@@ -205,7 +215,6 @@ const updatequestion =  (req, res) => {
   }
 // Delete a user with specified user id in the request
 const deletequestion = (req, res)=>{
-
     Question.findByIdAndDelete(req.params.id, (err, doc)=>{
       if(!err){
           res.redirect('/showlist');            
@@ -607,7 +616,8 @@ module.exports={
     question_list,
     updatequestion,
     deletequestion,
-    process_create_get
+    process_create_get,
+    addques
 
 //     Addsubjects,
 //     delsubject,
