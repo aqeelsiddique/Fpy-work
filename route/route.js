@@ -66,6 +66,8 @@ module.exports = function (app) {
 
   ///////////////////dashboard code///////
   app.get("/dashboard", dashboard.index);
+  app.get("/dashboard", dashboard.eventhead_list);
+
   /////////////final done of of Subject Route
   app.get("/AddSub", (req, res) => {
     res.render("subject_Add.hbs", {
