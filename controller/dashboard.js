@@ -16,7 +16,12 @@ exports.index = function (req, res) {
       question_count: function (callback) {
         question.countDocuments({}, callback);
       },
+      eventheadlist: function (callback) {
+        User.find().lean()
+        .exec({}, callback)
+      },
     },
+
     
 
     function (err, results) {
@@ -24,8 +29,12 @@ exports.index = function (req, res) {
         title: 'Dashboard Home',
         error: err,
         data: results,
+        list_EventHead:results
       });
+      console.log("tttt",results)
+
     }
+
   );
 };
 exports.eventhead_list = function (req, res, next) {

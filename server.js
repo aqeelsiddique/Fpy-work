@@ -21,11 +21,8 @@ app.use(bodyParser.urlencoded({extended:true}))
 ///////////////Template engine
 var exphbs = require('express-handlebars');
 
-app.engine('.hbs', exphbs.engine({ extname: '.hbs', defaultLayout: "main"
-
-
-
-}));
+app.engine('.hbs', exphbs.engine({ extname: '.hbs', defaultLayout: "main" , layoutDir: __dirname + '/views/partials'
+,partialDir:__dirname+'/views/partials/'}));
 // app.engine('.hbs', exphbs.engine({ extname: '.hbs', defaultLayout: "register"}));
 app.set("view engine", "ejs");
 

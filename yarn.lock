@@ -351,6 +351,11 @@
     "graceful-fs" "^4.2.10"
     "handlebars" "^4.7.7"
 
+"express-partials@^0.3.0":
+  "integrity" "sha512-LodvQHqUhSKJNl7NMjjPvHAh7sybtmUOWKKGrrb2/eL/kPlto2KQO5lCVceOBamxipDoWw07zLwWiDwidHgmEQ=="
+  "resolved" "https://registry.npmjs.org/express-partials/-/express-partials-0.3.0.tgz"
+  "version" "0.3.0"
+
 "express@^4.18.2":
   "integrity" "sha512-5/PsL6iGPdfQ/lKM1UuielYgv3BUoJfz1aUwU9vHZ+J7gyvwdQXFEBIEIaxeGf0GIcreATNyBExtalisDbuMqQ=="
   "resolved" "https://registry.npmjs.org/express/-/express-4.18.2.tgz"
