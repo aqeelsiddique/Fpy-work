@@ -8,7 +8,9 @@ var express=require('express');
 var app=express();
 const ejs = require('ejs');
 
-const handlebars = require('handlebars');
+const Handlebars = require('handlebars');
+const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
+
 
 const path = require('path')
 app.use(bodyParser.urlencoded({extended:true}))
@@ -22,7 +24,31 @@ app.use(bodyParser.urlencoded({extended:true}))
 var exphbs = require('express-handlebars');
 
 app.engine('.hbs', exphbs.engine({ extname: '.hbs', defaultLayout: "main" , layoutDir: __dirname + '/views/partials'
-,partialDir:__dirname+'/views/partials/'}));
+,partialDir:__dirname+'/views/partials/' ,
+helpers: {
+  isScheduled: a => {
+    if (a === "Scheduled") {
+      return true;
+    }
+  },
+  isStarted: m => {
+    if (m === "Started") {
+      return true;
+    }
+  },
+  isSelected: (firstId, secondId) => {
+    if (firstId.toString() == secondId) {
+      return " selected";
+    } else {
+      return "";
+    }
+  },
+},
+runtimeOptions: {
+  allowProtoMethodsByDefault: true,
+  allowProtoPropertiesByDefault: true,
+},
+}));
 // app.engine('.hbs', exphbs.engine({ extname: '.hbs', defaultLayout: "register"}));
 app.set("view engine", "ejs");
 

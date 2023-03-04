@@ -49,9 +49,16 @@ module.exports = function (app) {
    });
 
   ///////////test image code
+
   app.get("/test1", function (req, res) {
-    res.render("imagee");
+    res.render("question");
   });
+  
+
+
+  
+
+
   
   //////////////////////////end test code////////
 
@@ -82,9 +89,9 @@ module.exports = function (app) {
   // app.get("/add_Question", (req, res) => {
   //   res.render("question");
   // });
-  app.get("/add_Question", controller.addques)
+  app.get("/add_Question", controller.process_create_get1)
   app.get("/addques", controller.process_create_get);
-  app.post("/add_Question", Controller.question_create_post);
+  app.post("/add_Question", Controller.process_create_post1);
   app.get("/showlist", controller.question_list);
   app.post("/update_Question/:id", controller.updatequestion);
   app.post("/delete_Question/:id", controller.deletequestion);
