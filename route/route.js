@@ -5,7 +5,6 @@ const subject = require("../controller/subject");
 const Team = require("../controller/team");
 const dashboard = require("../controller/dashboard");
 const {
-  eventheadregister,
   eventhead_list,
   eventdelete,
 } = require("../controller/evenhead");
@@ -73,7 +72,6 @@ module.exports = function (app) {
 
   ///////////////////dashboard code///////
   app.get("/dashboard", dashboard.index);
-  app.get("/dashboard", dashboard.eventhead_list);
 
   /////////////final done of of Subject Route
   app.get("/AddSub", (req, res) => {
@@ -90,7 +88,6 @@ module.exports = function (app) {
   //   res.render("question");
   // });
   app.get("/add_Question", controller.process_create_get1)
-  app.get("/addques", controller.process_create_get);
   app.post("/add_Question", Controller.process_create_post1);
   app.get("/showlist", controller.question_list);
   app.post("/update_Question/:id", controller.updatequestion);

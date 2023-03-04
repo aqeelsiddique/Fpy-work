@@ -37,17 +37,17 @@ exports.index = function (req, res) {
 
   );
 };
-exports.eventhead_list = function (req, res, next) {
-  User.find().lean()
-    .exec(function (err, list_EventHead) {
-      if (err) {
-        return next(err);
-      }
-     // Successful, so render.
-      res.render('dashboard', {
-        title: 'list_EventHead List',
-        list_EventHead: list_EventHead,  
-      });
-      console.log(list_EventHead)
-    });
-};
+// exports.eventhead_list = function (req, res, next) {
+//   User.find().lean()
+//     .exec(function (err, list_EventHead) {
+//       if (err) {
+//         return next(err);
+//       }
+//      // Successful, so render.
+//       res.render('dashboard', {
+//         title: 'list_EventHead List',
+//         list_EventHead: list_EventHead,  
+//       });
+//       console.log(list_EventHead)
+//     });
+// };

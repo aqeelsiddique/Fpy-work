@@ -7,7 +7,7 @@
       value="{{process.name}}">
   </div> --}}
   <div class="form-group">
-    <label for="machine">Quiz : </label>
+    <label for="machine">Select Subject</label>
     <select class="form-control" id="machine" name="select_subject" placeholder="Select machine" required="true">
       {{#if pselect_subject}}
       {{#each }}
@@ -21,32 +21,26 @@
     </select>
   </div>
   <div class="form-group">
-    <label for="question">Question : </label>
     <input class="form-control" id="question" placeholder='question' name='question' required="true"
       rows="5">{{process.question}}</input>
   </div>
   <div class="form-group">
-    <label for="option1">Option 1 : </label>
     <input class="form-control" id="option1" placeholder='option1' name='option1' required="true"
       rows="5">{{process.option1}}</input>
   </div>
   <div class="form-group">
-    <label for="option2">Option 2 : </label>
     <input class="form-control" id="option2" placeholder='option2' name='option2' required="true"
       rows="5">{{process.option2}}</input>
   </div>
     <div class="form-group">
-    <label for="option2">Option 3 : </label>
     <input class="form-control" id="option3" placeholder='option3' name='option3' required="true"
       rows="5">{{process.option3}}</input>
   </div>
     <div class="form-group">
-    <label for="option2">Option 4: </label>
     <input class="form-control" id="option4" placeholder='option4' name='option4' required="true"
       rows="5">{{process.option4}}</input>
   </div>
     <div class="form-group">
-    <label for="option2">ans : </label>
     <input class="form-control" id="option2" placeholder='ans' name='ans' required="true"
       rows="5">{{process.ans}}</input>
   </div>
