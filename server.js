@@ -2,6 +2,8 @@
 var morgan=require('morgan')
 var bodyParser=require('body-parser');
 var methodOverride=require('method-override');
+const dotenv = require('dotenv');
+const connectDatabase = require('./config/database')
 // mongoose.connect('mongodb://localhost/local');
 var mongoose=require('mongoose');
 var express=require('express');
@@ -14,12 +16,6 @@ const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-ac
 
 const path = require('path')
 app.use(bodyParser.urlencoded({extended:true}))
-// setup handlebars view engine
-// var handlebars = require('express-handlebars').create({ defaultLayout: 'main' });
-// app.engine('handlebars', handlebars.engine);
-// app.set('view engine', 'handlebars');
-// app.set('views', __dirname + '/views');
-// app.set("views", path.resolve(__dirname,"views/hbs"))
 ///////////////Template engine
 var exphbs = require('express-handlebars');
 
@@ -54,6 +50,8 @@ app.set("view engine", "ejs");
 
 app.set('view engine', '.hbs');
 app.use(express.static(path.join(__dirname, './public')));
+
+////database connection////
 const db = process.env.MONGODB_URI || 'mongodb+srv://Aqeel:aqeel12345@cluster0.uhg7y9z.mongodb.net/visiosparkwebsite?retryWrites=true&w=majority';
 
 // Connect to MongoDB instance
@@ -69,6 +67,7 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 //Endpoints
-require('./route/route')(app); 
 const port = process.env.PORT || 4001;
 app.listen(port, () => console.log(`Server started on port: ${port}`));
+require('./route/route')(app); 
+
