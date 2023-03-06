@@ -7,6 +7,11 @@ const Team = require('../model/team');
 exports.Team_create_post = [
   // Validate that the name field is not empty.
   body('teamname', 'Team name required').isLength({ min: 1 }).trim(),
+  body('member1', 'Team name required').isLength({ min: 1 }).trim(),
+
+  body('member2', 'Team name required').isLength({ min: 1 }).trim(),
+  body('member3', 'Team name required').isLength({ min: 1 }).trim(),
+
   // Sanitize (trim and escape) the name field.
   body('teamname').trim().escape(),
   // Process request after validation and sanitization.
@@ -16,7 +21,12 @@ exports.Team_create_post = [
     // Create a category object with escaped and trimmed data.]
     // alert("message you want to show");
 
-    const team = new Team({ teamname: req.body.teamname });
+    const team = new Team({ 
+      teamname: req.body.teamname,
+      member1: req.body.member1,
+      member2: req.body.member2,
+      member3: req.body.member3
+     });
     if (!errors.isEmpty()) {
       // There are errors. Render the form again with sanitized values/error messages.
       res.render('Team_Add.hbs', {
