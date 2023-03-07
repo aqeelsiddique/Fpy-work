@@ -44,7 +44,6 @@ User.find().lean()
         title: 'EventHead List',
         list_EventHead: list_EventHead,  
       });
-      console.log(list_EventHead)
     });
 };
 

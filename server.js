@@ -1,7 +1,8 @@
 
 var morgan=require('morgan')
 var bodyParser=require('body-parser');
-var methodOverride=require('method-override');
+let methodoverwride = require('method-override')
+
 const dotenv = require('dotenv');
 const connectDatabase = require('./config/database')
 // mongoose.connect('mongodb://localhost/local');
@@ -13,6 +14,7 @@ const ejs = require('ejs');
 const Handlebars = require('handlebars');
 const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
 
+app.use(methodoverwride('_method'))
 
 const path = require('path')
 app.use(bodyParser.urlencoded({extended:true}))

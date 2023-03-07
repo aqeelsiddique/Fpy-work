@@ -97,6 +97,36 @@ module.exports = function (app) {
   app.get("/evenhead", (req, res) => {
     res.render("Event_head.hbs");
   });
+  app.get("/evenheadup/:id", (req, res) => {
+    let readquery = req.params.id;
+    User.findOne({name:readquery}).then((x)=>{
+      res.render("eventheadupdate.hbs");
+      console.log(x)
+
+
+    })
+  });
+  app.put('/evenheadup/:id', (req, res)=>{
+    let readquery = req.params.id;
+    User.updateOne({name:readquery}, {
+        $set:{
+          name,
+          email,
+          password,
+          cpassword,
+          image: req.file.filename,
+        }
+    })
+    .then((x)=>{
+        req.flash('sucess', 'Your Data has update')
+        // res.redirect('/')
+    })
+    .catch((y)=>{
+        console.log(y)
+    })
+})
+
+
   app.post("/evenhead", (req, res) => {
     res.render("Event_head.hbs");
   });
