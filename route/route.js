@@ -49,46 +49,8 @@ module.exports = function (app) {
   app.get("/test1", function (req, res) {
     res.render("question");
   });
-  app.get('/', (req, res) => {
-    res.render("Team_Add", {
-        viewTitle: "Insert Employee"
-    });
-});
-
-
-function updateRecord(req, res) {
-  Team.findOneAndUpdate({ _id: req.body._id }, req.body, { new: true }, (err, doc) => {
-      if (!err) { res.redirect('employee/list'); }
-      else {
-          if (err.name == 'ValidationError') {
-              handleValidationError(err, req.body);
-              res.render("Team_Add", {
-                  viewTitle: 'Update Employee',
-                  employee: req.body
-              });
-          }
-          else
-              console.log('Error during record update : ' + err);
-      }
-  });
-}
-app.get('/:id', (req, res) => {
-  Team.findById(req.params.id, (err, doc) => {
-    if (!err) {
-        res.render("Team_Add.hbs", {
-            viewTitle: "Update subject",
-            subject: doc
-        });  
-    }
-});
-});
-
-
   
-
-
-  
-  //////////////////////////end test code////////
+  //////////////////////end test code////////
 
   // Retrieve all documents in the 'images' collection
   // image.find().toArray(function(err, documents) {
