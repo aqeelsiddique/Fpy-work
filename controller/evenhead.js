@@ -34,7 +34,7 @@ const eventheadregister =  async function(req, res){
 };
 // list of all Question.
 const eventhead_list = function (req, res, next) {
-  User.find().lean()
+User.find().lean()
     .exec(function (err, list_EventHead) {
       if (err) {
         return next(err);

@@ -29,13 +29,13 @@
 								<label for="selectAll"></label>
 							</span>
 						</th>
-						<th>ID</th>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
 						<th>Team-Name</th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th>Team-Member-Name</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -47,15 +47,16 @@
 								<label for="checkbox1"></label>
 							</span>
 						</td>
-						<td> {{this._id}}</td>
+						<td> {{this.teamname}}</td>
 						<td></td>
 						<td></td>
 						<td></td>
 						<td></td>
 						<td></td>
-						<td>{{this.teamname}}</td>
+						<td>{{this.member1}}</td>
 						<td class="liststyle">
-							<form method="POST" action="/updateteam/{{_id}}">
+                <a href="/{{this._id}}"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
+							<form method="" action="/{{this._id}}">
 								<button class="btn" onclick="return confirm('Are you sure to update this record ?');"><i
 									class="fa fa-edit"></i></button>
 							</form>
