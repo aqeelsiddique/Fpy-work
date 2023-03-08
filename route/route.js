@@ -1,5 +1,6 @@
 const controller = require("../controller/questions");
 var Controller = require("../controller/questions");
+const { ObjectId } = require("mongodb");
 
 const subject = require("../controller/subject");
 const Team = require("../controller/team");
@@ -7,49 +8,49 @@ const dashboard = require("../controller/dashboard");
 const {
   eventhead_list,
   eventdelete,
+  updateprofile,
 } = require("../controller/evenhead");
 const multer = require("multer");
-var fs = require('fs');
+var fs = require("fs");
 const image = require("../model/image");
 const User = require("../model/Head");
 const bcrypt = require("bcryptjs");
 const path = require("path");
 
 module.exports = function (app) {
-//////////////////////////test 0001//////
-////////image code
-// SET STORAGE
+  //////////////////////////test 0001//////
+  ////////image code
+  // SET STORAGE
   let storage = multer.diskStorage({
-    destination:'./public/images', //directory (folder) setting
-    filename:(req, file, cb)=>{
-        cb(null, Date.now()+file.originalname) // file name setting
-    }
-})
+    destination: "./public/images", //directory (folder) setting
+    filename: (req, file, cb) => {
+      cb(null, Date.now() + file.originalname); // file name setting
+    },
+  });
 
-  var upload = multer({ storage: storage,
-    fileFilter:(req, file, cb)=>{
-      if(
-          file.mimetype == 'image/jpeg' ||
-          file.mimetype == 'image/jpg' ||
-          file.mimetype == 'image/png' ||
-          file.mimetype == 'image/gif'
-  
-      ){
-          cb(null, true)
+  var upload = multer({
+    storage: storage,
+    fileFilter: (req, file, cb) => {
+      if (
+        file.mimetype == "image/jpeg" ||
+        file.mimetype == "image/jpg" ||
+        file.mimetype == "image/png" ||
+        file.mimetype == "image/gif"
+      ) {
+        cb(null, true);
+      } else {
+        cb(null, false);
+        cb(new Error("Only jpeg,  jpg , png, and gif Image allow"));
       }
-      else{
-          cb(null, false);
-          cb(new Error('Only jpeg,  jpg , png, and gif Image allow'))
-      }
-     }
-   });
+    },
+  });
 
   ///////////test image code
 
   app.get("/test1", function (req, res) {
     res.render("question");
   });
-  
+
   //////////////////////end test code////////
 
   // Retrieve all documents in the 'images' collection
@@ -78,7 +79,7 @@ module.exports = function (app) {
   // app.get("/add_Question", (req, res) => {
   //   res.render("question");
   // });
-  app.get("/add_Question", controller.process_create_get1)
+  app.get("/add_Question", controller.process_create_get1);
   app.post("/add_Question", Controller.process_create_post1);
   app.get("/showlist", controller.question_list);
   app.post("/update_Question/:id", controller.updatequestion);
@@ -97,39 +98,67 @@ module.exports = function (app) {
   app.get("/evenhead", (req, res) => {
     res.render("Event_head.hbs");
   });
-  app.get("/evenheadup/:id", (req, res) => {
-    let readquery = req.params.id;
-    User.findOne({name:readquery}).then((x)=>{
-      res.render("eventheadupdate.hbs");
-      console.log(x)
-
-
-    })
+  app.get("/evenheadupdate/:id", (req, res) => {
+    User.findOne({ name: req.params.id })
+      .then((x) => {
+        res.render("eventheadupdate.hbs", { x });
+        console.log(x);
+      })
+      .catch((y) => {
+        console.log(y);
+      });
   });
-  app.put('/evenheadup/:id', (req, res)=>{
-    let readquery = req.params.id;
-    User.updateOne({name:readquery}, {
-        $set:{
-          name,
-          email,
-          password,
-          cpassword,
+  app.put("/evenheadupdate/:id",  upload.single("profile"),(req, res) => {
+    User.updateOne(
+      { name: req.params.id },
+      {
+        $set: {
+          name: req.body.name,
+          email: req.body.email,
+          password: req.body.password,
+          cpassword: req.body.cpassword,
           image: req.file.filename,
-        }
-    })
-    .then((x)=>{
-        req.flash('sucess', 'Your Data has update')
-        // res.redirect('/')
-    })
-    .catch((y)=>{
-        console.log(y)
-    })
-})
+        },
+      }
+    ).then((x)=>{
 
-
-  app.post("/evenhead", (req, res) => {
-    res.render("Event_head.hbs");
+      res.redirect('/eventheadlists')
+    })
   });
+
+  app.put("/me/update", updateprofile);
+
+  // app.get("/evenheadup/:id", (req, res) => {
+  //   const id = req.params.id;
+
+  //   User.findOne({_id: new ObjectId(id)}, (err, record) => {
+  //     if (err) throw err;
+
+  //     res.render('eventheadupdate', {record: record});
+  //   });
+  // });
+  // app.post('/record/:id', upload.single("profile"),(req, res) => {
+  //   const id = req.params.id;
+
+  //   const record = {
+  //     name: req.body.name,
+  //     email: req.body.email,
+  //     password:req.body.password,
+  //     cpassword: req.body.cpassword,
+  //     image: req.file.filename
+
+  //   };
+
+  //   User.updateOne({_id: new ObjectId(id)}, {$set: record}, (err, result) => {
+  //     if (err) throw err;
+
+  //     res.redirect('/evenhead');
+  //   });
+  // });
+
+  // app.post("/evenhead", (req, res) => {
+  //   res.render("Event_head.hbs");
+  // });
   // app.post("/register", eventheadregister);
   app.get("/eventheadlists", eventhead_list);
   app.post("/eventhead_team/:id", eventdelete);
@@ -160,8 +189,7 @@ module.exports = function (app) {
         ///save hony sy phylae hashed mae change keo password
         await user.save();
 
-        res.redirect('/evenhead');            
-
+        res.redirect("/evenhead");
 
         // res.status(201).json({ message: "user register succesfully" });
         console.log("user", user);

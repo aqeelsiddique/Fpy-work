@@ -4,6 +4,29 @@ const User = require('../model/Head');
 // const st = require('st');
 
 ////asyn code
+const updateprofile= (async(req, res, next) => {
+  const id = req.params.id;
+
+
+  const newuserdata = {
+    name:req.body.name,
+    email:req.body.email,
+    password:req.body.password,
+    cpassword: req.body.cpassword,
+
+  }
+/////////we will cloud user profile update data
+const user =  User.findByIdAndUpdate(req.user.id, newuserdata, {
+  new: true,
+  runValidators: true,
+  useFindAndModify: false
+
+}); 
+res.status(200).json({
+
+  success: true,
+})
+})
 const eventheadregister =  async function(req, res){
 
 
@@ -63,7 +86,8 @@ const eventdelete = (req, res)=>{
 module.exports = {
   eventheadregister,
   eventhead_list,
-  eventdelete
+  eventdelete,
+  updateprofile
   
 
 
