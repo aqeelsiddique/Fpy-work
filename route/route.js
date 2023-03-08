@@ -9,6 +9,7 @@ const {
   eventhead_list,
   eventdelete,
   updateprofile,
+  updateeventhead,
 } = require("../controller/evenhead");
 const multer = require("multer");
 var fs = require("fs");
@@ -98,68 +99,38 @@ module.exports = function (app) {
   app.get("/evenhead", (req, res) => {
     res.render("Event_head.hbs");
   });
-  app.get("/evenheadupdate/:id", (req, res) => {
-    User.findOne({ name: req.params.id })
-      .then((x) => {
-        res.render("eventheadupdate.hbs", { x });
-        console.log(x);
-      })
-      .catch((y) => {
-        console.log(y);
-      });
-  });
-  app.put("/evenheadupdate/:id",  upload.single("profile"),(req, res) => {
-    User.updateOne(
-      { name: req.params.id },
-      {
-        $set: {
-          name: req.body.name,
-          email: req.body.email,
-          password: req.body.password,
-          cpassword: req.body.cpassword,
-          image: req.file.filename,
-        },
-      }
-    ).then((x)=>{
 
-      res.redirect('/eventheadlists')
+
+  app.get('/edit/:id', (req, res)=>{
+    let readquery = req.params.id;
+   
+    User.findOne({name:readquery})
+    .then((x)=>{
+        res.render('eventheadupdate.hbs', {x})
     })
-  });
+   
+})
+app.put('/edit/:id',upload.single("profile"), updateeventhead);
+// app.put('/edit/:id',upload.single("profile"), (req, res)=>{
+//     let readquery = req.params.id;
+//     User.updateOne({name:readquery}, {
+//         $set:{
+//           name: req.body.name,
+//           email: req.body.email,
+//           password: req.body.password,
+//           cpassword: req.body.cpassword,
+//           image: req.file.filename,
 
-  app.put("/me/update", updateprofile);
-
-  // app.get("/evenheadup/:id", (req, res) => {
-  //   const id = req.params.id;
-
-  //   User.findOne({_id: new ObjectId(id)}, (err, record) => {
-  //     if (err) throw err;
-
-  //     res.render('eventheadupdate', {record: record});
-  //   });
-  // });
-  // app.post('/record/:id', upload.single("profile"),(req, res) => {
-  //   const id = req.params.id;
-
-  //   const record = {
-  //     name: req.body.name,
-  //     email: req.body.email,
-  //     password:req.body.password,
-  //     cpassword: req.body.cpassword,
-  //     image: req.file.filename
-
-  //   };
-
-  //   User.updateOne({_id: new ObjectId(id)}, {$set: record}, (err, result) => {
-  //     if (err) throw err;
-
-  //     res.redirect('/evenhead');
-  //   });
-  // });
-
-  // app.post("/evenhead", (req, res) => {
-  //   res.render("Event_head.hbs");
-  // });
-  // app.post("/register", eventheadregister);
+//         }
+//     })
+//     .then((x)=>{
+//         // req.flash('sucess', 'Your Data has update')
+//         res.redirect('/evenhead')
+//     })
+//     .catch((y)=>{
+//         console.log(y)
+//     })
+// })
   app.get("/eventheadlists", eventhead_list);
   app.post("/eventhead_team/:id", eventdelete);
   //////////////////End//////////////////////
