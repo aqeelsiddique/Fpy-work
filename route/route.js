@@ -4,6 +4,8 @@ const { ObjectId } = require("mongodb");
 
 const subject = require("../controller/subject");
 const Team = require("../controller/team");
+const team = require("../model/team");
+
 const dashboard = require("../controller/dashboard");
 const {
   eventhead_list,
@@ -92,15 +94,25 @@ module.exports = function (app) {
   });
   app.post("/addteam", Team.Team_create_post);
   app.get("/teamlist", Team.Team_list);
-  app.post("/delete_team/:id", Team.teamdelete);
-  app.post("/updateteam/:id", Team.update);
+  app.get("/delete_team/:id", Team.teamdelete);
+
+  // app.post("/updateteam/:id", Team.update);
+  app.get('/editteam/:id', (req, res)=>{
+    let readquery = req.params.id;
+   
+    team.findOne({teamname:readquery})
+    .then((x)=>{
+        res.render('teamupdate.hbs', {x})
+    })
+   
+})
+app.put('/editteam/:id', Team.teamupdate);
+
   ///////////////////////////////////Team Section End//////////////////////////////////
   //////////////////EventHead Section////////////////////
   app.get("/evenhead", (req, res) => {
     res.render("Event_head.hbs");
   });
-
-
   app.get('/edit/:id', (req, res)=>{
     let readquery = req.params.id;
    
@@ -111,28 +123,8 @@ module.exports = function (app) {
    
 })
 app.put('/edit/:id',upload.single("profile"), updateeventhead);
-// app.put('/edit/:id',upload.single("profile"), (req, res)=>{
-//     let readquery = req.params.id;
-//     User.updateOne({name:readquery}, {
-//         $set:{
-//           name: req.body.name,
-//           email: req.body.email,
-//           password: req.body.password,
-//           cpassword: req.body.cpassword,
-//           image: req.file.filename,
-
-//         }
-//     })
-//     .then((x)=>{
-//         // req.flash('sucess', 'Your Data has update')
-//         res.redirect('/evenhead')
-//     })
-//     .catch((y)=>{
-//         console.log(y)
-//     })
-// })
   app.get("/eventheadlists", eventhead_list);
-  app.post("/eventhead_team/:id", eventdelete);
+  app.get("/eventhead_team/:id", eventdelete);
   //////////////////End//////////////////////
   ////asyn code
   app.post("/register", upload.single("profile"), async (req, res) => {

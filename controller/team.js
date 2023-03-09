@@ -125,15 +125,28 @@ exports.Team_list = function (req, res, next) {
     });
 };
 ///////////////Update A data
-exports.update = (req, res) => {
-  Team.findByIdAndUpdate(req.params._id, (err, doc) => {
-    if (!err) {
-      res.render("Team_Add.hbs");
-    } else {
-      console.log("Error while deleting", err);
-    }
-  });
-};
+exports.teamupdate = function(req, res) {
+  let readquery = req.params.id;
+    Team.updateOne({teamname:readquery}, {
+        $set:{
+          teamname: req.body.teamname,
+          member1: req.body.member1,
+          member2: req.body.member2,
+          member3: req.body.member3,
+         
+          
+
+        }
+    })
+    .then((x)=>{
+        // req.flash('sucess', 'Your Data has update')
+        res.redirect('/createteam')
+    })
+    .catch((y)=>{
+        console.log(y)
+    })
+  
+}
 // Delete a user with specified user id in the request
 exports.teamdelete = (req, res) => {
   Team.findByIdAndDelete(req.params.id, (err, doc) => {

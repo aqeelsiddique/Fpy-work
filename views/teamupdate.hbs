@@ -1,0 +1,53 @@
+<h3>{{Title}}</h3>
+<style>
+    .form-control {
+        margin: 15px;
+        border-radius: 3px 3px 0 0;
+    }
+
+    .table-wrapper {
+        margin-top: 100px;
+        margin-left: 5%;
+        margin-right: 5%;
+        border-radius: 3px 3px 0 0;
+    }
+
+    h1 {
+        background: #7522E6;
+        color: #fff;
+        padding: 16px 30px;
+        min-width: 100%;
+        margin: -20px -25px 10px;
+        border-radius: 3px 3px 0 0;
+
+    }
+</style>
+
+<form action="/editteam/{{x.teamname}}?_method=put" method="POST" class="table-wrapper">
+    <input type="hidden" name="_method" value="PUT">
+    <div class="form-group">
+        <h1>Enter Team Name</h1>
+        <input type="text" class="form-control" name="teamname" placeholder="Enter Team Name" required>
+        <input type="text" class="form-control" name="member1" placeholder="Enter Memeber Name" required>
+        <input type="text" class="form-control" name="member2" placeholder="Enter Member Name" required> <input
+            type="text" class="form-control" name="member3" placeholder="Enter Member Name" required>
+    </div>
+
+    <button type="submit" class="btn btn-info"  onclick="return confirm('Are you sure to update this record ?');">
+        <i class="fa fa-database"></i>
+        Submit
+    </button>
+    <a href="/teamlist" class="btn btn-danger">
+        <i class="fa fa-list-alt"></i>
+        ViewAll
+    </a>
+    </div>
+
+</form>
+<div class="popup" id="popup">
+    <img src="../images/404-tick.png" alt="">
+    <h4>Sucessfully</4>
+        <p>please cjd inmckl</p>
+        <button type="button" onclick="closepopup()">ok</button>
+
+</div>

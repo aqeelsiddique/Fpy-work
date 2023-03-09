@@ -7,7 +7,7 @@
                         <h2>Manage <b>EventHead</b></h2>
                     </div>
                     <div class="col-sm-6">
-                        <form method="post" action="/evenhead">
+                        <form method="" action="/evenhead">
                             <button class="btn btn-success" data-toggle="modal">
                                 Add New TeamHead-Name
                                 <i class="material-icons">&#xE147;</i>
@@ -49,7 +49,7 @@
                             </span>
                         </td>
                         <td><img src="/images/{{this.image}}" alt="A cute cat" /></td>
- 
+
                         <td></td>
                         <td></td>
                         <td>{{this.name}}</td>
@@ -59,20 +59,29 @@
 
 
                         <td> </td>
-                        <td class="liststyle">
-                            <a href="/edit/{{this.name}}" class="fa fa-edit" onclick="return confirm('Are you sure to update this record ?');"></a>
+                        <td>
+                            <div class="icons">
+                                <a href="/edit/{{this.name}}" class="fa fa-edit" style="font-size:25px;color:rgb(80, 85, 87);"
+                                onclick="return confirm('Are you sure to update this record ?');"></a>
 
-                            <form method="" action="/evenheadup/{{this.name}}">
+                            {{!-- <form method="" action="/evenheadup/{{this.name}}">
                                 <button class="btn" onclick="return confirm('Are you sure to update this record ?');"><i
                                         class="fa fa-edit"></i></button>
 
-                            </form>
-                            <form method="POST" action="/eventhead_team/{{_id}}">
-                                <button class="btn" onclick="return confirm('Are you sure to delete this record ?');"><i
-                                class="fa fa-trash"></i></button>
+                            </form> --}}
+                            <a href="/eventhead_team/{{_id}}" class="fa fa-trash" 
+                            style="font-size:25px;color:red";
+                                onclick="return confirm('Are you sure to update this record ?');"> </a>
 
-                            </form>
+                            {{!-- <form method="POST" action="/eventhead_team/{{_id}}">
+                                <button class="btn" onclick="return confirm('Are you sure to delete this record ?');"><i
+                                        class="fa fa-trash"></i></button>
+
+                            </form> --}}
                         </td>
+
+                            </div>
+                            
                         {{!-- <td>
                             <a href="/update_Question/{{this._id}}" class="edit" data-toggle="modal"><i
                                     class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>

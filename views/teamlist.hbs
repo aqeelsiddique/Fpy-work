@@ -7,16 +7,16 @@
 						<h2>Manage <b>Team-Name</b></h2>
 					</div>
 					<div class="col-sm-6">
-						<form method="post" action="/Addteam">
+						<form method="" action="/createteam" >
 							<button class="btn btn-success" data-toggle="modal">
 								Add New Team-Name
 								<i class="material-icons">&#xE147;</i>
 							</button>
 
-						{{!-- <a href="/Addteam" class="btn btn-success" data-toggle="modal"><i
-								class="material-icons">&#xE147;</i> <span>Add New Team</span></a> --}}
-						<a href="/deltedata/{{this._id}}" class="btn btn-danger" data-toggle="modal"><i
-								class="material-icons">&#xE15C;</i> <span>Delete</span></a>
+							{{!-- <a href="/Addteam" class="btn btn-success" data-toggle="modal"><i
+									class="material-icons">&#xE147;</i> <span>Add New Team</span></a> --}}
+							<a href="/deltedata/{{this._id}}" class="btn btn-danger" data-toggle="modal"><i
+									class="material-icons">&#xE15C;</i> <span>Delete</span></a>
 					</div>
 				</div>
 			</div>
@@ -54,16 +54,15 @@
 						<td></td>
 						<td></td>
 						<td>{{this.member1}}</td>
-						<td class="liststyle">
-                <a href="/{{this._id}}"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
-							<form method="" action="/{{this._id}}">
-								<button class="btn" onclick="return confirm('Are you sure to update this record ?');"><i
-									class="fa fa-edit"></i></button>
-							</form>
-							<form method="POST" action="/delete_team/{{_id}}">
-								<button class="btn" onclick="return confirm('Are you sure to delete this record ?');"><i
-										class="fa fa-trash"></i></button>
-							</form>
+						<td class="icons">
+
+							<a href="/edit/{{this.editteam}}" class="fa fa-edit"
+								style="font-size:25px;color:rgb(80, 85, 87);"
+								onclick="return confirm('Are you sure to update this record ?');"></a>
+
+							<a href="/delete_team/{{_id}}" class="fa fa-trash" style="font-size:25px;color:red" ;
+								onclick="return confirm('Are you sure to update this record ?');"> </a>
+
 						</td>
 					</tr>
 					{{/each}}
