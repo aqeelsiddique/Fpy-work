@@ -3,6 +3,7 @@ var Controller = require("../controller/questions");
 const { ObjectId } = require("mongodb");
 
 const subject = require("../controller/subject");
+const subjectmodel = require('../model/subject')
 const Team = require("../controller/team");
 const team = require("../model/team");
 
@@ -76,6 +77,16 @@ module.exports = function (app) {
   });
   app.post("/add_Subject", subject.subject_create_post);
   app.post("/subupdate/:id", subject.update);
+  
+  app.get('/editsubject/:id', (req, res)=>{
+    let readquery = req.params.id;
+   
+    subjectmodel.findOne({name:readquery})
+    .then((x)=>{
+        res.render('updatesubject.hbs', {x})
+    })
+   
+})
   app.post("/deltedata/:id", subject.delete);
   app.get("/list_subjects", subject.subject_list);
   //////////////////////////final Question route portion start//////////////
@@ -162,25 +173,58 @@ app.put('/edit/:id',upload.single("profile"), updateeventhead);
     }
   });
   ///LOGIN  ROUTE
-  app.get("/singin", (req, res) => {
-    res.render("main", {
-      subjecttitle: "Add a Subject",
+  app.post('/login', async (req, res) => {
+    const { name, password } = req.body;
+  
+    // Find the user in the database
+    const user = await User.findOne({ name });
+  
+    // If the user doesn't exist, send an error message
+    if (!user) {
+      return res.send('Username or password ies incorrect');
+    }
+  
+    // Compare the password with the hash
+    const isMatch = await bcrypt.compare(password, user.password);
+  
+    // If the password doesn't match, send an error message
+    if (!isMatch) {
+      return res.send('Username or password is incorrect');
+    }
+  
+    // Set the user's session and redirect to the dashboard
+    // req.session.user = user;
+    res.redirect('/dashboard');
+  });
+  
+  // app.get('/dashboard', (req, res) => {
+  //   if (!req.session.user) {
+  //     return res.redirect('/');
+  //   }
+  
+  //   res.sendFile(__dirname + '/public/dashboard.html');
+  // });
+  
+  app.get("/login", (req, res) => {
+    res.render("headloginform", {
+
     });
   });
   app.post("/singin", async (req, res) => {
     try {
       const { name, password } = req.body;
-      if (!name) {
+      if (!name && !password) {
         return res.status(400).send({ error: "invalid" });
       }
       const userlogin = await User.findOne({
         name: name,
+        password:password
       });
       if (userlogin) {
         if (!userlogin) {
           res.status(422).send({ message: "user error" });
         } else {
-          res.render("main");
+          res.render("dashboard.hbs");
         }
       } else {
         res.status(422).send({ message: "invalid" });
