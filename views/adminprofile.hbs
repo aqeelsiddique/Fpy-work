@@ -22,13 +22,13 @@
 
     }
 </style>
-<form action="/register" method="post" id="add_user" class="table-wrapper" autocomplete="off"
+<form action="/adminreg" method="post" id="add_user" class="table-wrapper" autocomplete="off"
     enctype="multipart/form-data">
     {{!-- <div class="form-group">
         <input type="text" class="form-control" name="fullname" placeholder="No">
     </div> --}}
     <div class="form-group">
-        <h1>Set a Even_Head Profile</h1>
+        <h1>Set a Even_Admin Profile</h1>
         <input type="text" class="form-control" name="name" placeholder="Enter Name" required>
         <input type="text" class="form-control" name="email" placeholder="Enter Email " required>
         <input tyApe="text" class="form-control" name="password" placeholder="Password" required>
@@ -37,7 +37,7 @@
             <input type="file" id="profile" name="profile" >
         </div>
     </div>
-    <button type="submit" class="btn btn-info"  onclick="openpopup()">
+    <button type="submit" class="btn btn-info" onclick="return confirm('Are you sure to update this record ?');">
         <i class="fa fa-database"></i>
         Submit
     </button>

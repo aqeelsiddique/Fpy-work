@@ -20,10 +20,9 @@ const image = require("../model/image");
 const User = require("../model/Head");
 const bcrypt = require("bcryptjs");
 const path = require("path");
-
+const { adminreg, admininfo, admin_lists, admindelete } = require("../controller/admin");
 module.exports = function (app) {
   //////////////////////////test 0001//////
-  ////////image code
   // SET STORAGE
   let storage = multer.diskStorage({
     destination: "./public/images", //directory (folder) setting
@@ -31,7 +30,6 @@ module.exports = function (app) {
       cb(null, Date.now() + file.originalname); // file name setting
     },
   });
-
   var upload = multer({
     storage: storage,
     fileFilter: (req, file, cb) => {
@@ -48,9 +46,7 @@ module.exports = function (app) {
       }
     },
   });
-
   ///////////test image code
-
   // app.get("/test1", function (req, res) {
   //   res.render("eventhead.hbs");
   // });
@@ -131,8 +127,7 @@ app.put('/editteam/:id', Team.teamupdate);
     User.findOne({name:readquery})
     .then((x)=>{
         res.render('eventheadupdate.hbs', {x})
-    })
-   
+    })  
 })
 app.put('/edit/:id',upload.single("profile"), updateeventhead);
   app.get("/eventheadlists", eventhead_list);
@@ -205,7 +200,7 @@ app.put('/edit/:id',upload.single("profile"), updateeventhead);
   
   //   res.sendFile(__dirname + '/public/dashboard.html');
   // });
-  
+
   app.get("/login", (req, res) => {
     res.render("headloginform", {
 
@@ -234,4 +229,24 @@ app.put('/edit/:id',upload.single("profile"), updateeventhead);
       console.log(err);
     }
   });
+
+//////////////Admin code section/////////////
+app.get('/admin', (req, res) => {
+  res.render('adminprofile.hbs')
+})
+
+app.post("/adminreg", upload.single("profile"), adminreg );
+app.get("/admininfo", admininfo);
+app.get("/adminlists", admin_lists);
+app.get("/admindel/:id", admindelete);
+
+
+
+
+
 };
+
+
+
+
+

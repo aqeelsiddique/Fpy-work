@@ -52,7 +52,7 @@ app.set("view engine", "ejs");
 
 app.set('view engine', '.hbs');
 app.use(express.static(path.join(__dirname, './public')));
-app.use(express.static(path.join(__dirname, './eventhead')));
+
 
 
 ////database connection////
