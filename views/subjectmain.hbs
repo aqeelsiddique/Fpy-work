@@ -56,11 +56,9 @@
 						<td class="liststyle">
 							{{!-- <a href="/update/{{this._id}}" class="edit" data-toggle="modal"><i
 									class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> --}}
-							<form method="POST" action="/editsubject/{{_id}}">
-								<button class="btn" onclick="return confirm('Are you sure to update this record ?');"><i
-										class="fa fa-edit"></i></button>
-
-							</form>
+								<a href="/editsubject/{{this.name}}" class="fa fa-edit"
+								style="font-size:25px;color:rgb(80, 85, 87);"
+								onclick="return confirm('Are you sure to update this record ?');"></a>
 							<form method="POST" action="/deltedata/{{_id}}">
 								<button class="btn" onclick="return confirm('Are you sure to delete this record ?');"><i
 										class="fa fa-trash"></i></button>

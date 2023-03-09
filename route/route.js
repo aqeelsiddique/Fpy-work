@@ -51,9 +51,9 @@ module.exports = function (app) {
 
   ///////////test image code
 
-  app.get("/test1", function (req, res) {
-    res.render("question");
-  });
+  // app.get("/test1", function (req, res) {
+  //   res.render("eventhead.hbs");
+  // });
 
   //////////////////////end test code////////
 
@@ -76,8 +76,9 @@ module.exports = function (app) {
     });
   });
   app.post("/add_Subject", subject.subject_create_post);
-  app.post("/subupdate/:id", subject.update);
-  
+
+  app.put('/editsubject/:id', subject.subjectupdate );
+
   app.get('/editsubject/:id', (req, res)=>{
     let readquery = req.params.id;
    

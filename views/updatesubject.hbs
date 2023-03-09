@@ -20,16 +20,14 @@
 
   }
 </style>
-<form action="/add_Subject" method="post" id="add_user" class="table-wrapper" autocomplete="off">
-    {{!-- <div class="form-group">
-        <input type="text" class="form-control" name="fullname" placeholder="No">
-    </div> --}}
+<form action="/editsubject/{{x.name}}?_method=put" method="POST" class="table-wrapper">
+    <input type="hidden" name="_method" value="PUT">
     <div class="form-group">
         <h1>Enter Subject Name</h1>
         <input type="text" class="form-control" name="name" placeholder="Enter Subject Name" required>
         {{!-- <input type="text" class="form-control" name="fullSubjectName" placeholder="Subject Name"> --}}
     </div>   
-    <button type="submit" class="btn btn-info" onclick="openpopup()">
+    <button type="submit" class="btn btn-info" onclick="return confirm('Are you sure to update this record ?');">
         <i class="fa fa-database"></i>
         Submit
     </button>
@@ -40,10 +38,10 @@
     </div>
 </form>
 
- <div class="popup" id="popup">
+ {{!-- <div class="popup" id="popup">
         <img src="../images/404-tick.png" alt="">
         <h4>Sucessfully</4>
         <p>please cjd inmckl</p>
         <button type="button" onclick="closepopup()">ok</button>
 
-    </div>
+    </div> --}}

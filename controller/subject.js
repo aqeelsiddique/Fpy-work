@@ -75,15 +75,22 @@ exports.subject_list = function (req, res, next) {
     });
 };
 ///////////////Update A data //https://github.com/CodAffection/Node.js-Expess-MongoDB-CRUD/blob/74a11aee717bcb9773d1360314e20dbf7248d33e/project/controllers/employeeController.js#L31
-exports.update =  (req, res) => {
-  Subject.findById(req.params.id, (err, doc) => {
-    if (!err) {
-        res.render("Subject_Add.hbs", {
-            viewTitle: "Update subject",
-            subject: doc
-        });  
-    }
-});
+///////////////Update A data
+exports.subjectupdate = function(req, res) {
+  let readquery = req.params.id;
+    Subject.updateOne({name:readquery}, {
+        $set:{
+          name: req.body.name,
+        }
+    })
+    .then((x)=>{
+        // req.flash('sucess', 'Your Data has update')
+        res.redirect('/AddSub')
+    })
+    .catch((y)=>{
+        console.log(y)
+    })
+  
 }
 // exports.update =  (req, res) => {
 //   Subject.updateOne({ _id: req.body._id }, req.body, { new: true }, (err, doc) => {
