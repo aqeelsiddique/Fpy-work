@@ -36,6 +36,7 @@ exports.index = function (req, res) {
     }
 
   );
+  
 };
 // exports.eventhead_list = function (req, res, next) {
 //   User.find().lean()

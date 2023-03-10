@@ -2,25 +2,16 @@
 var morgan=require('morgan')
 var bodyParser=require('body-parser');
 let methodoverwride = require('method-override')
-const hbs         = require( 'express-handlebars' )
+const hbs = require('handlebars');
 const fs = require('fs');
-
 const dotenv = require('dotenv');
 const connectDatabase = require('./config/database')
 // mongoose.connect('mongodb://localhost/local');
 var mongoose=require('mongoose');
 var express=require('express');
 var app=express();
-const ejs = require('ejs');
-
-const Handlebars = require('handlebars');
-const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
-
 app.use(methodoverwride('_method'))
-
 const path = require('path')
-// const partialstemplate = path.join(__dirname, '/views/partials')
-
 app.use(bodyParser.urlencoded({extended:true}))
 ///////////////Template engine
 var exphbs = require('express-handlebars');
@@ -52,15 +43,13 @@ runtimeOptions: {
   allowProtoPropertiesByDefault: true,
 },
 }));
-hbs.registerPartial('event_headlists', fs.readFileSync(__dirname + '/views/partials/event_headlists', 'utf8'));
 
-// app.engine('.hbs', exphbs.engine({ extname: '.hbs', defaultLayout: "register"}));
-app.set("view engine", "ejs");
+// const partialsPath  = path.join(__dirname, "../views/partials")
 
 app.set('view engine', '.hbs');
-// app.set("views", partialstemplate)
 app.use(express.static(path.join(__dirname, './public')));
-
+hbs.registerPartial('header', fs.readFileSync('./views/partials/navbar.hbs', 'utf8'));
+hbs.registerPartial('event_headlists', fs.readFileSync('./views/partials/event_headlists.hbs', 'utf8'));
 
 ////database connection////
 const db = process.env.MONGODB_URI || 'mongodb+srv://Aqeel:aqeel12345@cluster0.uhg7y9z.mongodb.net/visiosparkwebsite?retryWrites=true&w=majority';

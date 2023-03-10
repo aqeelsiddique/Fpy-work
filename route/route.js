@@ -48,7 +48,9 @@ module.exports = function (app) {
   });
   ///////////test image code
   app.get("/test1", function (req, res) {
-    res.render("event_headlists.hbs");
+    res.render("dashboard.hbs", {
+      title:"hello"
+    });
   });
 
   //////////////////////end test code////////
@@ -63,7 +65,7 @@ module.exports = function (app) {
   // });
 
   ///////////////////dashboard code///////
-  app.get("/dashboard", dashboard.index);
+  app.get("/dashboard", dashboard.index , eventhead_list);
 
   /////////////final done of of Subject Route
   app.get("/AddSub", (req, res) => {
