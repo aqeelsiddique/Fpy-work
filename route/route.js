@@ -47,9 +47,9 @@ module.exports = function (app) {
     },
   });
   ///////////test image code
-  // app.get("/test1", function (req, res) {
-  //   res.render("eventhead.hbs");
-  // });
+  app.get("/test1", function (req, res) {
+    res.render("event_headlists.hbs");
+  });
 
   //////////////////////end test code////////
 

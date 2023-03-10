@@ -41,7 +41,8 @@ User.find().lean()
         return next(err);
       }
      // Successful, so render.
-      res.render('event_headlist', {
+      res.render('event_headlist',  {
+      
         title: 'EventHead List',
         list_EventHead: list_EventHead,  
       });

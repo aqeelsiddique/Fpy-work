@@ -21,131 +21,18 @@
 </head>
 
 <body>
-  <!-- Sidebar -->
-  <div class="container">
-    <div class="logo">
-      <svg xmlns="http://www.w3.org/2000/svg" width="32.519" height="30.7" viewBox="0 0 32.519 30.7" fill="#363b46">
-        {{!-- <g id="Logo" transform="translate(-90.74 -84.875)">
-          <path id="B"
-            d="M14.378-30.915c-5.124,0-9.292,3.767-9.292,10.228S9.254-10.46,14.378-10.46h1.471c5.124,0,9.292-3.767,9.292-10.228s-4.168-10.228-9.292-10.228H14.378M11.7-33.456h6.819A12.768,12.768,0,0,1,31.29-20.687,12.768,12.768,0,0,1,18.522-7.919H11.7A12.768,12.768,0,0,1-1.065-20.687C-2.4-51.282,4.652-33.456,11.7-33.456Z"
-            transform="translate(91.969 123.494)" />
-        </g> --}}
-      </svg>
-    </div>
-    <ul class="link-items">
-      <li class="link-item active">
-        <a href="#" class="link">
-          <ion-icon name="home-outline"></ion-icon>
-          <span style="--i: 1">Home</span>
-        </a>
-      </li>
-      <li class="link-item">
-        <a href="/dashboard" class="link">
-          <ion-icon name="cube-outline"></ion-icon>
-          <span style="--i: 2">dashboard</span>
-        </a>
-      </li>
-      {{!-- dropdown --}}
-      <li class="link-item">
-        <a href="/AddSub" class="link"><ion-icon name="create-outline"></ion-icon>
-          <span style="--i: 3">create_Subject</span>
-        </a>
-      </li>
-      <li class="link-item">
-        <a href="/add_Question" class="link"><ion-icon name="create-outline"></ion-icon>
-          <span style="--i: 3">create_Question</span>
-        </a>
-      </li>
-      <li class="link-item">
-        <a href="/createteam" class="link"><ion-icon name="create-outline"></ion-icon>
-          <span style="--i: 3">create_Team</span>
-        </a>
-      </li>
-      <li class="link-item">
-        <a href="/evenhead" class="link"><ion-icon name="create-outline"></ion-icon>
-          <span style="--i: 3"> Even_Head </span>
-        </a>
-      </li>
-      <li class="link-item">
-        <a href="#" class="link">
-          <ion-icon name="eye-outline"></ion-icon><span style="--i: 5">view subjectlist</span>
-        </a>
-      </li>
-      <li class="link-item dark-mode">
-        <a href="#" class="link">
-          <ion-icon name="moon-outline"></ion-icon>
-          <span style="--i: 8">dark mode</span>
-        </a>
-      </li>
-      <li class="link-item">
-        <a href="#" class="link">
-          <ion-icon name="help-cicle-outline"></ion-icon>
-          <span style="--i: 7"></span>
-        </a>
-      </li>
 
+  {{> sidebars}}
 
-    </ul>
-  </div>
 
 
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
   <!-- /#sidebar-wrapper -->
   <!-- Page Content -->
-  <div class="container-fluid">
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
-      <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
-        <a href="#" class="navbar-brand"><i class="fa fa-cube"></i>Visio<b>Spark</b></a>
-        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <!-- Collection of nav links, forms, and other content for toggling -->
-        <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
-          <form class="navbar-form form-inline">
-            <div class="input-group search-box">
-              <input type="text" id="search" class="form-control" placeholder="Search here...">
-              <span class="input-group-addon"><i class="material-icons">&#xE8B6;</i></span>
-            </div>
-          </form>
-          <div class="navbar-nav ml-auto">
-            <a href="#" class="dropdown-item"><ion-icon name="cog-outline">
-              </ion-icon>Settings</a>
-            {{!-- <a href="#" class="nav-item nav-link"> <ion-icon name="cog-outline"></ion-icon>
-              <span>settings</span>
-            </a> --}}
-            <a href="#" class="dropdown-item"><i class="fa fa-bell"></i>
-              <span>Notifications</span>
-            </a>
-            <div class="nav-item dropdown">
-              {{#each admininfo}}
+  {{> navbar}}
 
-              <a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle user-action">
-                <img src="/images/{{this.image}}" alt="A cute cat" alt="Avatar">
-                Mr.Aqeel{{this.name}} <b class="caret"></b></a>
-
-              {{/each}}
-
-
-
-              <div class="dropdown-menu">
-                <a href="/admin" class="dropdown-item"><i class="fa fa-user-o"></i> Profile</a>
-                <a href="#" class="dropdown-item"><i class="fa fa-calendar-o"></i> Calendar</a>
-                <a href="/admin" class="dropdown-item"><i class="fa fa-sliders"></i> Settings</a>
-                <div class="divider dropdown-divider"></div>
-                <a href="#" class="dropdown-item"><i class="material-icons">&#xE8AC;</i> Logout</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      {{{body}}}
-    </div>
-  </div>
-  <!-- /#page-content-wrapper -->
-  </div>
+  {{{body}}}
 
 
   <!-- /#wrapper -->

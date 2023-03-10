@@ -2,6 +2,8 @@
 var morgan=require('morgan')
 var bodyParser=require('body-parser');
 let methodoverwride = require('method-override')
+const hbs         = require( 'express-handlebars' )
+const fs = require('fs');
 
 const dotenv = require('dotenv');
 const connectDatabase = require('./config/database')
@@ -17,12 +19,15 @@ const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-ac
 app.use(methodoverwride('_method'))
 
 const path = require('path')
+// const partialstemplate = path.join(__dirname, '/views/partials')
+
 app.use(bodyParser.urlencoded({extended:true}))
 ///////////////Template engine
 var exphbs = require('express-handlebars');
 
-app.engine('.hbs', exphbs.engine({ extname: '.hbs', defaultLayout: "main" , layoutDir: __dirname + '/views/partials'
-,partialDir:__dirname+'/views/partials/' ,
+app.engine('.hbs', exphbs.engine({ extname: '.hbs', defaultLayout: "main" ,   partialsDir: __dirname + '/views/partials/'
+
+,
 helpers: {
   isScheduled: a => {
     if (a === "Scheduled") {
@@ -47,12 +52,14 @@ runtimeOptions: {
   allowProtoPropertiesByDefault: true,
 },
 }));
+hbs.registerPartial('event_headlists', fs.readFileSync(__dirname + '/views/partials/event_headlists', 'utf8'));
+
 // app.engine('.hbs', exphbs.engine({ extname: '.hbs', defaultLayout: "register"}));
 app.set("view engine", "ejs");
 
 app.set('view engine', '.hbs');
+// app.set("views", partialstemplate)
 app.use(express.static(path.join(__dirname, './public')));
-
 
 
 ////database connection////
