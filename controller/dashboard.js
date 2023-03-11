@@ -4,6 +4,8 @@ const team = require("../model/team");
 const subject = require("../model/subject");
 const question = require("../model/question");
 const User = require("../model/Head");
+const admin = require("../model/admin")
+
 // exports.index = function (req, res) {
   // async.parallel(
   //   {
@@ -53,6 +55,9 @@ exports.eventhead_list = function (req, res, next) {
       eventheadlist: function (callback) {
         User.find().lean().exec(callback)
       },
+      adminlist: function (callback) {
+        admin.find().lean().exec(callback)
+      },
     },
     function (err, results) {
       if (err) { return next(err); }
@@ -62,6 +67,7 @@ exports.eventhead_list = function (req, res, next) {
           data: results,
 
         list_EventHead: results.eventheadlist,  
+        admininfo: results.adminlist
       });
     }
   );
