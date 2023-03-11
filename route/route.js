@@ -65,7 +65,7 @@ module.exports = function (app) {
   // });
 
   ///////////////////dashboard code///////
-  app.get("/dashboard", dashboard.index , eventhead_list);
+  app.get("/dashboard", dashboard.eventhead_list );
 
   /////////////final done of of Subject Route
   app.get("/AddSub", (req, res) => {
