@@ -62,6 +62,8 @@ ul {
   overflow: hidden;
   background-color: var(--white-bg);
   transition: all 0.3s ease;
+  /* position: fixed; */
+
 }
 
 .container.active {

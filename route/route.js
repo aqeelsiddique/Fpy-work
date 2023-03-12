@@ -63,6 +63,16 @@ module.exports = function (app) {
   //   res.render('image', { images: documents });
 
   // });
+  const data = [
+    { id: 1, name: 'John' },
+    { id: 2, name: 'Jane' },
+    { id: 3, name: 'Bob' },
+  ];
+  
+  app.get('/api/data', (req, res) => {
+    res.send(data);
+    console.log(data)
+  });
 
   ///////////////////dashboard code///////
   app.get("/dashboard", dashboard.eventhead_list );
