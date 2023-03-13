@@ -181,29 +181,29 @@ app.put('/edit/:id',upload.single("profile"), updateeventhead);
     }
   });
   ///LOGIN  ROUTE
-  app.post('/login', async (req, res) => {
-    const { name, password } = req.body;
+  // app.post('/login', async (req, res) => {
+  //   const { name, password } = req.body;
   
-    // Find the user in the database
-    const user = await User.findOne({ name });
+  //   // Find the user in the database
+  //   const user = await User.findOne({ name:name });
   
-    // If the user doesn't exist, send an error message
-    if (!user) {
-      return res.send('Username or password ies incorrect');
-    }
+  //   // If the user doesn't exist, send an error message
+  //   if (!user) {
+  //     return res.send('Username or password ies incorrect');
+  //   }
   
-    // Compare the password with the hash
-    const isMatch = await bcrypt.compare(password, user.password);
+  //   // Compare the password with the hash
+  //   const isMatch = await bcrypt.compare(password, user.password);
   
-    // If the password doesn't match, send an error message
-    if (!isMatch) {
-      return res.send('Username or password is incorrect');
-    }
+  //   // If the password doesn't match, send an error message
+  //   if (!isMatch) {
+  //     return res.send('Username or password is incorrect');
+  //   }
   
-    // Set the user's session and redirect to the dashboard
-    // req.session.user = user;
-    res.redirect('/dashboard');
-  });
+  //   // Set the user's session and redirect to the dashboard
+  //   // req.session.user = user;
+  //   res.redirect('/dashboard');
+  // });
   
   // app.get('/dashboard', (req, res) => {
   //   if (!req.session.user) {
@@ -218,29 +218,40 @@ app.put('/edit/:id',upload.single("profile"), updateeventhead);
 
     });
   });
-  app.post("/singin", async (req, res) => {
-    try {
-      const { name, password } = req.body;
-      if (!name && !password) {
-        return res.status(400).send({ error: "invalid" });
+  ///LOGIN  ROUTE
+app.post('/login', async (req, res)=>{
+  try {
+      const {name, password} = req.body;
+      if (!name || !password) {
+          return res.status(400).send({error:"invalid"})
       }
-      const userlogin = await User.findOne({
-        name: name,
-        password:password
-      });
-      if (userlogin) {
-        if (!userlogin) {
-          res.status(422).send({ message: "user error" });
-        } else {
-          res.render("dashboard.hbs");
-        }
+      const userlogin = await User.findOne({ name: name });
+      if (userlogin){
+          const isMatch = await bcrypt.compare(password, userlogin.password);
+          // const token = await userlogin.generateAuthToken();
+
+          // console.log(token)
+          // res.cookie('jwttoken', 'Aqeel', {
+          //     expires: new Date(Date.now() + 25892000000),
+          //     httpOnly: true
+          // })
+          ///create a cokki4res.cokkie
+          if(!isMatch) {
+              res.status(422).send({message: "user error"})
+          } else {
+              res.send({meassage:" wellcome user  login sucessfully"})             
+          }
       } else {
-        res.status(422).send({ message: "invalid" });
-      }
-    } catch (err) {
+          res.status(422).send({message: "invalid"})
+      }    
+  } catch(err) {
       console.log(err);
-    }
-  });
+  }
+
+  // console.log(req.body);
+  // res.send({message:"awesome"});
+})
+
 
 //////////////Admin code section/////////////
 app.get('/admin', (req, res) => {
