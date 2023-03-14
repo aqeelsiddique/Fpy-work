@@ -3,7 +3,7 @@ var Controller = require("../controller/questions");
 const { ObjectId } = require("mongodb");
 
 const subject = require("../controller/subject");
-const subjectmodel = require('../model/subject')
+const subjectmodel = require("../model/subject");
 const Team = require("../controller/team");
 const team = require("../model/team");
 
@@ -20,7 +20,14 @@ const image = require("../model/image");
 const User = require("../model/Head");
 const bcrypt = require("bcryptjs");
 const path = require("path");
-const { adminreg, admininfo, admin_lists, admindelete } = require("../controller/admin");
+const {
+  adminreg,
+  admininfo,
+  admin_lists,
+  admindelete,
+} = require("../controller/admin");
+const { round_create_post, round_list, delround, roundupdate } = require("../controller/round");
+const round = require("../model/round");
 module.exports = function (app) {
   //////////////////////////test 0001//////
   // SET STORAGE
@@ -49,7 +56,7 @@ module.exports = function (app) {
   ///////////test image code
   app.get("/test1", function (req, res) {
     res.render("dashboard.hbs", {
-      title:"hello"
+      title: "hello",
     });
   });
 
@@ -64,20 +71,41 @@ module.exports = function (app) {
 
   // });
   const data = [
-    { id: 1, name: 'John' },
-    { id: 2, name: 'Jane' },
-    { id: 3, name: 'Bob' },
+    { id: 1, name: "John" },
+    { id: 2, name: "Jane" },
+    { id: 3, name: "Bob" },
   ];
-  
-  app.get('/api/data', (req, res) => {
+
+  app.get("/api/data", (req, res) => {
     res.send(data);
-    console.log(data)
+    console.log(data);
   });
 
   ///////////////////dashboard code///////
-  app.get("/dashboard", dashboard.eventhead_list );
+  app.get("/dashboard", dashboard.eventhead_list);
 
-  /////////////final done of of Subject Route
+  //////////////////////////////Final Round wise team enter to DB code
+  app.get("/Addround", (req, res) => {
+    res.render("round.hbs", {
+      roundttitle: "Add a Round",
+    });
+  });
+  app.post("/Addround", round_create_post);
+  app.get("/list_rounds", round_list);
+
+  app.post("/delround/:id", delround);
+  app.put("/editround/:id", roundupdate);
+  app.get("/editround/:id", (req, res) => {
+    let readquery = req.params.id;
+
+    round.findOne({ roundname: readquery }).then((x) => {
+      res.render("roundupdate.hbs", { x });
+    });
+  });
+
+  /////////////////////end round wise code /////////////
+
+  /////////////final done of of Subject Rout
   app.get("/AddSub", (req, res) => {
     res.render("subject_Add.hbs", {
       subjecttitle: "Add a Subject",
@@ -85,19 +113,19 @@ module.exports = function (app) {
   });
   app.post("/add_Subject", subject.subject_create_post);
 
-  app.put('/editsubject/:id', subject.subjectupdate );
+  app.put("/editsubject/:id", subject.subjectupdate);
 
-  app.get('/editsubject/:id', (req, res)=>{
+  app.get("/editsubject/:id", (req, res) => {
     let readquery = req.params.id;
-   
-    subjectmodel.findOne({name:readquery})
-    .then((x)=>{
-        res.render('updatesubject.hbs', {x})
-    })
-   
-})
+
+    subjectmodel.findOne({ name: readquery }).then((x) => {
+      res.render("updatesubject.hbs", { x });
+    });
+  });
   app.post("/deltedata/:id", subject.delete);
   app.get("/list_subjects", subject.subject_list);
+
+
   //////////////////////////final Question route portion start//////////////
   // app.get("/add_Question", (req, res) => {
   //   res.render("question");
@@ -108,6 +136,9 @@ module.exports = function (app) {
   app.post("/update_Question/:id", controller.updatequestion);
   app.post("/delete_Question/:id", controller.deletequestion);
   //////////////////////End of Question portion////////////////////////
+
+
+  
   ///////////////////////////////////////Team Section/////////////////////////////
   app.get("/createteam", (req, res) => {
     res.render("Team_Add.hbs");
@@ -117,31 +148,28 @@ module.exports = function (app) {
   app.get("/delete_team/:id", Team.teamdelete);
 
   // app.post("/updateteam/:id", Team.update);
-  app.get('/editteam/:id', (req, res)=>{
+  app.get("/editteam/:id", (req, res) => {
     let readquery = req.params.id;
-   
-    team.findOne({teamname:readquery})
-    .then((x)=>{
-        res.render('teamupdate.hbs', {x})
-    })
-   
-})
-app.put('/editteam/:id', Team.teamupdate);
+
+    team.findOne({ teamname: readquery }).then((x) => {
+      res.render("teamupdate.hbs", { x });
+    });
+  });
+  app.put("/editteam/:id", Team.teamupdate);
 
   ///////////////////////////////////Team Section End//////////////////////////////////
   //////////////////EventHead Section////////////////////
   app.get("/evenhead", (req, res) => {
     res.render("Event_head.hbs");
   });
-  app.get('/edit/:id', (req, res)=>{
+  app.get("/edit/:id", (req, res) => {
     let readquery = req.params.id;
-   
-    User.findOne({name:readquery})
-    .then((x)=>{
-        res.render('eventheadupdate.hbs', {x})
-    })  
-})
-app.put('/edit/:id',upload.single("profile"), updateeventhead);
+
+    User.findOne({ name: readquery }).then((x) => {
+      res.render("eventheadupdate.hbs", { x });
+    });
+  });
+  app.put("/edit/:id", upload.single("profile"), updateeventhead);
   app.get("/eventheadlists", eventhead_list);
   app.get("/eventhead_team/:id", eventdelete);
   //////////////////End//////////////////////
@@ -180,96 +208,50 @@ app.put('/edit/:id',upload.single("profile"), updateeventhead);
       console.log(err);
     }
   });
-  ///LOGIN  ROUTE
-  // app.post('/login', async (req, res) => {
-  //   const { name, password } = req.body;
-  
-  //   // Find the user in the database
-  //   const user = await User.findOne({ name:name });
-  
-  //   // If the user doesn't exist, send an error message
-  //   if (!user) {
-  //     return res.send('Username or password ies incorrect');
-  //   }
-  
-  //   // Compare the password with the hash
-  //   const isMatch = await bcrypt.compare(password, user.password);
-  
-  //   // If the password doesn't match, send an error message
-  //   if (!isMatch) {
-  //     return res.send('Username or password is incorrect');
-  //   }
-  
-  //   // Set the user's session and redirect to the dashboard
-  //   // req.session.user = user;
-  //   res.redirect('/dashboard');
-  // });
-  
-  // app.get('/dashboard', (req, res) => {
-  //   if (!req.session.user) {
-  //     return res.redirect('/');
-  //   }
-  
-  //   res.sendFile(__dirname + '/public/dashboard.html');
-  // });
-
   app.get("/login", (req, res) => {
-    res.render("headloginform", {
-
-    });
+    res.render("headloginform", {});
   });
   ///LOGIN  ROUTE
-app.post('/login', async (req, res)=>{
-  try {
-      const {name, password} = req.body;
+  app.post("/login", async (req, res) => {
+    try {
+      const { name, password } = req.body;
       if (!name || !password) {
-          return res.status(400).send({error:"invalid"})
+        return res.status(400).send({ error: "invalid" });
       }
       const userlogin = await User.findOne({ name: name });
-      if (userlogin){
-          const isMatch = await bcrypt.compare(password, userlogin.password);
-          // const token = await userlogin.generateAuthToken();
+      if (userlogin) {
+        const isMatch = await bcrypt.compare(password, userlogin.password);
+        // const token = await userlogin.generateAuthToken();
 
-          // console.log(token)
-          // res.cookie('jwttoken', 'Aqeel', {
-          //     expires: new Date(Date.now() + 25892000000),
-          //     httpOnly: true
-          // })
-          ///create a cokki4res.cokkie
-          if(!isMatch) {
-              res.status(422).send({message: "user error"})
-          } else {
-              res.send({meassage:" wellcome user  login sucessfully"})             
-          }
+        // console.log(token)
+        // res.cookie('jwttoken', 'Aqeel', {
+        //     expires: new Date(Date.now() + 25892000000),
+        //     httpOnly: true
+        // })
+        ///create a cokki4res.cokkie
+        if (!isMatch) {
+          res.status(422).send({ message: "user error" });
+        } else {
+          res.send({ meassage: " wellcome user  login sucessfully" });
+        }
       } else {
-          res.status(422).send({message: "invalid"})
-      }    
-  } catch(err) {
+        res.status(422).send({ message: "invalid" });
+      }
+    } catch (err) {
       console.log(err);
-  }
+    }
 
-  // console.log(req.body);
-  // res.send({message:"awesome"});
-})
+    // console.log(req.body);
+    // res.send({message:"awesome"});
+  });
 
+  //////////////Admin code section/////////////
+  app.get("/admin", (req, res) => {
+    res.render("adminprofile.hbs");
+  });
 
-//////////////Admin code section/////////////
-app.get('/admin', (req, res) => {
-  res.render('adminprofile.hbs')
-})
-
-app.post("/adminreg", upload.single("profile"), adminreg );
-app.get("/admininfo", admininfo);
-app.get("/adminlists", admin_lists);
-app.get("/admindel/:id", admindelete);
-
-
-
-
-
+  app.post("/adminreg", upload.single("profile"), adminreg);
+  app.get("/admininfo", admininfo);
+  app.get("/adminlists", admin_lists);
+  app.get("/admindel/:id", admindelete);
 };
-
-
-
-
-
