@@ -140,9 +140,7 @@ module.exports = function (app) {
 
   
   ///////////////////////////////////////Team Section/////////////////////////////
-  app.get("/createteam", (req, res) => {
-    res.render("Team_Add.hbs");
-  });
+  app.get("/createteam", Team.Team_create_get);
   app.post("/addteam", Team.Team_create_post);
   app.get("/teamlist", Team.Team_list);
   app.get("/delete_team/:id", Team.teamdelete);
