@@ -3,6 +3,8 @@ var morgan=require('morgan')
 var bodyParser=require('body-parser');
 let methodoverwride = require('method-override')
 const hbs = require('handlebars');
+const cors = require('cors');
+
 const fs = require('fs');
 const dotenv = require('dotenv');
 const connectDatabase = require('./config/database')
@@ -15,6 +17,7 @@ const path = require('path')
 app.use(bodyParser.urlencoded({extended:true}))
 ///////////////Template engine
 var exphbs = require('express-handlebars');
+
 
 app.engine('.hbs', exphbs.engine({ extname: '.hbs', defaultLayout: "main" ,   partialsDir: __dirname + '/views/partials/'
 
