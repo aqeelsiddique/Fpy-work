@@ -3,13 +3,13 @@ import LoginBg from "../login1.png";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./index.css";
 // import { application } from 'express';
-const Login = () => {
+const Loginadmin = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const loginUser = async (e) => {
     e.preventDefault();
-    const res = await fetch("/login", {
+    const res = await fetch("/adminlogin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,7 +27,6 @@ const Login = () => {
       window.alert("plz filled property");
     } else {
       window.alert("login Successfull");
-
       navigate("/main2");
     }
   };
@@ -102,4 +101,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Loginadmin;

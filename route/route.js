@@ -25,8 +25,15 @@ const {
   admininfo,
   admin_lists,
   admindelete,
+  adminlogin,
+  adminlogout,
 } = require("../controller/admin");
-const { round_create_post, round_list, delround, roundupdate } = require("../controller/round");
+const {
+  round_create_post,
+  round_list,
+  delround,
+  roundupdate,
+} = require("../controller/round");
 const round = require("../model/round");
 module.exports = function (app) {
   //////////////////////////test 0001//////
@@ -125,7 +132,6 @@ module.exports = function (app) {
   app.post("/deltedata/:id", subject.delete);
   app.get("/list_subjects", subject.subject_list);
 
-
   //////////////////////////final Question route portion start//////////////
   // app.get("/add_Question", (req, res) => {
   //   res.render("question");
@@ -137,8 +143,6 @@ module.exports = function (app) {
   app.post("/delete_Question/:id", controller.deletequestion);
   //////////////////////End of Question portion////////////////////////
 
-
-  
   ///////////////////////////////////////Team Section/////////////////////////////
   app.get("/createteam", Team.Team_create_get);
   app.post("/addteam", Team.Team_create_post);
@@ -206,17 +210,17 @@ module.exports = function (app) {
       console.log(err);
     }
   });
-  app.get("/login", (req, res) => {
-    res.render("headloginform", {});
-  });
+  // app.get("/login", (req, res) => {
+  //   res.render("headloginform", {});
+  // });
   ///LOGIN  ROUTE
   app.post("/login", async (req, res) => {
     try {
-      const { name, password } = req.body;
-      if (!name || !password) {
+      const { email, password } = req.body;
+      if (!email || !password) {
         return res.status(400).send({ error: "invalid" });
       }
-      const userlogin = await User.findOne({ name: name });
+      const userlogin = await User.findOne({ email: email });
       if (userlogin) {
         const isMatch = await bcrypt.compare(password, userlogin.password);
         // const token = await userlogin.generateAuthToken();
@@ -230,6 +234,8 @@ module.exports = function (app) {
         if (!isMatch) {
           res.status(422).send({ message: "user error" });
         } else {
+          // res.render("dashboard")
+
           res.send({ meassage: " wellcome user  login sucessfully" });
         }
       } else {
@@ -238,16 +244,32 @@ module.exports = function (app) {
     } catch (err) {
       console.log(err);
     }
-
-    // console.log(req.body);
-    // res.send({message:"awesome"});
   });
 
   //////////////Admin code section/////////////
   app.get("/admin", (req, res) => {
     res.render("adminprofile.hbs");
   });
-
+  app.get("/adminlogin", (req, res) => {
+    res.render("adminlogin");
+  });
+  app.post("/logout", function (req, res) {
+    req.session.destroy(function (err) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.redirect("/adminlogin");
+      }
+    });
+  });
+  // app.post("/adminlogin", adminlogin)
+  app.get("/adminlogout", adminlogout);
+  //logout logic and route
+  app.get("/logout", function (req, res) {
+    req.logout();
+    req.flash("success", "Successfully logged out!");
+    res.redirect("/adminlogin");
+  });
   app.post("/adminreg", upload.single("profile"), adminreg);
   app.get("/admininfo", admininfo);
   app.get("/adminlists", admin_lists);
