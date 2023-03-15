@@ -1,16 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 // import Mainpg from '../mainpg.jpg'
 import { NavLink } from "react-router-dom";
 import './index.css'
 // import options from './api/options';
 import Img from '../mainimg.png'
 import Mainbg from '../mainbg.png'
-import options from './api/options'
+// import options from './api/options'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import apiData from './api/apiData';
 
 const Main = () => {
 
+    const [selectedRound, setSelectedRound] = useState(apiData[0]);
+    function handleRoundChange(event) {
+        const roundIndex = event.target.value;
+        setSelectedRound(apiData[roundIndex]);
+    }
     return (
         <>
 
@@ -33,28 +39,30 @@ const Main = () => {
                                 <Form.Control type="text"
                                     placeholder="Enter your full name" />
                             </Form.Group>
-                            
+
                             <Form.Group className="mb-4">
                                 <Form.Label>Select Round</Form.Label>
-                                <Form.Select >
-                                    {options.map((option) => (
-                                        <option value={option.value}>{option.label}</option>
-                                    ))}
+                                <Form.Select id="round-select" value={selectedRound} onChange={handleRoundChange}>
+                                        {apiData.map((round, index) => (
+                                            <option key={index} value={index}>
+                                                {round.roundName}
+                                            </option>
+                                        ))}
                                 </Form.Select>
                             </Form.Group>
                             <Form.Group className="mb-4">
-                                <Form.Label>Select Timer</Form.Label>
+                                <Form.Label>Number Of Mcqs</Form.Label>
                                 <Form.Select >
-                                    <option value="30">30</option>
-                                    <option value="45">45</option>
-                                    <option value="60">60</option>
+                                    <option value="30">5</option>
+                                    <option value="45">8</option>
+                                    <option value="60">10</option>
                                 </Form.Select>
                             </Form.Group>
 
                             <div className="d-grid gap-2 mt-3">
                                 <Button type="submit" className="btn btn">
 
-                                    <NavLink to="/start" style={{ color: 'white',textDecoration:'none' }} >Submit</NavLink>
+                                    <NavLink to="/start" style={{ color: 'white', textDecoration: 'none' }} >Submit</NavLink>
                                 </Button>
                             </div>
                         </div>
