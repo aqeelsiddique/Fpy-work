@@ -53,7 +53,7 @@ const Main = () => {
                             <Form.Group className="mb-4">
                                 <Form.Label>Number Of Mcqs</Form.Label>
                                 <Form.Select >
-                                    <option value="30">5</option>
+                                    <option value="30">4</option>
                                     <option value="45">8</option>
                                     <option value="60">10</option>
                                 </Form.Select>
