@@ -44,11 +44,11 @@
   </div>
   <div class="form-group">
     {{!-- <h1>Enter Team </h1> --}}
-    <select class="form-control" id="round" name="select_round" placeholder="Select round" required="true">
+    <select  class="form-control" id="round" name="select_round" placeholder="Select round" required="true">
       {{#if select_round}}
 
       {{#each select_round}}
-            <option value="" disabled selected hidden>Select a Round</option>
+            <option type="text" value="" disabled selected hidden>Select a Round</option>
 
       <option value={{this._id}} {{isSelected this._id ../round.select_round._id}}>{{this.roundname}}</option>
       {{/each}}

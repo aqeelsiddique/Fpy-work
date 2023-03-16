@@ -3,6 +3,8 @@ const admin = require("../model/admin");
 const bcrypt = require("bcryptjs");
 const express = require('express');
 const session = require('express-session');
+const catchayncerror = require("../middleware/catchayncerror");
+const ErrorHandler = require("../untils/errorhandler");
 
 
 const app = express();
@@ -132,11 +134,28 @@ const adminlogout =  function(req, res) {
     }
   });
 };
+
+
+////////////////////////forgot Password////////////////////
+
+
+const forgetPassword = catchayncerror(async (req, res, next) => {
+  const user = await admin.findOne({ email: req.body.email });
+  console.log(user);
+
+  if (!user) {
+    return next(new ErrorHandler("user not found", 404));
+  }
+
+  // rest of the function code ...
+});
+
 module.exports = {
   adminreg,
   admininfo,
   admin_lists,
   admindelete,
   adminlogin,
-  adminlogout
+  adminlogout,
+  forgetPassword
 };

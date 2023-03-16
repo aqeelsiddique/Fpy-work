@@ -3,6 +3,7 @@ var Controller = require("../controller/questions");
 const { ObjectId } = require("mongodb");
 const express = require('express');
 
+const cookieParser = require('cookie-parser');
 
 const config = require("../config/config")
 const subject = require("../controller/subject");
@@ -12,6 +13,10 @@ const team = require("../model/team");
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const dashboard = require("../controller/dashboard");
+const app = express();
+
+app.use(cookieParser());
+
 const {
   eventhead_list,
   eventdelete,
@@ -31,6 +36,7 @@ const {
   admindelete,
   adminlogin,
   adminlogout,
+  forgetPassword,
 } = require("../controller/admin");
 const {
   round_create_post,
@@ -243,7 +249,7 @@ module.exports = function (app) {
         if (!isMatch) {
           res.status(422).send({ message: "user error" });
         } else {
-          res.render("dashboard")
+          res.redirect("/dashboard")
 
           // res.send({ meassage: " wellcome user  login sucessfully" });
         }
@@ -254,6 +260,17 @@ module.exports = function (app) {
       console.log(err);
     }
   });
+
+  app.get('/logout', (req, res) => {
+    res.clearCookie('access_token'); // replace "access_token" with your cookie name
+    res.redirect("/adminlogin")
+
+  });
+app.get("/forgot", (req, res) => {
+  res.render("forgot")
+})
+  app.post("/forgot" , forgetPassword)
+
 
   //////////////Admin code section/////////////
   app.get("/admin", (req, res) => {

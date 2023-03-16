@@ -12,26 +12,46 @@ const async = require("async");
 // Display process create form on GET.
 exports.Team_create_get = function (req, res, next) {
   // Get all machines and categories, which we can use for adding to our process.
-  async.parallel(
-    {
-      select_round: function (callback) {
-        round.find(callback);
+  // async.parallel(
+  //   {
+  //     select_round:round.find()
+  //     // categories: function (callback) {
+  //     //   Category.find(callback);
+  //     // },
+  //   },
+  //   function (err, results) {
+  //     if (err) {
+  //       return next(err);
+  //     }
+  //     res.render("Team_Add", {
+  //       title: "Create Quiz",
+  //       select_round: results.select_round,
+  //       // categories: results.categories,
+  //     });
+  //   }
+  // );
+  Promise.all([
+   
+    
+    round.find().lean().exec(),
+
+  ])
+  .then(([ select_round]) => {
+    // Render the view with the data
+    res.render('Team_Add', {
+      title: 'Add Team',
+      data: {
+       
+        
+        select_round
       },
-      // categories: function (callback) {
-      //   Category.find(callback);
-      // },
-    },
-    function (err, results) {
-      if (err) {
-        return next(err);
-      }
-      res.render("Team_Add", {
-        title: "Create Quiz",
-        select_round: results.select_round,
-        // categories: results.categories,
-      });
-    }
-  );
+      select_round: select_round
+    });
+  })
+  .catch((err) => {
+    // Handle errors here
+    return next(err);
+  });
 };
 
 exports.update12 = (req, res) => {
