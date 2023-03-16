@@ -7,6 +7,8 @@ const TeamSchema = new Schema({
     
 
 },
+universityname: { type: String, required: true, min: 3, max: 100 },
+
   teamname: { type: String, required: true, min: 3, max: 100 },
   
   member1: { type: String, required: true, min: 3, max: 100 },

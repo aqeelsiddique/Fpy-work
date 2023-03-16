@@ -1,12 +1,16 @@
 const controller = require("../controller/questions");
 var Controller = require("../controller/questions");
 const { ObjectId } = require("mongodb");
+const express = require('express');
 
+
+const config = require("../config/config")
 const subject = require("../controller/subject");
 const subjectmodel = require("../model/subject");
 const Team = require("../controller/team");
 const team = require("../model/team");
-
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcryptjs')
 const dashboard = require("../controller/dashboard");
 const {
   eventhead_list,
@@ -18,7 +22,7 @@ const multer = require("multer");
 var fs = require("fs");
 const image = require("../model/image");
 const User = require("../model/Head");
-const bcrypt = require("bcryptjs");
+// const bcrypt = require("bcryptjs");
 const path = require("path");
 const {
   adminreg,
@@ -34,8 +38,13 @@ const {
   delround,
   roundupdate,
 } = require("../controller/round");
+
+
 const round = require("../model/round");
 module.exports = function (app) {
+  const session = require('express-session');
+
+  // app.use((session ({secret:config.SECRET_KEY})))
   //////////////////////////test 0001//////
   // SET STORAGE
   let storage = multer.diskStorage({
@@ -214,7 +223,7 @@ module.exports = function (app) {
   //   res.render("headloginform", {});
   // });
   ///LOGIN  ROUTE
-  app.post("/login", async (req, res) => {
+  app.post("/logins", async (req, res) => {
     try {
       const { email, password } = req.body;
       if (!email || !password) {
@@ -223,20 +232,20 @@ module.exports = function (app) {
       const userlogin = await User.findOne({ email: email });
       if (userlogin) {
         const isMatch = await bcrypt.compare(password, userlogin.password);
-        // const token = await userlogin.generateAuthToken();
+        const token = await userlogin.generateAuthToken();
 
-        // console.log(token)
-        // res.cookie('jwttoken', 'Aqeel', {
-        //     expires: new Date(Date.now() + 25892000000),
-        //     httpOnly: true
-        // })
+        console.log("token",token)
+        res.cookie('jwttoken', 'Aqeel', {
+            expires: new Date(Date.now() + 25892000000),
+            httpOnly: true
+        })
         ///create a cokki4res.cokkie
         if (!isMatch) {
           res.status(422).send({ message: "user error" });
         } else {
-          // res.render("dashboard")
+          res.render("dashboard")
 
-          res.send({ meassage: " wellcome user  login sucessfully" });
+          // res.send({ meassage: " wellcome user  login sucessfully" });
         }
       } else {
         res.status(422).send({ message: "invalid" });
@@ -252,23 +261,6 @@ module.exports = function (app) {
   });
   app.get("/adminlogin", (req, res) => {
     res.render("adminlogin");
-  });
-  app.post("/logout", function (req, res) {
-    req.session.destroy(function (err) {
-      if (err) {
-        console.log(err);
-      } else {
-        res.redirect("/adminlogin");
-      }
-    });
-  });
-  // app.post("/adminlogin", adminlogin)
-  app.get("/adminlogout", adminlogout);
-  //logout logic and route
-  app.get("/logout", function (req, res) {
-    req.logout();
-    req.flash("success", "Successfully logged out!");
-    res.redirect("/adminlogin");
   });
   app.post("/adminreg", upload.single("profile"), adminreg);
   app.get("/admininfo", admininfo);

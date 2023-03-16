@@ -46,6 +46,7 @@ exports.update12 = (req, res) => {
   Team.findByIdAndUpdate(
     req.params.noteId,
     {
+
       teamname: req.body.teamname || "Untitled Note",
       member1: req.body.member1,
       member2: req.body.member2,
@@ -160,6 +161,8 @@ exports.Team_create_post = [
   body("select_round", "Select Round must be empty.")
     .isLength({ min: 1 })
     .trim(),
+    body("universityname", "Unvirsity name required").isLength({ min: 1 }).trim(),
+
   body("teamname", "Team name required").isLength({ min: 1 }).trim(),
   body("member1", "Team name required").isLength({ min: 1 }).trim(),
   body("member2", "Team name required").isLength({ min: 1 }).trim(),
@@ -174,6 +177,8 @@ exports.Team_create_post = [
     // alert("message you want to show");
     const team = new Team({
       select_round: req.body.select_round,
+      universityname: req.body.universityname,
+
 
       teamname: req.body.teamname,
       member1: req.body.member1,

@@ -123,7 +123,6 @@ const adminlogin =  async (req, res) => {
   }
 
 };
-
 const adminlogout =  function(req, res) {
   req.session.destroy(function(err) {
     if (err) {
@@ -133,8 +132,6 @@ const adminlogout =  function(req, res) {
     }
   });
 };
-
-
 module.exports = {
   adminreg,
   admininfo,
