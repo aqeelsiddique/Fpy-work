@@ -4,7 +4,14 @@ const bcrypt = require("bcryptjs");
 const express = require('express');
 const session = require('express-session');
 const catchayncerror = require("../middleware/catchayncerror");
+
+
+
+
+
+const nodemailer = require ('nodemailer');
 const ErrorHandler = require("../untils/errorhandler");
+const sendEmail = require("../untils/senEmail");
 
 
 const app = express();
@@ -139,13 +146,25 @@ const adminlogout =  function(req, res) {
 ////////////////////////forgot Password////////////////////
 
 
+
 const forgetPassword = catchayncerror(async (req, res, next) => {
-  const user = await admin.findOne({ email: req.body.email });
-  console.log(user);
+  const user = await admin.findOne({email: req.body.email});
+  // console.log(user)
 
   if (!user) {
-    return next(new ErrorHandler("user not found", 404));
+    return next(new ErrorHandler("user not found", 404))
   }
+  
+
+  
+  
+  // Send an email with the random string to the user
+  sendEmail(user.name, user.email, user.randomString);
+  
+  res.status(200).json({
+    success: true,
+    message: `Email sent to ${user.email} successfully`
+  });
 
   // rest of the function code ...
 });

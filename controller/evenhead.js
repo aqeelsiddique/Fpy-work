@@ -35,18 +35,27 @@ const eventheadregister =  async function(req, res){
 };
 // list of all Question.
 const eventhead_list = function (req, res, next) {
-User.find().lean()
-    .exec(function (err, list_EventHead) {
-      if (err) {
-        return next(err);
-      }
-     // Successful, so render.
-      res.render('event_headlist',  {
+  Promise.all([
+    User.find().lean().exec()
+
+  ]).then(([list_EventHead]) => {
+    res.render('event_headlist' , {
+      list_EventHead:list_EventHead
+
+    })
+  }) 
+// User.find().lean()
+//     .exec(function (err, list_EventHead) {
+//       if (err) {
+//         return next(err);
+//       }
+//      // Successful, so render.
+//       res.render('event_headlist',  {
       
-        title: 'EventHead List',
-        list_EventHead: list_EventHead,  
-      });
-    });
+//         title: 'EventHead List',
+//         list_EventHead: list_EventHead,  
+//       });
+//     });
 };
 
 const updateeventhead = (req, res)=> {

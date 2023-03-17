@@ -266,10 +266,10 @@ module.exports = function (app) {
     res.redirect("/adminlogin")
 
   });
-app.get("/forgot", (req, res) => {
-  res.render("forgot")
-})
-  app.post("/forgot" , forgetPassword)
+// app.get("/forgot", (req, res) => {
+//   res.render("forgot")
+// })
+app.post("/forgot" , forgetPassword)
 
 
   //////////////Admin code section/////////////
