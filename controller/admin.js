@@ -141,23 +141,31 @@ const adminlogout =  function(req, res) {
     }
   });
 };
+//logout functionnn
+const logout = catchayncerror(async (req, res, next) => {
+  res.cookie("token", null, {
+    experies: new Date(Date.now()),
+    httpOnly:true
 
+  });
+  res.redirect("/adminlogin")
+
+  // res.status(200).json({
+  //   success:true,
+  //   message:"logout"
+  // })
+
+
+})
 
 ////////////////////////forgot Password////////////////////
-
-
-
 const forgetPassword = catchayncerror(async (req, res, next) => {
   const user = await admin.findOne({email: req.body.email});
   // console.log(user)
 
   if (!user) {
     return next(new ErrorHandler("user not found", 404))
-  }
-  
-
-  
-  
+  } 
   // Send an email with the random string to the user
   sendEmail(user.name, user.email, user.randomString);
   
@@ -176,5 +184,6 @@ module.exports = {
   admindelete,
   adminlogin,
   adminlogout,
-  forgetPassword
+  forgetPassword,
+  logout
 };

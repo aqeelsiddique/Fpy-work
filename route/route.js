@@ -1,17 +1,15 @@
 const controller = require("../controller/questions");
 var Controller = require("../controller/questions");
 const { ObjectId } = require("mongodb");
-const express = require('express');
-
-const cookieParser = require('cookie-parser');
-
-const config = require("../config/config")
+const express = require("express");
+const cookieParser = require("cookie-parser");
+const config = require("../config/config");
 const subject = require("../controller/subject");
 const subjectmodel = require("../model/subject");
 const Team = require("../controller/team");
 const team = require("../model/team");
-const jwt = require('jsonwebtoken')
-const bcrypt = require('bcryptjs')
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 const dashboard = require("../controller/dashboard");
 const app = express();
 
@@ -37,6 +35,7 @@ const {
   adminlogin,
   adminlogout,
   forgetPassword,
+  logout,
 } = require("../controller/admin");
 const {
   round_create_post,
@@ -45,10 +44,9 @@ const {
   roundupdate,
 } = require("../controller/round");
 
-
 const round = require("../model/round");
 module.exports = function (app) {
-  const session = require('express-session');
+  const session = require("express-session");
 
   // app.use((session ({secret:config.SECRET_KEY})))
   //////////////////////////test 0001//////
@@ -240,16 +238,16 @@ module.exports = function (app) {
         const isMatch = await bcrypt.compare(password, userlogin.password);
         const token = await userlogin.generateAuthToken();
 
-        console.log("token",token)
-        res.cookie('jwttoken', 'Aqeel', {
-            expires: new Date(Date.now() + 25892000000),
-            httpOnly: true
-        })
+        console.log("token", token);
+        res.cookie("jwttoken", "Aqeel", {
+          expires: new Date(Date.now() + 25892000000),
+          httpOnly: true,
+        });
         ///create a cokki4res.cokkie
         if (!isMatch) {
           res.status(422).send({ message: "user error" });
         } else {
-          res.redirect("/dashboard")
+          res.redirect("/dashboard");
 
           // res.send({ meassage: " wellcome user  login sucessfully" });
         }
@@ -261,16 +259,11 @@ module.exports = function (app) {
     }
   });
 
-  app.get('/logout', (req, res) => {
-    res.clearCookie('access_token'); // replace "access_token" with your cookie name
-    res.redirect("/adminlogin")
-
-  });
-// app.get("/forgot", (req, res) => {
-//   res.render("forgot")
-// })
-app.post("/forgot" , forgetPassword)
-
+  app.get("/logout", logout);
+  // app.get("/forgot", (req, res) => {
+  //   res.render("forgot")
+  // })
+  app.post("/forgot", forgetPassword);
 
   //////////////Admin code section/////////////
   app.get("/admin", (req, res) => {
