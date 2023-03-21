@@ -189,6 +189,8 @@ module.exports = function (app) {
   app.get("/eventhead_team/:id", eventdelete);
   //////////////////End//////////////////////
   ////asyn code
+
+  
   app.post("/register", upload.single("profile"), async (req, res) => {
     //this code line means agr humy specfie data chaiyae tu yeh estmal kr sgthy
     const { name, email, password, cpassword } = req.body;
@@ -261,9 +263,11 @@ module.exports = function (app) {
 
   app.get("/logout", logout);
   // app.get("/forgot", (req, res) => {
-  //   res.render("forgot")
+  //   res.render("forgot")\
   // })
   app.post("/forgot", forgetPassword);
+
+  
 
   //////////////Admin code section/////////////
   app.get("/admin", (req, res) => {

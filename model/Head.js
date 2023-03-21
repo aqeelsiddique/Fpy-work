@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
+const crypto = require('crypto');
+
+
 ///schema represent documenet mtlb ju hum database data save krthy hae wu humy kis tara chaiyae hothy us liyae used krthy hae
 const userShema = new mongoose.Schema({
     name: {
@@ -72,8 +75,5 @@ userShema.methods.generateAuthToken = async function() {
     }
 }
 //delete token
-
-
-
 const User = mongoose.model('USER', userShema )
 module.exports= User;
