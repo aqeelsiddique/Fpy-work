@@ -51,18 +51,27 @@ exports.round_create_post = [
 
 // Display list of all Rouns.
 exports.round_list = function (req, res, next) {
-    round.find().lean()
-      .exec(function (err, list_round) {
-        if (err) {
-          return next(err);
-        }      
-        // Successful, so render.
-        res.render('roundlists', {
-          title: 'round List',
-          list_round: list_round,        
-        });
-        // console.log(list_subject)
-      });
+  Promise.all([
+    round.find().lean().exec()
+  ]).then(([list_round]) => {
+    res.render("roundlists", {
+      title: 'round List',
+        list_round: list_round
+
+    })
+  })
+    // round.find().lean()
+    //   .exec(function (err, list_round) {
+    //     if (err) {
+    //       return next(err);
+    //     }      
+    //     // Successful, so render.
+    //     res.render('roundlists', {
+    //       title: 'round List',
+    //       list_round: list_round,        
+    //     });
+    //     // console.log(list_subject)
+    //   });
   };
 
 

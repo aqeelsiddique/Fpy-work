@@ -90,16 +90,8 @@ module.exports = function (app) {
   //   res.render('image', { images: documents });
 
   // });
-  const data = [
-    { id: 1, name: "John" },
-    { id: 2, name: "Jane" },
-    { id: 3, name: "Bob" },
-  ];
-
-  app.get("/api/data", (req, res) => {
-    res.send(data);
-    console.log(data);
-  });
+ 
+  
 
   ///////////////////dashboard code///////
   app.get("/dashboard", dashboard.eventhead_list);
@@ -144,6 +136,16 @@ module.exports = function (app) {
   });
   app.post("/deltedata/:id", subject.delete);
   app.get("/list_subjects", subject.subject_list);
+
+
+  app.get('/subjects', async (req, res) => {
+    try {
+      const subjects = await subjectmodel.find().lean().exec();
+      res.json(subjects);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  });
 
   //////////////////////////final Question route portion start//////////////
   // app.get("/add_Question", (req, res) => {

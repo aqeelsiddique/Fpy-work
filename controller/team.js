@@ -267,21 +267,32 @@ exports.Team_create_post = [
   },
 ];
 // Display list of all Team.
-exports.Team_list = function (req, res, next) {
-  Team.find()
-    .lean()
-    .exec(function (err, list_Team) {
-      if (err) {
-        return next(err);
-      }
 
-      // Successful, so render.
-      res.render("teamlist", {
-        title: "Team List",
-        list_Team: list_Team,
-      });
-      console.log(list_Team);
-    });
+exports.Team_list = function (req, res, next) {
+  Promise.all([
+    Team.find().lean().exec()
+
+  ]).then(([list_Team]) => {
+    res.render('teamlist' , {
+      list_Team:list_Team
+
+    })
+  }) 
+  
+  // Team.find()
+  //   .lean()
+  //   .exec(function (err, list_Team) {
+  //     if (err) {
+  //       return next(err);
+  //     }
+
+  //     // Successful, so render.
+  //     res.render("teamlist", {
+  //       title: "Team List",
+  //       list_Team: list_Team,
+  //     });
+  //     console.log(list_Team);
+  //   });
 };
 ///////////////Update A data
 exports.teamupdate = function (req, res) {
