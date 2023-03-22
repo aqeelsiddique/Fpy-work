@@ -35,7 +35,7 @@ const Main = () => {
                             {/* <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p> */}
 
                             <Form.Group className='mb-4'>
-                                <Form.Label>Enter organizer name:</Form.Label>
+                                <Form.Label>Enter organizer name:-</Form.Label>
                                 <Form.Control type="text"
                                     placeholder="Enter your full name" />
                             </Form.Group>
