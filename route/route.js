@@ -45,6 +45,7 @@ const {
 } = require("../controller/round");
 
 const round = require("../model/round");
+const question = require("../model/question");
 module.exports = function (app) {
   const session = require("express-session");
 
@@ -154,6 +155,11 @@ module.exports = function (app) {
   app.get("/add_Question", controller.process_create_get1);
   app.post("/add_Question", Controller.process_create_post1);
   app.get("/showlist", controller.question_list);
+  app.get('/quiz/:subject', async (req, res) => {
+    const subject = req.params.subject;
+    const quizzes = await question.find({ subject: subject });
+    res.send(quizzes);
+  });
   app.post("/update_Question/:id", controller.updatequestion);
   app.post("/delete_Question/:id", controller.deletequestion);
   //////////////////////End of Question portion////////////////////////
