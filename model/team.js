@@ -3,6 +3,12 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const TeamSchema = new Schema({
+  select_round: { type: Schema.Types.ObjectId, ref: 'round', required: true ,
+    
+
+},
+universityname: { type: String, required: true, min: 3, max: 100 },
+
   teamname: { type: String, required: true, min: 3, max: 100 },
   
   member1: { type: String, required: true, min: 3, max: 100 },

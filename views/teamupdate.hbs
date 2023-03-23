@@ -22,6 +22,13 @@
 
     }
 </style>
+<body>
+      {{> sidebars}}
+
+       {{> navbar}}
+
+    
+</body>
 
 <form action="/editteam/{{x.teamname}}?_method=put" method="POST" class="table-wrapper">
     <input type="hidden" name="_method" value="PUT">

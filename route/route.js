@@ -1,13 +1,20 @@
 const controller = require("../controller/questions");
 var Controller = require("../controller/questions");
 const { ObjectId } = require("mongodb");
-
+const express = require("express");
+const cookieParser = require("cookie-parser");
+const config = require("../config/config");
 const subject = require("../controller/subject");
 const subjectmodel = require("../model/subject");
 const Team = require("../controller/team");
 const team = require("../model/team");
-
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 const dashboard = require("../controller/dashboard");
+const app = express();
+
+app.use(cookieParser());
+
 const {
   eventhead_list,
   eventdelete,
@@ -18,17 +25,31 @@ const multer = require("multer");
 var fs = require("fs");
 const image = require("../model/image");
 const User = require("../model/Head");
-const bcrypt = require("bcryptjs");
+// const bcrypt = require("bcryptjs");
 const path = require("path");
 const {
   adminreg,
   admininfo,
   admin_lists,
   admindelete,
+  adminlogin,
+  adminlogout,
+  forgetPassword,
+  logout,
 } = require("../controller/admin");
-const { round_create_post, round_list, delround, roundupdate } = require("../controller/round");
+const {
+  round_create_post,
+  round_list,
+  delround,
+  roundupdate,
+} = require("../controller/round");
+
 const round = require("../model/round");
+const question = require("../model/question");
 module.exports = function (app) {
+  const session = require("express-session");
+
+  // app.use((session ({secret:config.SECRET_KEY})))
   //////////////////////////test 0001//////
   // SET STORAGE
   let storage = multer.diskStorage({
@@ -70,16 +91,8 @@ module.exports = function (app) {
   //   res.render('image', { images: documents });
 
   // });
-  const data = [
-    { id: 1, name: "John" },
-    { id: 2, name: "Jane" },
-    { id: 3, name: "Bob" },
-  ];
-
-  app.get("/api/data", (req, res) => {
-    res.send(data);
-    console.log(data);
-  });
+ 
+  
 
   ///////////////////dashboard code///////
   app.get("/dashboard", dashboard.eventhead_list);
@@ -126,6 +139,15 @@ module.exports = function (app) {
   app.get("/list_subjects", subject.subject_list);
 
 
+  app.get('/subjects', async (req, res) => {
+    try {
+      const subjects = await subjectmodel.find().lean().exec();
+      res.json(subjects);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  });
+
   //////////////////////////final Question route portion start//////////////
   // app.get("/add_Question", (req, res) => {
   //   res.render("question");
@@ -133,16 +155,17 @@ module.exports = function (app) {
   app.get("/add_Question", controller.process_create_get1);
   app.post("/add_Question", Controller.process_create_post1);
   app.get("/showlist", controller.question_list);
+  app.get('/quiz/:subject', async (req, res) => {
+    const subject = req.params.subject;
+    const quizzes = await question.find({ subject: subject });
+    res.send(quizzes);
+  });
   app.post("/update_Question/:id", controller.updatequestion);
   app.post("/delete_Question/:id", controller.deletequestion);
   //////////////////////End of Question portion////////////////////////
 
-
-  
   ///////////////////////////////////////Team Section/////////////////////////////
-  app.get("/createteam", (req, res) => {
-    res.render("Team_Add.hbs");
-  });
+  app.get("/createteam", Team.Team_create_get);
   app.post("/addteam", Team.Team_create_post);
   app.get("/teamlist", Team.Team_list);
   app.get("/delete_team/:id", Team.teamdelete);
@@ -174,6 +197,8 @@ module.exports = function (app) {
   app.get("/eventhead_team/:id", eventdelete);
   //////////////////End//////////////////////
   ////asyn code
+
+  
   app.post("/register", upload.single("profile"), async (req, res) => {
     //this code line means agr humy specfie data chaiyae tu yeh estmal kr sgthy
     const { name, email, password, cpassword } = req.body;
@@ -208,31 +233,33 @@ module.exports = function (app) {
       console.log(err);
     }
   });
-  app.get("/login", (req, res) => {
-    res.render("headloginform", {});
-  });
+  // app.get("/login", (req, res) => {
+  //   res.render("headloginform", {});
+  // });
   ///LOGIN  ROUTE
-  app.post("/login", async (req, res) => {
+  app.post("/logins", async (req, res) => {
     try {
-      const { name, password } = req.body;
-      if (!name || !password) {
+      const { email, password } = req.body;
+      if (!email || !password) {
         return res.status(400).send({ error: "invalid" });
       }
-      const userlogin = await User.findOne({ name: name });
+      const userlogin = await User.findOne({ email: email });
       if (userlogin) {
         const isMatch = await bcrypt.compare(password, userlogin.password);
-        // const token = await userlogin.generateAuthToken();
+        const token = await userlogin.generateAuthToken();
 
-        // console.log(token)
-        // res.cookie('jwttoken', 'Aqeel', {
-        //     expires: new Date(Date.now() + 25892000000),
-        //     httpOnly: true
-        // })
+        console.log("token", token);
+        res.cookie("jwttoken", "Aqeel", {
+          expires: new Date(Date.now() + 25892000000),
+          httpOnly: true,
+        });
         ///create a cokki4res.cokkie
         if (!isMatch) {
           res.status(422).send({ message: "user error" });
         } else {
-          res.send({ meassage: " wellcome user  login sucessfully" });
+          res.redirect("/dashboard");
+
+          // res.send({ meassage: " wellcome user  login sucessfully" });
         }
       } else {
         res.status(422).send({ message: "invalid" });
@@ -240,16 +267,23 @@ module.exports = function (app) {
     } catch (err) {
       console.log(err);
     }
-
-    // console.log(req.body);
-    // res.send({message:"awesome"});
   });
+
+  app.get("/logout", logout);
+  // app.get("/forgot", (req, res) => {
+  //   res.render("forgot")\
+  // })
+  app.post("/forgot", forgetPassword);
+
+  
 
   //////////////Admin code section/////////////
   app.get("/admin", (req, res) => {
     res.render("adminprofile.hbs");
   });
-
+  app.get("/adminlogin", (req, res) => {
+    res.render("adminlogin");
+  });
   app.post("/adminreg", upload.single("profile"), adminreg);
   app.get("/admininfo", admininfo);
   app.get("/adminlists", admin_lists);

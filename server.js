@@ -11,6 +11,8 @@ const connectDatabase = require('./config/database')
 // mongoose.connect('mongodb://localhost/local');
 var mongoose=require('mongoose');
 var express=require('express');
+dotenv.config({path:'./config.env'})
+
 var app=express();
 app.use(methodoverwride('_method'))
 const path = require('path')

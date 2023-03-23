@@ -61,18 +61,17 @@ exports.subject_create_post = [
 ];
 // Display list of all Subject.
 exports.subject_list = function (req, res, next) {
-  Subject.find().lean()
-    .exec(function (err, list_subject) {
-      if (err) {
-        return next(err);
-      }      
-      // Successful, so render.
-      res.render('subjectmain', {
-        title: 'subject List',
-        list_subject: list_subject,        
-      });
-      console.log(list_subject)
-    });
+  Promise.all([
+    Subject.find().lean().exec()
+
+  ]).then(([list_subject]) => {
+    res.render("subjectmain", {
+      list_subject: list_subject,
+
+    })
+  })
+  
+  
 };
 ///////////////Update A data //https://github.com/CodAffection/Node.js-Expess-MongoDB-CRUD/blob/74a11aee717bcb9773d1360314e20dbf7248d33e/project/controllers/employeeController.js#L31
 ///////////////Update A data

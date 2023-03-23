@@ -1,25 +1,21 @@
 import React, { useState } from "react";
 import LoginBg from "../login1.png";
-
 import { NavLink, useNavigate } from "react-router-dom";
-
 import "./index.css";
 // import { application } from 'express';
-
 const Login = () => {
   const navigate = useNavigate();
-
-  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const loginUser = async (e) => {
     e.preventDefault();
-    const res = await fetch("/login", {
+    const res = await fetch("/logins", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name,
+        email,
         password,
       }),
     });
@@ -27,7 +23,7 @@ const Login = () => {
     const data = res.json();
     if (res.status === 422 || !data) {
       window.alert("invalid Credentials");
-    } else if (!name || !password) {
+    } else if (!email || !password) {
       window.alert("plz filled property");
     } else {
       window.alert("login Successfull");
@@ -62,14 +58,14 @@ const Login = () => {
                                 /> */}
 
                 <input
-                  type="text"
+                  type="email"
                   className="form-control mt-1"
-                  name="name"
-                  id="name"
+                  name="email"
+                  id="email"
                   autoComplete="on"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Your Name*"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Your Email*"
                 ></input>
               </div>
               <div className="form-group mt-3">
@@ -80,7 +76,7 @@ const Login = () => {
                                     placeholder="Enter password"
                                 /> */}
                 <input
-                  type="text"
+                  type="password"
                   className="form-control mt-1"
                   name="password"
                   id="password"

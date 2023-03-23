@@ -13,26 +13,18 @@ const question = require('../model/question');
 // Display process create form on GET.
 const process_create_get1 = function (req, res, next) {
   // Get all machines and categories, which we can use for adding to our process.
-  async.parallel(
-    {
-      select_subject: function (callback) {
-        subject.find(callback);
-      },
-      // categories: function (callback) {
-      //   Category.find(callback);
-      // },
-    },
-    function (err, results) {
-      if (err) {
-        return next(err);
-      }
-      res.render('question', {
-        title: 'Create Quiz',
-        select_subject: results.select_subject,
-        // categories: results.categories,
-      });
-    }
-  );
+
+  Promise.all([
+    subject.find().lean().exec()
+
+  ]).then(([select_subject]) => {
+    res.render('question' , {
+      select_subject:select_subject
+
+    })
+  }) 
+  
+  
 };
 
 // Handle process create on POST.
@@ -115,6 +107,9 @@ const process_create_post1 = [
 ];
   ////////////////test end
 // list of all Question.
+
+
+
 const question_list = function (req, res, next) {
   Question.find().lean()
     .exec(function (err, list_question) {

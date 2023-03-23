@@ -20,6 +20,13 @@
 
   }
 </style>
+<body>
+      {{> sidebars}}
+
+       {{> navbar}}
+
+    
+</body>
 <form action="/editround/{{x.roundname}}?_method=put" method="POST" class="table-wrapper">
     <input type="hidden" name="_method" value="PUT">
     <div class="form-group">

@@ -22,6 +22,13 @@
 
     }
 </style>
+<body>
+      {{> sidebars}}
+
+       {{> navbar}}
+
+    
+</body>
 <form action="/edit/{{x.name}}?_method=put" method="POST" class="table-wrapper" enctype="multipart/form-data">
         <input type="hidden" name="_method" value="PUT">
 {{!-- <form method="post" action="/evenheadupdate/{{this.name}}?_method=put" enctype="multipart/form-data" > --}}

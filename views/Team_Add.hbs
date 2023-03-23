@@ -22,6 +22,13 @@
 
   }
 </style>
+<body>
+      {{> sidebars}}
+
+       {{> navbar}}
+
+    
+</body>
 
 <form action="/addteam" method="post" id="addteam" class="table-wrapper" autocomplete="off">
     {{!-- <input type="hidden" name="_id" value="{{._id}}"> --}}
@@ -29,9 +36,33 @@
   {{!-- <div class="form-group">
     <input type="text" class="form-control" name="fullname" placeholder="No">
   </div> --}}
+   <div class="form-group">
+    <h1>Add a Teams</h1>
+
+    {{!-- <label for="machine">Select round</label> --}}
+    
+  </div>
   <div class="form-group">
-    <h1>Enter Team Name</h1>
-    <input type="text" class="form-control" name="teamname" placeholder="Enter Team Name" required> <input type="text"
+    {{!-- <h1>Enter Team </h1> --}}
+    <select  class="form-control" id="round" name="select_round" placeholder="Select round" required="true">
+      {{#if select_round}}
+
+      {{#each select_round}}
+            <option type="text" value="" disabled selected hidden>Select a Round</option>
+
+      <option value={{this._id}} {{isSelected this._id ../round.select_round._id}}>{{this.roundname}}</option>
+      {{/each}}
+
+      {{!-- {{#each select_round}}
+      <option value={{this._id}}>{{this.roundname}}</option>
+      {{/each}} --}}
+
+      {{/if}}
+    </select>
+        <input type="text" class="form-control" name="universityname" placeholder="Enter Unersity Name" required> 
+
+
+    <input type="text" class="form-control" name="teamname" placeholder="Enter Team Name" required> 
     <input type="text" class="form-control" name="member1" placeholder="Enter Memeber Name" required>
     <input type="text" class="form-control" name="member2" placeholder="Enter Member Name" required> <input type="text"
       class="form-control" name="member3" placeholder="Enter Member Name" required>
