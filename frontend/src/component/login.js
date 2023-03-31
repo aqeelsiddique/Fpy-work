@@ -87,12 +87,13 @@ const Login = () => {
                 ></input>
               </div>
               <div className="d-grid gap-2 mt-3">
-                <button type="submit" onClick={loginUser} className="btn btn">
-                  {/* <NavLink to="/main2" style={{color:'white',textDecoration:'none'}}>Submit</NavLink> */}
-                  <NavLink style={{ color: "white", textDecoration: "none" }}>
-                    Submit
-                  </NavLink>
-                </button>
+              <input
+                  type="submit"
+                  value="signin"
+                  className="btn"
+                  name="signin"
+                  onClick={loginUser}
+                ></input>
               </div>
             </div>
           </form>

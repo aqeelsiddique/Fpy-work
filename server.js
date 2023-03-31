@@ -12,17 +12,13 @@ const connectDatabase = require('./config/database')
 var mongoose=require('mongoose');
 var express=require('express');
 dotenv.config({path:'./config.env'})
-
 var app=express();
 app.use(methodoverwride('_method'))
 const path = require('path')
 app.use(bodyParser.urlencoded({extended:true}))
 ///////////////Template engine
 var exphbs = require('express-handlebars');
-
-
 app.engine('.hbs', exphbs.engine({ extname: '.hbs', defaultLayout: "main" ,   partialsDir: __dirname + '/views/partials/'
-
 ,
 helpers: {
   isScheduled: a => {

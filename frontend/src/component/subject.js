@@ -77,7 +77,7 @@ function Subject () {
         
           {subjects.map(subject => (
             <p  key={subject._id} className="subj">
-              <NavLink  to={`/quiz/${subjects}`}>{subject.name}</NavLink>
+              <NavLink  to={`/Quiz`}>{subject.name}</NavLink>
             </p>
           ))}
         

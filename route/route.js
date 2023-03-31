@@ -155,10 +155,14 @@ module.exports = function (app) {
   app.get("/add_Question", controller.process_create_get1);
   app.post("/add_Question", Controller.process_create_post1);
   app.get("/showlist", controller.question_list);
-  app.get('/quiz/:subject', async (req, res) => {
-    const subject = req.params.subject;
-    const quizzes = await question.find({ subject: subject });
-    res.send(quizzes);
+  // app.get('/quiz/:subject', async (req, res) => {
+  //   const subject = req.params.subject;
+  //   const quizzes = await question.find({ subject: subject });
+  //   res.send(quizzes);
+  // });
+  app.get('/questions', async (req, res) => {
+    const questions = await question.find();
+    res.json(questions);
   });
   app.post("/update_Question/:id", controller.updatequestion);
   app.post("/delete_Question/:id", controller.deletequestion);
@@ -169,14 +173,34 @@ module.exports = function (app) {
   app.post("/addteam", Team.Team_create_post);
   app.get("/teamlist", Team.Team_list);
   app.get("/delete_team/:id", Team.teamdelete);
-
   // app.post("/updateteam/:id", Team.update);
-  app.get("/editteam/:id", (req, res) => {
+  app.get("/editteam/:id", (req, res, next) => {
     let readquery = req.params.id;
-
-    team.findOne({ teamname: readquery }).then((x) => {
-      res.render("teamupdate.hbs", { x });
-    });
+    team.findOne({ teamname: readquery })
+      .then((x) => {
+        Promise.all([
+          round.find().lean().exec(),
+        ])
+          .then(([select_round]) => {
+            // Render the view with the data
+            res.render("teamupdate.hbs", {
+              x,
+              title: "Add Team",
+              data: {
+                select_round,
+              },
+              select_round: select_round,
+            });
+          })
+          .catch((err) => {
+            // Handle errors here
+            return next(err);
+          });
+      })
+      .catch((err) => {
+        // Handle errors here
+        return next(err);
+      });
   });
   app.put("/editteam/:id", Team.teamupdate);
 
@@ -198,7 +222,6 @@ module.exports = function (app) {
   //////////////////End//////////////////////
   ////asyn code
 
-  
   app.post("/register", upload.single("profile"), async (req, res) => {
     //this code line means agr humy specfie data chaiyae tu yeh estmal kr sgthy
     const { name, email, password, cpassword } = req.body;

@@ -27,7 +27,7 @@ const App = () => {
             <Route path="main2" element={<Main2 />} />
             <Route path="start" element={<Start />} />
             <Route path="subject" element={<Subject />} />
-            <Route path="quiz" element={<Quiz />} />
+            <Route path="Quiz" element={<Quiz />} />
             <Route path="teams" element={<Teams />} />
             <Route path="/results" element={<ResultsPage />} />
             <Route path="dropdownselect" element={<DropdownSelect />} />
