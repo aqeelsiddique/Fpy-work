@@ -7,7 +7,6 @@ const config = require("../config/config");
 const subject = require("../controller/subject");
 const subjectmodel = require("../model/subject");
 const Team = require("../controller/team");
-const team = require("../model/team");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const dashboard = require("../controller/dashboard");
@@ -46,6 +45,7 @@ const {
 
 const round = require("../model/round");
 const question = require("../model/question");
+const team = require("../model/team");
 module.exports = function (app) {
   const session = require("express-session");
 
@@ -115,6 +115,32 @@ module.exports = function (app) {
       res.render("roundupdate.hbs", { x });
     });
   });
+  /////////////////for react js
+  
+  app.get('/rounds', async (req, res) => {
+    try {
+      const rounds = await round.find().lean().exec();
+      res.json(rounds);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  });
+
+  app.get('/selectteams', async (req, res) => {
+    const selectedRound = req.query.round; // get the selected round value from the request query
+  
+    const query = selectedRound ? { select_round: selectedRound } : {}; // create the query object based on the selected round value
+  
+    Promise.all([team.find(query).lean().exec()]).then(([list_Team]) => {
+      console.log(list_Team)
+      // res.json(list_Team)
+      res.render("teamlist", {
+        list_Team: list_Team,
+      });
+    });
+  });
+ 
+  
 
   /////////////////////end round wise code /////////////
 

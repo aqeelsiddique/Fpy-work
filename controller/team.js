@@ -11,40 +11,32 @@ const async = require("async");
 // Update a note identified by the noteId in the request
 // Display process create form on GET.
 exports.Team_create_get = function (req, res, next) {
-  Promise.all([
-    round.find().lean().exec(),
-
-  ])
-  .then(([ select_round]) => {
-    // Render the view with the data
-    res.render('Team_Add', {
-      title: 'Add Team',
-      data: {       
-        select_round
-      },
-      select_round: select_round
+  Promise.all([round.find().lean().exec()])
+    .then(([select_round]) => {
+      // Render the view with the data
+      res.render("Team_Add", {
+        title: "Add Team",
+        data: {
+          select_round,
+        },
+        select_round: select_round,
+      });
+    })
+    .catch((err) => {
+      // Handle errors here
+      return next(err);
     });
-  })
-  .catch((err) => {
-    // Handle errors here
-    return next(err);
-  });
 };
 
 // Display list of all Team.
 
 exports.Team_list = function (req, res, next) {
-  Promise.all([
-    Team.find().lean().exec()
-
-  ]).then(([list_Team]) => {
-    res.render('teamlist' , {
-      list_Team:list_Team
-
-    })
-  }) 
+  Promise.all([Team.find().lean().exec()]).then(([list_Team]) => {
+    res.render("teamlist", {
+      list_Team: list_Team,
+    });
+  });
 };
-
 
 exports.update12 = (req, res) => {
   // Validate Request
@@ -58,7 +50,6 @@ exports.update12 = (req, res) => {
   Team.findByIdAndUpdate(
     req.params.noteId,
     {
-
       teamname: req.body.teamname || "Untitled Note",
       member1: req.body.member1,
       member2: req.body.member2,
@@ -90,11 +81,8 @@ exports.update12 = (req, res) => {
 
 exports.Team_create_post = [
   // Validate that the name field is not empty.
-  body("select_round", "Select Round must be empty.")
-    .isLength({ min: 1 })
-    .trim(),
-    body("universityname", "Unvirsity name required").isLength({ min: 1 }).trim(),
-
+  body("select_round", "Select Round must be empty.").isLength({ min: 1 }).trim(),
+  body("universityname", "Unvirsity name required").isLength({ min: 1 }).trim(),
   body("teamname", "Team name required").isLength({ min: 1 }).trim(),
   body("member1", "Team name required").isLength({ min: 1 }).trim(),
   body("member2", "Team name required").isLength({ min: 1 }).trim(),
@@ -117,27 +105,27 @@ exports.Team_create_post = [
     });
 
     if (!errors.isEmpty()) {
-        // Get all machines and categories for form.
-        async.parallel(
-          {
-            select_round: function (callback) {
-              round.find(callback);
-            },
+      // Get all machines and categories for form.
+      async.parallel(
+        {
+          select_round: function (callback) {
+            round.find(callback);
           },
-          function (err, results) {
-            if (err) {
-              return next(err);
-            }
-            res.render('Team_Add', {
-              title: 'Create Team',
-              select_round: results.select_round,
-              // categories: results.categories,
-              team: team,
-              errors: errors.array(),
-            });
+        },
+        function (err, results) {
+          if (err) {
+            return next(err);
           }
-        );
-        return;
+          res.render("Team_Add", {
+            title: "Create Team",
+            select_round: results.select_round,
+            // categories: results.categories,
+            team: team,
+            errors: errors.array(),
+          });
+        }
+      );
+      return;
       // // There are errors. Render the form again with sanitized values/error messages.
       // res.render("Team_Add.hbs", {
       //   title: "Create Team",
@@ -176,7 +164,6 @@ exports.Team_create_post = [
 
 ///////////////Update A data
 exports.teamupdate = function (req, res) {
-
   let readquery = req.params.id;
   Team.updateOne(
     { teamname: readquery },
@@ -198,10 +185,7 @@ exports.teamupdate = function (req, res) {
     .catch((y) => {
       console.log(y);
     });
-  
 };
-
-
 
 // Delete a user with specified user id in the request
 exports.teamdelete = (req, res) => {
