@@ -11,16 +11,19 @@ import Subject from './component/subject';
 import Quiz from './component/quiz';
 import Teams from './component/teams';
 import Main2 from './component/main2';
+import Test from "./test"
 // import Dropdown from './component/dropdown';
 import DropdownSelect from './component/DropdownSelect';
 import ResultsPage from './component/ResultPage';
+import TeamList from './component/teams';
 
 const App = () => {
   return (
-    <>
-      
+    <>  
       <BrowserRouter>
         <Routes>
+        <Route path="test" element={<Test />} />
+
           <Route exact path="/" element={Login } />
             <Route index element={<Login />} />
             {/* <Route path="main" element={<Main />} /> */}
@@ -29,6 +32,8 @@ const App = () => {
             <Route path="subject" element={<Subject />} />
             <Route path="Quiz" element={<Quiz />} />
             <Route path="teams" element={<Teams />} />
+            <Route path="/selectteams/:round" component={TeamList} />
+            ////Add this line
             <Route path="/results" element={<ResultsPage />} />
             <Route path="dropdownselect" element={<DropdownSelect />} />
             {/* <Route path="dropdown" element={<Dropdown />} /> */}

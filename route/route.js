@@ -125,23 +125,38 @@ module.exports = function (app) {
       res.status(500).json({ message: err.message });
     }
   });
-
   app.get('/selectteams', async (req, res) => {
-    const selectedRound = req.query.round; // get the selected round value from the request query
-  
-    const query = selectedRound ? { select_round: selectedRound } : {}; // create the query object based on the selected round value
-  
-    Promise.all([team.find(query).lean().exec()]).then(([list_Team]) => {
-      console.log(list_Team)
-      // res.json(list_Team)
-      res.render("teamlist", {
-        list_Team: list_Team,
-      });
-    });
+    const selectedRound = req.query.round;
+    const query = selectedRound ? { select_round: selectedRound } : {};
+    try {
+      const list_Team = await team.find(query).lean().exec();
+      res.json(list_Team);
+    } catch (error) {
+      console.error('Error fetching teams:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
   });
- 
+
+  app.get('/selecttecams',async (req, res) =>{
+    
+  const { select_round} = req.query;
+  const queryObject = {};
+  if (select_round) {
+    queryObject.select_round = select_round;
+
+  }
+  // if (name) {
+  // queryObject.name = name;
+  // }
+
+  console.log(queryObject);
+  const myData = await team.find(queryObject); res.status(200).json({ myData });
   
 
+  });
+
+  
+  
   /////////////////////end round wise code /////////////
 
   /////////////final done of of Subject Rout
