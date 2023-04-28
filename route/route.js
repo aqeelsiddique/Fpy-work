@@ -150,15 +150,39 @@ module.exports = function (app) {
   // }
 
   console.log(queryObject);
-  const myData = await team.find(queryObject); res.status(200).json({ myData });
+  const myData = await team.find(queryObject); 
+  res.render("teamlist.hbs")
+  // res.status(200).json({ myData });
   
 
   });
-
+  app.get('/filterteams', async (req, res) => {
+    const rounds = await team.distinct('select_round').sort();
+    const teamsByRound = [];
   
+    for (const round of rounds) {
+      const queryObject = { select_round: round };
+      const teams = await team.find(queryObject);
+      teamsByRound.push({ round, teams });
+    }
   
+    res.render('schedulewiseteams.hbs', { teamsByRound });
+    console.log(teamsByRound)
+  });
+  //////////////////////Subject Wise question show
+  app.get('/filterquestion', async (req, res) => {
+    const subjects = await question.distinct('select_subject').sort();
+    const subjectwise = [];
+    for (const subject of subjects) {
+      const queryObject = { select_subject: subject };
+      const ques = await question.find(queryObject);
+      subjectwise.push({ subject, ques });
+    }
+  
+    res.render('subjectwiseque.hbs', { subjectwise });
+    console.log(subjectwise)
+  });
   /////////////////////end round wise code /////////////
-
   /////////////final done of of Subject Rout
   app.get("/AddSub", (req, res) => {
     res.render("subject_Add.hbs", {
@@ -192,10 +216,11 @@ module.exports = function (app) {
   //////////////////////////final Question route portion start//////////////
   // app.get("/add_Question", (req, res) => {
   //   res.render("question");
-  // });
+  // });]
+  
   app.get("/add_Question", controller.process_create_get1);
   app.post("/add_Question", Controller.process_create_post1);
-  app.get("/showlist", controller.question_list);
+  app.get("/questionlists", controller.question_list);
   // app.get('/quiz/:subject', async (req, res) => {
   //   const subject = req.params.subject;
   //   const quizzes = await question.find({ subject: subject });
@@ -205,7 +230,35 @@ module.exports = function (app) {
     const questions = await question.find();
     res.json(questions);
   });
-  app.post("/update_Question/:id", controller.updatequestion);
+  app.get("/update_Question/:id", (req, res, next) => {
+    let readquery = req.params.id;
+    question.findOne({ ques: readquery })
+      .then((x) => {
+        Promise.all([
+          question.find().lean().exec(),
+        ])
+          .then(([select_subject]) => {
+            // Render the view with the data
+            res.render("questionupdate.hbs", {
+              x,
+              title: "Add Team",
+              data: {
+                select_subject,
+              },
+              select_subject: select_subject,
+            });
+          })
+          .catch((err) => {
+            // Handle errors here
+            return next(err);
+          });
+      })
+      .catch((err) => {
+        // Handle errors here
+        return next(err);
+      });
+  });
+  app.put("/update_Question/:id", controller.updatequestion);
   app.post("/delete_Question/:id", controller.deletequestion);
   //////////////////////End of Question portion////////////////////////
 
@@ -348,6 +401,10 @@ module.exports = function (app) {
   app.get("/adminlogin", (req, res) => {
     res.render("adminlogin");
   });
+  app.get("/profile", (req, res)=> {
+    res.render("profileadmin.hbs")
+
+  })
   app.post("/adminreg", upload.single("profile"), adminreg);
   app.get("/admininfo", admininfo);
   app.get("/adminlists", admin_lists);

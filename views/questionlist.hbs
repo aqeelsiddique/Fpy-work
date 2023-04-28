@@ -39,13 +39,13 @@
 								<label for="selectAll"></label>
 							</span>
 						</th>
-						<th>ID</th>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
 						<th>Question</th>
+						<th>option1</th>
+						<th>option2</th>
+						<th>option3</th>
+						<th>option4</th>
+						<th>correct option</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -57,20 +57,23 @@
 								<label for="checkbox1"></label>
 							</span>
 						</td>
-						<td> {{this._id}}</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
 						<td>{{this.ques}}</td>
+						<td>{{this.option1}}</td>
+						<td>{{this.option2}}</td>
+						<td>{{this.option3}}</td>
+						<td>{{this.option4}}</td>
+						<td>{{this.ans}}</td>
+						<td></td>
 						<td class="liststyle">
+								<a href="/update_Question/{{this.ques}}" class="fa fa-edit"
+								style="font-size:25px;color:rgb(80, 85, 87);"
+								onclick="return confirm('Are you sure to update this record ?');"></a>
 
-							<form method="POST" action="/update_Question/{{_id}}">
+							{{!-- <form method="POST" action="/update_Question/{{_id}}">
 								<button class="btn" onclick="return confirm('Are you sure to update this record ?');"><i
 										class="fa fa-edit"></i></button>
 
-							</form>
+							</form> --}}
 							<form method="POST" action="/delete_Question/{{_id}}">
 								<button class="btn" onclick="return confirm('Are you sure to delete this record ?');"><i
 										class="fa fa-trash"></i></button>

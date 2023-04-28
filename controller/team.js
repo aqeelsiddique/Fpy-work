@@ -35,6 +35,7 @@ exports.Team_list = function (req, res, next) {
     res.render("teamlist", {
       list_Team: list_Team,
     });
+    console.log(list_Team)
   });
 };
 

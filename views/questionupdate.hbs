@@ -29,8 +29,8 @@
 
     
 </body>
-<form method="POST" action="" class="table-wrapper">
-  {{!-- <div class="form-group">
+<form action="/update_Question/{{x.ques}}?_method=put" method="POST" class="table-wrapper">
+    <input type="hidden" name="_method" value="PUT">  {{!-- <div class="form-group">
     <label for="name">Name: </label>
     <input class="form-control" id="name" type="text" placeholder="Name of process" name="name" required="true"
       value="{{process.name}}">
@@ -41,7 +41,7 @@
     <select class="form-control" id="machine" name="select_subject" placeholder="Select machine" required="true">
       {{#if pselect_subject}}
       {{#each }}
-      <option value={{this.name}} {{isSelected this._id ../question.select_subject.name}}>{{this.name}}</option>
+      <option value={{this._id}} {{isSelected this._id ../question.select_subject._id}}>{{this.name}}</option>
       {{/each}}
       {{else}}
       {{#each select_subject}}
@@ -51,8 +51,8 @@
     </select>
   </div>
   <div class="form-group">
-    <input class="form-control" id="question" placeholder='question' name='ques' required="true"
-      rows="5">{{process.ques}}</input>
+    <input class="form-control" id="question" placeholder='question' name='question' required="true"
+      rows="5">{{process.question}}</input>
   </div>
   <div class="form-group">
     <input class="form-control" id="option1" placeholder='option1' name='option1' required="true"

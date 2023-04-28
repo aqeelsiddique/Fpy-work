@@ -48,7 +48,7 @@
             {{#each select_round}}
             <option type="text" value="" disabled selected hidden>Select a Round</option>
 
-            <option value={{this._id}} {{isSelected this._id ../round.select_round._id}}>{{this.roundname}}</option>
+            <option value={{this.roundname}} {{isSelected this._id ../round.select_round.roundname}}>{{this.roundname}}</option>
             {{/each}}
 
             {{!-- {{#each select_round}}

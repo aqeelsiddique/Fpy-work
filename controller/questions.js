@@ -41,7 +41,7 @@ const process_create_post1 = [
   // Validate fields.
   // body('name', 'Name must not be empty.').isLength({ min: 1 }).trim(),
   body('select_subject', 'Machine must not be empty.').isLength({ min: 1 }).trim(),
-  body('question', 'question must not be empty.').isLength({ min: 1 }).trim(),
+  body('ques', 'question must not be empty.').isLength({ min: 1 }).trim(),
   body('option1', 'option1 must not be empty.').isLength({ min: 1 }).trim(),
   body('option2', 'option2 must not be empty.').isLength({ min: 1 }).trim(),
   body('option3', 'option3 must not be empty.').isLength({ min: 1 }).trim(),
@@ -61,7 +61,7 @@ const process_create_post1 = [
     const process = new question({
       // name: req.body.name,
       select_subject: req.body.select_subject,
-      question: req.body.question,
+      ques: req.body.ques,
       option1: req.body.option1,
       option2: req.body.option2,
       option3: req.body.option3,
@@ -123,21 +123,37 @@ const question_list = function (req, res, next) {
 };
 ///////////////Update A data
 const updatequestion =  (req, res) => {
+  let readquery = req.params.id;
+  question.updateOne(
+    { question: readquery },
+    {
+      $set: {
+        select_subject: req.body.select_subject,
+        question: req.body.question,
+        option1: req.body.option1,
+        option2: req.body.option2,
+        option3: req.body.option3,
+        option4: req.body.option4,
+        ans: req.body.ans,
+      },
+    }
+  )
+    .then((x) => {
+      // req.flash('sucess', 'Your Data has update')
+      res.redirect("/add_Question");
+    })
+    .catch((y) => {
+      console.log(y);
+    });
 
-    Question.findById(req.params.id, (err, doc) => {
-      if (!err) {
-          res.render("question.hbs", {
-              viewTitle: "Update Question",
-              employee: doc
-          });
-      }
-  });
+  
+    
   }
 // Delete a user with specified user id in the request
 const deletequestion = (req, res)=>{
     Question.findByIdAndDelete(req.params.id, (err, doc)=>{
       if(!err){
-          res.redirect('/showlist');            
+          res.redirect('/questionlists');            
       } else {
           console.log('Error while deleting', err)
       }
