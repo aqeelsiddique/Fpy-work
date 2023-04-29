@@ -143,12 +143,24 @@ text-transform: uppercase ;
     color: white;
   }
 
-  .subject .round{
-    text-align: center;
+  .subject .round .row{
+    display: flex;
+    flex-direction: row;
     padding-top: 2rem;
+    
+  }
+
+  .subject .round .teamName{
+    justify-content: start;
+    color: white;
+  }
+
+  .subject .round .uniName{
+    text-align: right;
   }
 
   .subject .round h1{
+    /* margin: 0 auto; */
     font-size: 4rem;
     color: white;
   }
@@ -216,68 +228,104 @@ text-transform: uppercase ;
   }
   
 
-  .quiz .quiz-content .options p{
-    padding: 0.5rem 2rem ;
+  .quiz .quiz-content .options button {
+    padding: 0.5rem 2rem;
     text-align: start;
-    width: 300px;
+    width: 700px;
+    color: black;
     height: 50px;
-    margin: 1rem ;
+    margin: 1rem;
     border: none;
     border-radius: 1.2rem;
     box-shadow: 1px 1px 6px 2px rgb(175, 168, 168);
   }
-
-  .quiz .quiz-content .options p:hover{
+  
+  .quiz .quiz-content .options button:hover {
     background-color: #A020F0;
     color: white;
     cursor: pointer;
   }
+  .quiz .quiz-content .options button h4:hover{
+    color: white;
+    background-color: #A020F0;
+  }
 
   /* Teams  */
 
-  .teams{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    /* align-items: center; */
-  }
+.teams {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  /* align-items: center; */
+}
 
-  .teams .team-title{
-    padding-bottom: 3rem ;
-    font-size: 2.3rem;
-    color: #A020F0;
-    font-weight: 700;
-  }
+.teams .team-title {
+  padding-bottom: 3rem;
+  font-size: 2.3rem;
+  color: #A020F0;
+  font-weight: 700;
+}
 
-  .teams .team-member{
-    display: flex;
-    flex-direction: row ;
-    /* margin-top: 3rem; */
-    color: rgb(75, 77, 184);
-  }
+.teams .team {
+  color: #A020F0;
+  font-weight: 600;
+}
 
-  .teams .team-member .team{
-    margin: 0px auto;
-  }
+.teams .card .members {
+  margin-top: 1rem;
+  color: #8319c5f1;
+  font-weight: 500;
+  font-size: 1.2rem;
 
-  .team .team-member{
-    align-items: center;
-    place-items: center;
-  }
+}
 
-  .teams button {
-    padding: 0.6rem 3rem;
-    margin-top: 1.5rem;
-    /* background-color: transparent; */
-    color: white;
-    text-decoration: none;
-    background-color: #A020F0;
-    box-shadow: 2px 2px 7px 5px rgb(223, 219, 219);
-    border-radius: 2rem;
-    border: none;
-  }
- 
+.teams .card .card-body .uni-name {
+  color: rgb(109, 141, 45);
+  font-weight: bold;
+}
+
+/* .team .team-member {
+  align-items: center;
+  place-items: center;
+} */
+
+.teams .card button {
+  text-decoration: none;
+  font-size: 1.2rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #A020F0;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  transform: translate(0%, 0%);
+}
+
+.teams .card-submit button {
+  padding: 0.6rem 3rem;
+  margin-top: 1.5rem;
+  background-color: transparent;
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+  background-color: #A020F0;
+  box-shadow: 2px 2px 7px 5px rgb(223, 219, 219);
+  border-radius: 2rem;
+  border: none;
+  cursor: pointer;
+  width: 200px;
+  margin-left: 50px;
+}
+
+.teams .card {
+  background-color: transparent;
+  border: none;
+}
+
+/* Main page */
+
   .main2 .main{
     box-shadow: 1px 1px 7px 5px rgb(228, 226, 226);
   
@@ -329,4 +377,59 @@ text-transform: uppercase ;
     text-decoration: none;
   }
 
+  .main2 .main .logoutBtn{
+    text-align: right;
+    /* margin: 5px 5px 0px 0px  ; */
+  }
+
+  .main2 .main .logoutBtn button{
+    margin: 20px 20px 0px 0px;
+    background-color: #A020F0;
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 2rem;
+    border: 1px;
+    border-radius: 2rem;
+    box-shadow: 1px 1px 7px 5px rgb(240, 235, 235);
+  }
   
+
+  
+/* results */
+
+.result .round-detail .round {
+  text-align: center;
+}
+
+.result .round-detail .round h1{
+  font-weight: 600;
+  color: white;
+  font-size: 3rem;
+  margin-top: 30px ;
+}
+
+.result .round-detail .round h1 span{
+  color: gold;
+  font-size: 3.1rem;
+  font-weight: 800;
+}
+
+.result .flex-content{
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-0%);
+  text-align: center;
+}
+
+.result .flex-content h1{
+  color: olivedrab;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.result .flex-content .winner{
+  margin-top: -200px;
+}

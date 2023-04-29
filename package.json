@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
@@ -18,12 +19,15 @@
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.3",
     "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
     "crypto": "^1.0.1",
+    "dotenv": "^16.0.3",
     "ejs": "^3.1.8",
     "express": "^4.18.2",
     "express-handlebars": "^6.0.7",
     "express-partials": "^0.3.0",
     "express-session": "^1.17.3",
+    "express-validator": "^7.0.1",
     "hbs": "^4.2.0",
     "jade": "^1.11.0",
     "jsonwebtoken": "^9.0.0",
@@ -33,7 +37,7 @@
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.1",
-    "nodemon": "^2.0.21",
+    "nodemon": "^2.0.22",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0"

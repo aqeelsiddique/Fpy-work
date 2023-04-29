@@ -34,7 +34,7 @@ const Quiz = () => {
     }, [timeLeft, handleAnswerClick]);
 
     useEffect(() => {
-        setTimeLeft(60);
+        setTimeLeft(30);
     }, [currentQuestion]);
 
     return (
@@ -66,14 +66,18 @@ const Quiz = () => {
                                     Question {currentQuestion + 1}/{quizData.length}
                                 </div>
                                 <div className="question">
-                                    {quizData[currentQuestion].question}
+                                    <h2>{quizData[currentQuestion].question}</h2>
                                 </div>
                                 <div className="options">
-                                    {quizData[currentQuestion].options.map((option) => (
-                                        <button key={option} onClick={() => handleAnswerClick(option)}>
-                                            {option}
-                                        </button>
-                                    ))}
+                                    <ol type='a' >
+                                            {/* <input type="radio"
+                                                value={true} name="options" id='q1-option' onChange={onSelect()} /> */}
+                                        <li>{quizData[currentQuestion].options.map((option) => (
+                                            <button width='100%' className='text-primary ' key={option} onClick={() => handleAnswerClick(option)} htmlFor="q1-option"><h4>{option}</h4></button>
+                                            ))} 
+                                            {/* <div className="check Checked"></div> */}
+                                        </li>
+                                    </ol>
                                 </div>
                             </div>
                         </div>

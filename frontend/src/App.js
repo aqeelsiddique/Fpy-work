@@ -14,6 +14,7 @@ import Main2 from './component/main2';
 // import Dropdown from './component/dropdown';
 import DropdownSelect from './component/DropdownSelect';
 import ResultsPage from './component/ResultPage';
+import Result from './component/result';
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
             <Route path="quiz" element={<Quiz />} />
             <Route path="teams" element={<Teams />} />
             <Route path="/results" element={<ResultsPage />} />
+            <Route path="/result" element={<Result />} />
             <Route path="dropdownselect" element={<DropdownSelect />} />
             {/* <Route path="dropdown" element={<Dropdown />} /> */}
 

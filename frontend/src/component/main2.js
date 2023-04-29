@@ -29,17 +29,12 @@ const Main = () => {
                     backgroundRepeat: 'no-repeat',
                     width: '100%'
                     // height: '100%'
-                }} >
+                }} > 
+                <div className="logoutBtn"><button>Logout</button></div>
                     <div className="row">
                         <div className="container main-set col-6">
                             <h1 className='text'>Visio Spark Quiz</h1>
                             {/* <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p> */}
-
-                            <Form.Group className='mb-4'>
-                                <Form.Label>Enter organizer name:</Form.Label>
-                                <Form.Control type="text"
-                                    placeholder="Enter your full name" />
-                            </Form.Group>
 
                             <Form.Group className="mb-4">
                                 <Form.Label>Select Round</Form.Label>
@@ -54,9 +49,18 @@ const Main = () => {
                             <Form.Group className="mb-4">
                                 <Form.Label>Number Of Mcqs</Form.Label>
                                 <Form.Select >
-                                    <option value="30">4</option>
-                                    <option value="45">8</option>
-                                    <option value="60">10</option>
+                                    <option value="30">3</option>
+                                    <option value="45">5</option>
+                                    <option value="60">8</option>
+                                </Form.Select>
+                            </Form.Group>
+
+                            <Form.Group className="mb-4">
+                                <Form.Label>Timer for Each Question</Form.Label>
+                                <Form.Select id="time-select" value="" onChange="" >
+                                    <option value="30">30</option>
+                                    <option value="45">45</option>
+                                    <option value="60">60</option>
                                 </Form.Select>
                             </Form.Group>
 

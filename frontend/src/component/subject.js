@@ -1,8 +1,9 @@
-import React , {useEffect, useState} from 'react'
+import React from 'react'
+// import React , {useEffect, useState} from 'react'
 import Sub from '../sub.png'
 import { NavLink } from "react-router-dom"
 import './index.css'
-import axios from 'axios';
+// import axios from 'axios';
 
 
 // function Subject() {
@@ -30,34 +31,34 @@ import axios from 'axios';
 //           <li key={subject._id}>{subject.name}</li>
 
 
-          
+
 //         ))}
 //       </ul>
 
 
-      
+
 //     </>
 //   );
 // }
 
 
-function Subject () {
+function Subject() {
 
-  const [subjects, setSubjects] = useState([]);
+  // const [subjects, setSubjects] = useState([]);
 
-  useEffect(() => {
-    async function fetchSubjects() {
-      const response = await fetch('/subjects');
-      const data = await response.json();
-      setSubjects(data);
-    }
-    fetchSubjects();
-  }, []);
+  // useEffect(() => {
+  //   async function fetchSubjects() {
+  //     const response = await fetch('/subjects');
+  //     const data = await response.json();
+  //     setSubjects(data);
+  //   }
+  //   fetchSubjects();
+  // }, []);
 
   return (
-    
-  <>
-  <div className="subject" style={{
+
+    <>
+      {/* <div className="subject" style={{
   backgroundImage: `url(${Sub})`,
   backgroundPosition: 'center',
   backgroundSize: 'cover',
@@ -85,17 +86,17 @@ function Subject () {
     </div>
   </div>
 </div>
-    
-      {/* <h1>List of Subjects</h1>
-      <div>
+     */}
+      {/* <h1>List of Subjects</h1> */}
+      {/* <div>
     
         {subjects.map(subject => (
           
           <li key={subject._id}>{subject.name}</li>
         ))}
-      </div>
-    
-      
+      </div> */}
+
+
       <div className="subject" style={{
         backgroundImage: `url(${Sub})`,
         backgroundPosition: 'center',
@@ -106,7 +107,17 @@ function Subject () {
       }} >
         <div className="container">
           <div className="round">
-            <h1>Quiz <span> Round 1 </span></h1>
+          <div className="row">
+            <div className="teamName col-lg-4">
+              <h2>Team 1</h2>
+            </div>
+            <div className="roundName col-lg-4">
+              <h1 className='roundName'>Quiz <span> Round 1 </span></h1>
+            </div>
+            <div className="uniName col-lg-4">
+              <h2 className='uniName'>University Name</h2>
+            </div>
+          </div>
           </div>
           <div className="sub">
 
@@ -115,8 +126,8 @@ function Subject () {
             </div>
 
             <div className="sub-content">
-            
-            
+
+
               <p className="subj"><NavLink to="/quiz">Database </NavLink></p>
               <p className="subj"><NavLink to="/quiz">Data Science</NavLink></p>
               <p className="subj"><NavLink to="/quiz">Mathematics</NavLink></p>
@@ -130,9 +141,9 @@ function Subject () {
               <p className="subj"><NavLink to="/quiz">Data warehouse</NavLink></p>
               <p className="subj"><NavLink to="/quiz">Pak Study</NavLink></p>
             </div>
-          </div> 
+          </div>
         </div>
-      </div> */}
+      </div>
     </>
   );
 }
