@@ -165,7 +165,6 @@ module.exports = function (app) {
       const teams = await team.find(queryObject);
       teamsByRound.push({ round, teams });
     }
-  
     res.render('schedulewiseteams.hbs', { teamsByRound });
     console.log(teamsByRound)
   });
@@ -178,10 +177,40 @@ module.exports = function (app) {
       const ques = await question.find(queryObject);
       subjectwise.push({ subject, ques });
     }
-  
     res.render('subjectwiseque.hbs', { subjectwise });
     console.log(subjectwise)
   });
+ // route handler for /filterquestion/:id
+app.get('/filterquestion/:id', async (req, res) => {
+  const subjectId = req.params.id;
+  const questions = await question.find({ select_subject: subjectId });
+
+  // render the subjectwiseque.hbs template and pass the questions data as a variable
+  res.render('subjectwiseque.hbs', { questions });
+});
+
+  // app.get('/filterquestion/:subject', async (req, res) => {
+  //   const selectedSubject = req.params.subject;
+  //   const subjects = await question.distinct('select_subject').sort();
+  //   const subjectwise = [];
+  
+  //   for (const subject of subjects) {
+  //     const queryObject = { select_subject: subject };
+  //     const ques = await question.find(queryObject);
+  
+  //     if (selectedSubject && subject === selectedSubject) {
+  //       subjectwise.push({ subject, ques, selected: true });
+  //     } else {
+  //       subjectwise.push({ subject, ques, selected: false });
+  //     }
+      
+  //   }
+  
+  //   // res.render('subjectwiseque.hbs', { subjectwise });
+  //   console.log("jj", subjectwise)
+  // });
+  
+  
   /////////////////////end round wise code /////////////
   /////////////final done of of Subject Rout
   app.get("/AddSub", (req, res) => {
@@ -202,8 +231,6 @@ module.exports = function (app) {
   });
   app.post("/deltedata/:id", subject.delete);
   app.get("/list_subjects", subject.subject_list);
-
-
   app.get('/subjects', async (req, res) => {
     try {
       const subjects = await subjectmodel.find().lean().exec();
@@ -212,12 +239,10 @@ module.exports = function (app) {
       res.status(500).json({ message: err.message });
     }
   });
-
   //////////////////////////final Question route portion start//////////////
   // app.get("/add_Question", (req, res) => {
   //   res.render("question");
   // });]
-  
   app.get("/add_Question", controller.process_create_get1);
   app.post("/add_Question", Controller.process_create_post1);
   app.get("/questionlists", controller.question_list);

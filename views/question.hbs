@@ -37,16 +37,17 @@
   </div> --}}
   <div class="form-group">
     <h1>Add a Questions</h1>
-    <label for="machine">Select Subject</label>
-    <select class="form-control" id="machine" name="select_subject" placeholder="Select machine" required="true">
-      {{#if pselect_subject}}
-      {{#each }}
+    <select class="form-control" id="machine" name="select_subject" placeholder="Select subject" required="true">
+      {{#if select_subject}}
+      {{#each select_subject }}
+                  <option type="text" value="" disabled selected hidden>Select a Subject</option>
+
       <option value={{this.name}} {{isSelected this._id ../question.select_subject.name}}>{{this.name}}</option>
       {{/each}}
-      {{else}}
+      {{!-- {{else}}
       {{#each select_subject}}
       <option value={{this._id}}>{{this.name}}</option>
-      {{/each}}
+      {{/each}} --}}
       {{/if}}
     </select>
   </div>
